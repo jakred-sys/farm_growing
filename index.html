@@ -360,7 +360,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
     <h3>새 작물 추가</h3>
     <select id="modal-emoji">
       <option value="🍅">🍅 토마토</option><option value="🥒">🥒 오이</option>
-      <option value="🫑">🫑 고추</option><option value="🥬">🥬 상추</option>
+      <option value="🌶️">🌶️ 고추</option><option value="🥬">🥬 상추</option>
       <option value="🧅">🧅 양파</option><option value="🥕">🥕 당근</option>
       <option value="🥔">🥔 감자</option><option value="🌽">🌽 옥수수</option>
       <option value="🍆">🍆 가지</option><option value="🎃">🎃 호박</option>
@@ -385,7 +385,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
     <h3>작물 정보 수정</h3>
     <select id="edit-crop-emoji">
       <option value="🍅">🍅 토마토</option><option value="🥒">🥒 오이</option>
-      <option value="🫑">🫑 고추</option><option value="🥬">🥬 상추</option>
+      <option value="🌶️">🌶️ 고추</option><option value="🥬">🥬 상추</option>
       <option value="🧅">🧅 양파</option><option value="🥕">🥕 당근</option>
       <option value="🥔">🥔 감자</option><option value="🌽">🌽 옥수수</option>
       <option value="🍆">🍆 가지</option><option value="🎃">🎃 호박</option>
@@ -570,7 +570,7 @@ function renderList(){
   const grid=document.getElementById('crop-grid');grid.innerHTML='';
   crops.forEach(c=>{
     const allPhotos=(c.entries||[]).flatMap(e=>e.photos||[]);
-    const imgH=allPhotos.length>0?`<img src="${allPhotos[allPhotos.length-1]}" alt="">`:`<span>${c.emoji}</span>`;
+    const imgH=allPhotos.length>0?`<img src="${allPhotos[allPhotos.length-1]}" alt="">`:`<div style="display:flex;flex-direction:column;align-items:center;gap:5px"><span style="font-size:38px">${c.emoji}</span><span style="font-size:12px;font-weight:600;color:var(--tx2);text-align:center;padding:0 4px">${c.name}</span></div>`;
     const card=document.createElement('div');
     card.className='crop-card'+(c.harvested?' harvested':'');
     card.innerHTML=`${c.harvested?'<span class="hvbadge">수확 완료</span>':''}
