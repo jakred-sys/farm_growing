@@ -124,7 +124,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .preview-wrap img{width:76px;height:76px;object-fit:cover;border-radius:8px;display:block}
 .preview-del{position:absolute;top:3px;right:3px;width:20px;height:20px;background:rgba(160,20,20,.85);border:none;border-radius:50%;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .no-preview-placeholder{width:52px;height:52px;border-radius:8px;background:var(--sur2);display:flex;align-items:center;justify-content:center;font-size:22px;opacity:.3}
-.add-entry-memo{width:100%;border:none;background:none;padding:12px 13px;font-size:14px;color:var(--tx);font-family:inherit;resize:none;outline:none;min-height:80px;line-height:1.6;border-top:.5px solid var(--bd)}
+.add-entry-memo{width:100%;border:none;background:none;padding:12px 13px;font-size:14px;color:var(--tx);font-family:inherit;resize:none;outline:none;min-height:80px;max-height:none;line-height:1.6;border-top:.5px solid var(--bd);overflow-y:auto}
 .add-entry-save{width:100%;border:none;border-top:.5px solid var(--bd);background:none;padding:13px;font-size:14px;color:var(--green);cursor:pointer;font-weight:700;font-family:inherit}
 
 /* ── 최근기록 ── */
@@ -299,7 +299,13 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
         <div class="det-header">
           <span class="det-emoji" id="d-emoji"></span>
           <div class="det-title"><h2 id="d-name"></h2><p id="d-planted"></p></div>
-          <button class="back-btn" onclick="showPrev()">← 뒤로</button>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <button class="back-btn" onclick="showPrev()">← 뒤로</button>
+            <div style="display:flex;gap:6px">
+              <button onclick="openEditCropFromDetail()" style="background:var(--gl);color:var(--green);border:none;border-radius:var(--rs);padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">✎ 수정</button>
+              <button onclick="deleteCrop()" style="background:var(--rl);color:var(--red);border:none;border-radius:var(--rs);padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🗑 삭제</button>
+            </div>
+          </div>
         </div>
         <div class="slabel">날짜별 사진 &amp; 메모</div>
         <div class="entry-list" id="entry-list"></div>
@@ -308,10 +314,10 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
             <span>새 기록 추가</span>
             <input type="date" id="entry-date-sel" class="add-entry-date">
             <label class="photo-upload-label" for="photo-input">📷 사진</label>
-            <input type="file" id="photo-input" accept="image/*" multiple capture="environment" class="hidden" onchange="previewPhotos(event)">
+            <input type="file" id="photo-input" accept="image/*" multiple class="hidden" onchange="previewPhotos(event)">
           </div>
           <div id="add-photos-col" class="preview-photos-strip"><div class="no-preview-placeholder">📷</div></div>
-          <textarea class="add-entry-memo" id="new-entry-memo" placeholder="이 날의 생육 상태를 메모하세요..."></textarea>
+          <textarea class="add-entry-memo" id="new-entry-memo" placeholder="이 날의 생육 상태를 메모하세요..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
           <button class="add-entry-save" onclick="saveEntry()">기록 저장</button>
         </div>
       </div>
@@ -425,9 +431,9 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
       <span class="add-more-photo-icon">+📷</span>
       <span style="font-size:11px">사진 추가</span>
     </label>
-    <input type="file" id="edit-add-photo-input" accept="image/*" multiple capture="environment" class="hidden" onchange="editAddPhotos(event)">
+    <input type="file" id="edit-add-photo-input" accept="image/*" multiple class="hidden" onchange="editAddPhotos(event)">
     <div class="mlabel">메모</div>
-    <textarea id="edit-modal-memo" placeholder="메모를 입력하세요..."></textarea>
+    <textarea id="edit-modal-memo" placeholder="메모를 입력하세요..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
     <div class="modal-btns">
       <button class="btn-cancel" onclick="closeModal('edit-entry-modal')">취소</button>
       <button class="btn-ok" onclick="saveEditEntry()">저장</button>
@@ -618,6 +624,7 @@ function showDetail(id){
   document.getElementById('scroll-area').scrollTop=0;
   // 탑바 뒤로가기
   document.getElementById('topbar-title').innerHTML=`<button onclick="showPrev()" style="background:none;border:none;font-size:15px;color:var(--green);font-family:inherit;font-weight:600;padding:0;cursor:pointer">← 뒤로</button>`;
+  // 상세 패널 제목 갱신 (수정 후 재진입 시 반영)
 }
 function showPrev(){
   document.getElementById('detail-view').classList.remove('active');
@@ -651,12 +658,14 @@ function renderEntries(c){
 }
 
 function deleteEntryPhoto(oi,pi){
-  if(!confirm('이 사진을 삭제하시겠습니까?'))return;
-  const c=crops.find(c=>c.id===currentCropId);c.entries[oi].photos.splice(pi,1);save();renderEntries(c);
+  showConfirm('사진 삭제','이 사진을 삭제할까요?',()=>{
+    const c=crops.find(c=>c.id===currentCropId);c.entries[oi].photos.splice(pi,1);save();renderEntries(c);
+  });
 }
 function deleteEntry(idx){
-  if(!confirm('이 날의 사진과 메모를 모두 삭제하시겠습니까?'))return;
-  const c=crops.find(c=>c.id===currentCropId);c.entries.splice(idx,1);save();renderEntries(c);
+  showConfirm('기록 삭제','이 날의 사진과 메모를 모두 삭제할까요?',()=>{
+    const c=crops.find(c=>c.id===currentCropId);c.entries.splice(idx,1);save();renderEntries(c);
+  });
 }
 function openLightboxDetail(oi,pi){
   const c=crops.find(c=>c.id===currentCropId);const e=c.entries[oi];
@@ -689,14 +698,18 @@ function resetNewEntryForm(){pendingPhotos=[];renderPreviewArea();document.getEl
 function saveEntry(){
   const date=document.getElementById('entry-date-sel').value||globalDate;
   const memo=document.getElementById('new-entry-memo').value.trim();
-  if(!pendingPhotos.length&&!memo){alert('사진이나 메모 중 하나 이상 입력해주세요.');return;}
+  if(!pendingPhotos.length&&!memo){showConfirm('입력 필요','사진이나 메모 중 하나 이상 입력해주세요.',()=>{},'확인','var(--green)');return;}
   const c=crops.find(c=>c.id===currentCropId);
   const ei=c.entries.findIndex(e=>e.date===date);
   if(ei>=0){
-    if(!confirm(`${fmtDate(date)}에 이미 기록이 있습니다. 추가하시겠습니까?`))return;
-    c.entries[ei].photos.push(...pendingPhotos);if(memo)c.entries[ei].memo=memo;
-  } else c.entries.push({date,photos:[...pendingPhotos],memo});
-  save();resetNewEntryForm();renderEntries(c);document.getElementById('scroll-area').scrollTop=0;
+    showConfirm('기록 추가',`${fmtDate(date)}에 이미 기록이 있습니다. 사진·메모를 추가할까요?`,()=>{
+      c.entries[ei].photos.push(...pendingPhotos);if(memo)c.entries[ei].memo=memo;
+      save();resetNewEntryForm();renderEntries(c);document.getElementById('scroll-area').scrollTop=0;
+    },'추가','var(--green)');
+  } else {
+    c.entries.push({date,photos:[...pendingPhotos],memo});
+    save();resetNewEntryForm();renderEntries(c);document.getElementById('scroll-area').scrollTop=0;
+  }
 }
 
 /* 수정 모달 */
@@ -818,11 +831,36 @@ function openEditCrop(e,id){
 function saveEditCrop(){
   const c=crops.find(c=>c.id===editCropId);if(!c)return;
   const name=document.getElementById('edit-crop-name').value.trim();
-  if(!name){alert('작물 이름을 입력해주세요.');return;}
+  if(!name){showConfirm('입력 필요','작물 이름을 입력해주세요.',()=>{},'확인','var(--green)');return;}
   c.emoji=document.getElementById('edit-crop-emoji').value;
   c.name=name;
   c.planted=document.getElementById('edit-crop-date').value||c.planted;
-  save();closeModal('edit-crop-modal');editCropId=null;renderList();
+  save();closeModal('edit-crop-modal');
+  // 상세 화면에서 수정한 경우 상세 갱신
+  if(currentCropId===editCropId){
+    document.getElementById('d-emoji').textContent=c.emoji;
+    document.getElementById('d-name').textContent=c.name;
+    document.getElementById('d-planted').textContent=`심은 날: ${fmtDate(c.planted)} · ${daysSince(c.planted)}`;
+  }
+  editCropId=null;renderList();
+}
+// 상세 화면에서 수정 버튼 클릭
+function openEditCropFromDetail(){
+  const c=crops.find(c=>c.id===currentCropId);if(!c)return;
+  editCropId=currentCropId;
+  document.getElementById('edit-crop-emoji').value=c.emoji;
+  document.getElementById('edit-crop-name').value=c.name;
+  document.getElementById('edit-crop-date').value=c.planted;
+  document.getElementById('edit-crop-modal').classList.remove('hidden');
+}
+// 작물 삭제
+function deleteCrop(){
+  const c=crops.find(c=>c.id===currentCropId);if(!c)return;
+  showConfirm(
+    '작물 삭제',
+    `"${c.emoji} ${c.name}" 작물을 삭제할까요?\n기록된 사진과 메모도 모두 삭제됩니다.`,
+    ()=>{crops=crops.filter(c=>c.id!==currentCropId);save();showPrev();}
+  );
 }
 
 /* ── 작물 추가 ── */
@@ -830,7 +868,7 @@ function addCrop(){
   const name=document.getElementById('modal-name').value.trim();
   const emoji=document.getElementById('modal-emoji').value;
   const planted=document.getElementById('modal-date').value||globalDate;
-  if(!name){alert('작물 이름을 입력해주세요.');return;}
+  if(!name){showConfirm('입력 필요','작물 이름을 입력해주세요.',()=>{},'확인','var(--green)');return;}
   const id=crops.length>0?Math.max(...crops.map(c=>c.id))+1:1;
   crops.push({id,name,emoji,planted,harvested:false,harvestDate:'',yieldNote:'',entries:[]});
   save();document.getElementById('modal-name').value='';closeModal('add-modal');renderList();
@@ -852,15 +890,33 @@ function importData(e){
       if(data.crops){crops=data.crops;save();}
       if(data.todos){todos=data.todos;saveTodos();}
       if(data.settings){settings=data.settings;saveSettings();if(settings.bgColor)document.body.style.background=settings.bgColor;}
-      alert('데이터를 성공적으로 불러왔습니다.');renderTodos();renderSwatches();switchTab('timeline');
-    }catch(err){alert('파일을 읽는 중 오류가 발생했습니다.');}
+      // 불러오기 완료renderTodos();renderSwatches();switchTab('timeline');
+    }catch(err){showConfirm('오류','파일을 읽는 중 오류가 발생했습니다.',()=>{},'확인','var(--amber)');}
   };
   reader.readAsText(file);e.target.value='';
 }
 function resetAll(){
-  if(!confirm('모든 데이터를 초기화하시겠습니까? 되돌릴 수 없습니다.'))return;
-  crops=[];todos=[];save();saveTodos();renderTodos();switchTab('timeline');alert('초기화 완료.');
+  showConfirm('데이터 초기화','모든 작물, 메모, 할 일이 삭제됩니다.\n정말 초기화할까요?',()=>{
+    crops=[];todos=[];save();saveTodos();renderTodos();switchTab('timeline');
+  },'초기화','var(--red)');
 }
+
+/* ── 커스텀 확인 모달 ── */
+let _confirmCallback=null;
+function showConfirm(title,msg,callback,btnLabel='삭제',btnColor='var(--red)'){
+  _confirmCallback=callback;
+  document.getElementById('confirm-title').textContent=title;
+  document.getElementById('confirm-msg').textContent=msg;
+  const btn=document.getElementById('confirm-ok-btn');
+  btn.textContent=btnLabel;
+  btn.style.background=btnColor;
+  document.getElementById('confirm-modal').classList.remove('hidden');
+}
+function confirmAction(){
+  closeModal('confirm-modal');
+  if(_confirmCallback){_confirmCallback();_confirmCallback=null;}
+}
+
 function closeModal(id){document.getElementById(id).classList.add('hidden')}
 
 // 모달 바깥 터치로 닫기
@@ -878,5 +934,18 @@ updateDateDisplay();
 renderTodos();
 renderTimeline();
 </script>
+
+<!-- 삭제 확인 모달 -->
+<div class="modal-bg hidden" id="confirm-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h3 id="confirm-title">확인</h3>
+    <p id="confirm-msg" style="font-size:14px;color:var(--tx2);line-height:1.6;margin-bottom:16px"></p>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('confirm-modal')">취소</button>
+      <button id="confirm-ok-btn" class="btn-ok" style="background:var(--red)" onclick="confirmAction()">삭제</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
