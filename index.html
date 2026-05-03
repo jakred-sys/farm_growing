@@ -256,6 +256,42 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
       <div class="crop-grid" id="crop-grid"></div>
     </div>
 
+    <!-- 나무 키우기 -->
+    <div class="pg" id="tab-tree" style="padding:0 14px 14px">
+      <div class="pg-title">나무 키우기</div>
+      <div class="crop-grid" id="tree-grid"></div>
+    </div>
+
+    <!-- 연도별 -->
+    <div class="pg" id="tab-tree-detail" style="padding:14px">
+      <div class="detail-panel">
+        <div class="det-header">
+          <span class="det-emoji" id="td-emoji"></span>
+          <div class="det-title"><h2 id="td-name"></h2><p id="td-planted"></p></div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <button class="back-btn" onclick="showTreePrev()">← 뒤로</button>
+            <div style="display:flex;gap:6px">
+              <button onclick="openEditTreeFromDetail()" style="background:var(--gl);color:var(--green);border:none;border-radius:var(--rs);padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">✎ 수정</button>
+              <button onclick="deleteTree()" style="background:var(--rl);color:var(--red);border:none;border-radius:var(--rs);padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🗑 삭제</button>
+            </div>
+          </div>
+        </div>
+        <div class="slabel">날짜별 사진 &amp; 메모</div>
+        <div class="entry-list" id="tree-entry-list"></div>
+        <div class="add-entry-area">
+          <div class="add-entry-toolbar">
+            <span>새 기록 추가</span>
+            <input type="date" id="tree-entry-date-sel" class="add-entry-date">
+            <label class="photo-upload-label" for="tree-photo-input">📷 사진</label>
+            <input type="file" id="tree-photo-input" accept="image/*" multiple class="hidden" onchange="treePreviewPhotos(event)">
+          </div>
+          <div id="tree-add-photos-col" class="preview-photos-strip"><div class="no-preview-placeholder">📷</div></div>
+          <textarea class="add-entry-memo" id="tree-new-entry-memo" placeholder="이 날의 생육 상태를 메모하세요..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+          <button class="add-entry-save" onclick="saveTreeEntry()">기록 저장</button>
+        </div>
+      </div>
+    </div>
+
     <!-- 연도별 -->
     <div class="pg" id="tab-yearly" style="padding:14px">
       <div class="pg-title">연도별 기록</div>
@@ -335,6 +371,9 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
     <button class="tb-btn" id="nav-list" onclick="switchTab('list')">
       <span class="tb-icon">🌿</span><span class="tb-label">작물키우기</span>
     </button>
+    <button class="tb-btn" id="nav-tree" onclick="switchTab('tree')">
+      <span class="tb-icon">🌳</span><span class="tb-label">나무키우기</span>
+    </button>
     <button class="tb-btn" id="nav-yearly" onclick="switchTab('yearly')">
       <span class="tb-icon">📅</span><span class="tb-label">연도별</span>
     </button>
@@ -361,14 +400,23 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
     <div class="modal-handle"></div>
     <h3>새 작물 추가</h3>
     <select id="modal-emoji">
-      <option value="🍅">🍅 토마토</option><option value="🥒">🥒 오이</option>
-      <option value="🌶️">🌶️ 고추</option><option value="🥬">🥬 상추</option>
-      <option value="🧅">🧅 양파</option><option value="🥕">🥕 당근</option>
-      <option value="🥔">🥔 감자</option><option value="🌽">🌽 옥수수</option>
-      <option value="🍆">🍆 가지</option><option value="🎃">🎃 호박</option>
-      <option value="🧄">🧄 마늘</option><option value="🍉">🍉 수박</option>
-      <option value="🍈">🍈 참외</option><option value="🍑">🍑 매실</option>
-      <option value="🍠">🍠 고구마</option><option value="🍑">🍑 복숭아</option><option value="🫐">🫐 자두</option>
+      <option value="🍆">🍆 가지</option>
+      <option value="🥔">🥔 감자</option>
+      <option value="🌶️">🌶️ 고추</option>
+      <option value="🍠">🍠 고구마</option>
+      <option value="🥕">🥕 당근</option>
+      <option value="🧄">🧄 마늘</option>
+      <option value="🫒">🫒 매실</option>
+      <option value="🍑">🍑 복숭아</option>
+      <option value="🥬">🥬 상추</option>
+      <option value="🍉">🍉 수박</option>
+      <option value="🧅">🧅 양파</option>
+      <option value="🥒">🥒 오이</option>
+      <option value="🌽">🌽 옥수수</option>
+      <option value="🫐">🫐 자두</option>
+      <option value="🍈">🍈 참외</option>
+      <option value="🍅">🍅 토마토</option>
+      <option value="🎃">🎃 호박</option>
       <option value="🌿">🌿 기타</option>
     </select>
     <input type="text" id="modal-name" placeholder="작물 이름 (예: 방울토마토)" maxlength="15">
@@ -387,14 +435,23 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
     <div class="modal-handle"></div>
     <h3>작물 정보 수정</h3>
     <select id="edit-crop-emoji">
-      <option value="🍅">🍅 토마토</option><option value="🥒">🥒 오이</option>
-      <option value="🌶️">🌶️ 고추</option><option value="🥬">🥬 상추</option>
-      <option value="🧅">🧅 양파</option><option value="🥕">🥕 당근</option>
-      <option value="🥔">🥔 감자</option><option value="🌽">🌽 옥수수</option>
-      <option value="🍆">🍆 가지</option><option value="🎃">🎃 호박</option>
-      <option value="🧄">🧄 마늘</option><option value="🍉">🍉 수박</option>
-      <option value="🍈">🍈 참외</option><option value="🍑">🍑 매실</option>
-      <option value="🍠">🍠 고구마</option><option value="🍑">🍑 복숭아</option><option value="🫐">🫐 자두</option>
+      <option value="🍆">🍆 가지</option>
+      <option value="🥔">🥔 감자</option>
+      <option value="🌶️">🌶️ 고추</option>
+      <option value="🍠">🍠 고구마</option>
+      <option value="🥕">🥕 당근</option>
+      <option value="🧄">🧄 마늘</option>
+      <option value="🫒">🫒 매실</option>
+      <option value="🍑">🍑 복숭아</option>
+      <option value="🥬">🥬 상추</option>
+      <option value="🍉">🍉 수박</option>
+      <option value="🧅">🧅 양파</option>
+      <option value="🥒">🥒 오이</option>
+      <option value="🌽">🌽 옥수수</option>
+      <option value="🫐">🫐 자두</option>
+      <option value="🍈">🍈 참외</option>
+      <option value="🍅">🍅 토마토</option>
+      <option value="🎃">🎃 호박</option>
       <option value="🌿">🌿 기타</option>
     </select>
     <input type="text" id="edit-crop-name" placeholder="작물 이름" maxlength="15">
@@ -588,10 +645,24 @@ function deleteTodo(id){todos=todos.filter(t=>t.id!==id);saveTodos();renderTodos
 
 /* ── 작물 목록 ── */
 const EMOJI_NAME={
-  '🍅':'토마토','🥒':'오이','🌶️':'고추','🥬':'상추','🧅':'양파',
-  '🥕':'당근','🥔':'감자','🌽':'옥수수','🍆':'가지','🎃':'호박',
-  '🧄':'마늘','🍉':'수박','🍈':'참외','🍑':'복숭아','🍠':'고구마',
-  '🫐':'자두','🌿':'기타'
+  '🍆':'가지',
+  '🥔':'감자',
+  '🌶️':'고추',
+  '🍠':'고구마',
+  '🥕':'당근',
+  '🧄':'마늘',
+  '🫒':'매실',
+  '🍑':'복숭아',
+  '🥬':'상추',
+  '🍉':'수박',
+  '🧅':'양파',
+  '🥒':'오이',
+  '🌽':'옥수수',
+  '🫐':'자두',
+  '🍈':'참외',
+  '🍅':'토마토',
+  '🎃':'호박',
+  '🌿':'기타'
 };
 function emojiLabel(emoji){return EMOJI_NAME[emoji]||''}
 function renderList(){
@@ -829,7 +900,7 @@ function switchTab(tab){
   // 선택 탭 활성화
   document.getElementById('tab-'+tab).classList.add('active');
   // 탭바 버튼
-  ['timeline','list','yearly'].forEach(t=>{
+  ['timeline','list','tree','yearly'].forEach(t=>{
     const b=document.getElementById('nav-'+t);
     if(b)b.classList.toggle('active',t===tab);
   });
@@ -837,12 +908,13 @@ function switchTab(tab){
   document.getElementById('topbar-title').textContent='🌙 달빛 농장';
   // 할일 섹션: 설정/연도별/작물키우기에서 숨김
   const ts=document.getElementById('todo-section');
-  ts.classList.toggle('hidden',tab==='settings'||tab==='yearly'||tab==='list');
+  ts.classList.toggle('hidden',tab==='settings'||tab==='yearly'||tab==='list'||tab==='tree');
   // 스크롤 초기화
   document.getElementById('scroll-area').scrollTop=0;
   // 렌더
   if(tab==='timeline')renderTimeline();
   if(tab==='list')renderList();
+  if(tab==='tree')renderTreeList();
   if(tab==='yearly')renderYearly();
   if(tab==='settings')renderSwatches();
 }
@@ -960,12 +1032,337 @@ window.addEventListener('popstate',()=>{
 });
 history.pushState(null,'',location.href);
 
+
+/* ════════════════════════════════════
+   나무 키우기 — 작물키우기와 동일한 구조
+════════════════════════════════════ */
+let trees=[];
+let currentTreeId=null,prevTreeTab='tree';
+let treePendingPhotos=[];
+let editingTreeEntryDate=null;
+let editTreeId=null;
+
+const TREE_EMOJI_NAME={
+  '🍋':'감나무',
+  '🌼':'개나리',
+  '🍊':'귤나무',
+  '🌳':'느티나무',
+  '🍁':'단풍나무',
+  '🎋':'대나무',
+  '🫘':'대추나무',
+  '🌱':'라일락',
+  '🌿':'매화나무',
+  '🪷':'목련',
+  '🍈':'무화과나무',
+  '🌰':'밤나무',
+  '🍐':'배나무',
+  '🍃':'배롱나무',
+  '🌸':'벚나무',
+  '🍒':'보리수나무',
+  '🍑':'복숭아나무',
+  '🫐':'블루베리나무',
+  '🌾':'뽕나무',
+  '🍎':'사과나무',
+  '🌲':'소나무',
+  '💐':'수국',
+  '🫑':'앵두나무',
+  '🫒':'올리브나무',
+  '🍂':'은행나무',
+  '🍇':'자두나무',
+  '🍀':'주목',
+  '🌺':'철쭉',
+  '🪵':'편백나무',
+  '🥝':'포도나무',
+  '🌻':'해바라기나무',
+  '🌵':'향나무',
+  '🥜':'호두나무',
+  '🌙':'회화나무',
+  '🪴':'기타'
+};
+function treeEmojiLabel(emoji){return TREE_EMOJI_NAME[emoji]||''}
+
+try{trees=JSON.parse(localStorage.getItem('gv7_trees')||'[]')}catch(e){trees=[]}
+function saveTrees(){try{localStorage.setItem('gv7_trees',JSON.stringify(trees))}catch(e){}}
+
+/* ── 나무 목록 렌더 ── */
+function renderTreeList(){
+  const grid=document.getElementById('tree-grid');grid.innerHTML='';
+  trees.forEach(t=>{
+    const label=treeEmojiLabel(t.emoji)||t.name;
+    const allPhotos=(t.entries||[]).flatMap(e=>e.photos||[]);
+    const imgH=allPhotos.length>0
+      ?`<div style="position:relative;width:100%;height:100%"><img src="${allPhotos[allPhotos.length-1]}" alt="" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.55));padding:5px 6px 6px;font-size:12px;font-weight:700;color:#fff;text-align:center">${t.emoji} ${label}</div></div>`
+      :`<div style="display:flex;flex-direction:column;align-items:center;gap:5px"><span style="font-size:38px">${t.emoji}</span><span style="font-size:12px;font-weight:600;color:var(--tx2);text-align:center;padding:0 4px">${label}</span></div>`;
+    const card=document.createElement('div');
+    card.className='crop-card';
+    card.innerHTML=`
+      <div class="crop-img" onclick="showTreeDetail(${t.id})">${imgH}</div>
+      <div class="crop-info">
+        <div class="crop-row"><span class="cname" onclick="showTreeDetail(${t.id})">${t.emoji} ${t.name}</span></div>
+        <div class="csub">${daysSince(t.planted)}</div>
+        <button onclick="openEditTree(event,${t.id})" style="background:none;border:none;font-size:11px;color:var(--tx3);cursor:pointer;padding:4px 0 0 0;display:block;font-family:inherit">✎ 정보 수정</button>
+      </div>`;
+    grid.appendChild(card);
+  });
+  const ab=document.createElement('div');ab.className='add-crop-btn';
+  ab.onclick=()=>{document.getElementById('tree-modal-date').value=globalDate;document.getElementById('add-tree-modal').classList.remove('hidden')};
+  ab.innerHTML='<div class="add-icon">+</div><span>나무 추가</span>';
+  grid.appendChild(ab);
+}
+
+/* ── 나무 추가 ── */
+function addTree(){
+  const name=document.getElementById('tree-modal-name').value.trim();
+  const emoji=document.getElementById('tree-modal-emoji').value;
+  const planted=document.getElementById('tree-modal-date').value||globalDate;
+  if(!name){showConfirm('입력 필요','나무 이름을 입력해주세요.',()=>{},'확인','var(--green)');return;}
+  const id=trees.length>0?Math.max(...trees.map(t=>t.id))+1:1;
+  trees.push({id,name,emoji,planted,entries:[]});
+  saveTrees();document.getElementById('tree-modal-name').value='';closeModal('add-tree-modal');renderTreeList();
+}
+
+/* ── 나무 상세 ── */
+function showTreeDetail(id){
+  currentTreeId=id;
+  const t=trees.find(t=>t.id===id);
+  document.getElementById('td-emoji').textContent=t.emoji;
+  document.getElementById('td-name').textContent=t.name;
+  document.getElementById('td-planted').textContent=`심은 날: ${fmtDate(t.planted)} · ${daysSince(t.planted)}`;
+  document.getElementById('tree-entry-date-sel').value=globalDate;
+  treeResetNewEntryForm();renderTreeEntries(t);
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-tree-detail').classList.add('active');
+  document.getElementById('todo-section').classList.add('hidden');
+  document.getElementById('scroll-area').scrollTop=0;
+  document.getElementById('topbar-title').innerHTML=`<button onclick="showTreePrev()" style="background:none;border:none;font-size:15px;color:var(--green);font-family:inherit;font-weight:600;padding:0;cursor:pointer">← 뒤로</button>`;
+}
+function showTreePrev(){
+  document.getElementById('tab-tree-detail').classList.remove('active');
+  document.getElementById('topbar-title').textContent='🌙 달빛 농장';
+  switchTab('tree');
+}
+
+/* ── 나무 기록 렌더 ── */
+function renderTreeEntries(t){
+  const list=document.getElementById('tree-entry-list');
+  const sorted=[...(t.entries||[])].sort((a,b)=>b.date.localeCompare(a.date));
+  if(!sorted.length){list.innerHTML='<div style="font-size:13px;color:var(--tx3);padding:4px 0 10px">아직 기록이 없어요. 아래에서 첫 기록을 추가해보세요.</div>';return;}
+  list.innerHTML=sorted.map(entry=>{
+    const oi=t.entries.findIndex(e=>e.date===entry.date);
+    const photos=entry.photos||[];
+    const strip=photos.length
+      ?'<div class="entry-photos-col">'+photos.map((ph,pi)=>`<div class="ephoto-wrap"><img src="${ph}" alt="" onclick="openTreeLightbox(${oi},${pi})"><button class="ephoto-del" onclick="deleteTreeEntryPhoto(${oi},${pi})">✕</button></div>`).join('')+'</div>'
+      :'<div class="no-photo-strip">사진 없음</div>';
+    const memoH=entry.memo?entry.memo.replace(/</g,'&lt;').replace(/\n/g,'<br>'):'';
+    return`<div class="entry-slot">
+      <div class="entry-slot-header">
+        <span class="edate">${fmtDate(entry.date)}<span class="ecount">사진 ${photos.length}장</span></span>
+        <button class="edelete-all" onclick="deleteTreeEntry(${oi})">삭제</button>
+      </div>
+      ${strip}
+      <div class="entry-memo-col">
+        ${memoH?`<div class="ememo-text">${memoH}</div>`:'<div class="ememo-empty">메모 없음</div>'}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function deleteTreeEntryPhoto(oi,pi){
+  showConfirm('사진 삭제','이 사진을 삭제할까요?',()=>{
+    const t=trees.find(t=>t.id===currentTreeId);t.entries[oi].photos.splice(pi,1);saveTrees();renderTreeEntries(t);
+  });
+}
+function deleteTreeEntry(idx){
+  showConfirm('기록 삭제','이 날의 사진과 메모를 모두 삭제할까요?',()=>{
+    const t=trees.find(t=>t.id===currentTreeId);t.entries.splice(idx,1);saveTrees();renderTreeEntries(t);
+  });
+}
+function openTreeLightbox(oi,pi){
+  const t=trees.find(t=>t.id===currentTreeId);const e=t.entries[oi];
+  openLightboxDirect(e.photos[pi],e.date,e.memo,pi,e.photos.length);
+}
+
+/* ── 나무 새 기록 ── */
+function treePreviewPhotos(e){
+  const files=Array.from(e.target.files);if(!files.length)return;
+  let n=0;
+  files.forEach(f=>{const r=new FileReader();r.onload=ev=>{treePendingPhotos.push(ev.target.result);n++;if(n===files.length)treeRenderPreviewArea();};r.readAsDataURL(f);});
+  e.target.value='';
+}
+function treeRenderPreviewArea(){
+  const a=document.getElementById('tree-add-photos-col');
+  if(!treePendingPhotos.length){a.innerHTML='<div class="no-preview-placeholder">📷</div>';return;}
+  a.innerHTML=treePendingPhotos.map((ph,i)=>`<div class="preview-wrap"><img src="${ph}" alt=""><button class="preview-del" onclick="removeTreePendingPhoto(${i})">✕</button></div>`).join('');
+}
+function removeTreePendingPhoto(i){treePendingPhotos.splice(i,1);treeRenderPreviewArea()}
+function treeResetNewEntryForm(){treePendingPhotos=[];treeRenderPreviewArea();document.getElementById('tree-new-entry-memo').value=''}
+function saveTreeEntry(){
+  const date=document.getElementById('tree-entry-date-sel').value||globalDate;
+  const memo=document.getElementById('tree-new-entry-memo').value.trim();
+  if(!treePendingPhotos.length&&!memo){showConfirm('입력 필요','사진이나 메모 중 하나 이상 입력해주세요.',()=>{},'확인','var(--green)');return;}
+  const t=trees.find(t=>t.id===currentTreeId);
+  const ei=t.entries.findIndex(e=>e.date===date);
+  if(ei>=0){
+    showConfirm('기록 추가',`${fmtDate(date)}에 이미 기록이 있습니다. 사진·메모를 추가할까요?`,()=>{
+      t.entries[ei].photos.push(...treePendingPhotos);if(memo)t.entries[ei].memo=memo;
+      saveTrees();treeResetNewEntryForm();renderTreeEntries(t);document.getElementById('scroll-area').scrollTop=0;
+    },'추가','var(--green)');
+  } else {
+    t.entries.push({date,photos:[...treePendingPhotos],memo});
+    saveTrees();treeResetNewEntryForm();renderTreeEntries(t);document.getElementById('scroll-area').scrollTop=0;
+  }
+}
+
+/* ── 나무 수정/삭제 ── */
+function openEditTree(e,id){
+  e.stopPropagation();
+  const t=trees.find(t=>t.id===id);if(!t)return;
+  editTreeId=id;
+  document.getElementById('edit-tree-emoji').value=t.emoji;
+  document.getElementById('edit-tree-name').value=t.name;
+  document.getElementById('edit-tree-date').value=t.planted;
+  document.getElementById('edit-tree-modal').classList.remove('hidden');
+}
+function openEditTreeFromDetail(){
+  const t=trees.find(t=>t.id===currentTreeId);if(!t)return;
+  editTreeId=currentTreeId;
+  document.getElementById('edit-tree-emoji').value=t.emoji;
+  document.getElementById('edit-tree-name').value=t.name;
+  document.getElementById('edit-tree-date').value=t.planted;
+  document.getElementById('edit-tree-modal').classList.remove('hidden');
+}
+function saveEditTree(){
+  const t=trees.find(t=>t.id===editTreeId);if(!t)return;
+  const name=document.getElementById('edit-tree-name').value.trim();
+  if(!name){showConfirm('입력 필요','나무 이름을 입력해주세요.',()=>{},'확인','var(--green)');return;}
+  t.emoji=document.getElementById('edit-tree-emoji').value;
+  t.name=name;
+  t.planted=document.getElementById('edit-tree-date').value||t.planted;
+  saveTrees();closeModal('edit-tree-modal');
+  if(currentTreeId===editTreeId){
+    document.getElementById('td-emoji').textContent=t.emoji;
+    document.getElementById('td-name').textContent=t.name;
+    document.getElementById('td-planted').textContent=`심은 날: ${fmtDate(t.planted)} · ${daysSince(t.planted)}`;
+  }
+  editTreeId=null;renderTreeList();
+}
+function deleteTree(){
+  const t=trees.find(t=>t.id===currentTreeId);if(!t)return;
+  showConfirm('나무 삭제',`"${t.emoji} ${t.name}" 나무를 삭제할까요?\n기록된 사진과 메모도 모두 삭제됩니다.`,
+    ()=>{trees=trees.filter(t=>t.id!==currentTreeId);saveTrees();showTreePrev();}
+  );
+}
+
 /* ── 시작 ── */
 updateDateDisplay();
 renderTodos();
 renderTimeline();
 </script>
 
+
+<!-- 나무 추가 모달 -->
+<div class="modal-bg hidden" id="add-tree-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h3>새 나무 추가</h3>
+    <select id="tree-modal-emoji">
+      <option value="🍋">🍋 감나무</option>
+      <option value="🌼">🌼 개나리</option>
+      <option value="🍊">🍊 귤나무</option>
+      <option value="🌳">🌳 느티나무</option>
+      <option value="🍁">🍁 단풍나무</option>
+      <option value="🎋">🎋 대나무</option>
+      <option value="🫘">🫘 대추나무</option>
+      <option value="🌱">🌱 라일락</option>
+      <option value="🌿">🌿 매화나무</option>
+      <option value="🪷">🪷 목련</option>
+      <option value="🍈">🍈 무화과나무</option>
+      <option value="🌰">🌰 밤나무</option>
+      <option value="🍐">🍐 배나무</option>
+      <option value="🍃">🍃 배롱나무</option>
+      <option value="🌸">🌸 벚나무</option>
+      <option value="🍒">🍒 보리수나무</option>
+      <option value="🍑">🍑 복숭아나무</option>
+      <option value="🫐">🫐 블루베리나무</option>
+      <option value="🌾">🌾 뽕나무</option>
+      <option value="🍎">🍎 사과나무</option>
+      <option value="🌲">🌲 소나무</option>
+      <option value="💐">💐 수국</option>
+      <option value="🫑">🫑 앵두나무</option>
+      <option value="🫒">🫒 올리브나무</option>
+      <option value="🍂">🍂 은행나무</option>
+      <option value="🍇">🍇 자두나무</option>
+      <option value="🍀">🍀 주목</option>
+      <option value="🌺">🌺 철쭉</option>
+      <option value="🪵">🪵 편백나무</option>
+      <option value="🥝">🥝 포도나무</option>
+      <option value="🌻">🌻 해바라기나무</option>
+      <option value="🌵">🌵 향나무</option>
+      <option value="🥜">🥜 호두나무</option>
+      <option value="🌙">🌙 회화나무</option>
+      <option value="🪴">🪴 기타</option>
+    </select>
+    <input type="text" id="tree-modal-name" placeholder="나무 이름 (예: 왕벚나무)" maxlength="15">
+    <div class="mlabel">심은 날짜</div>
+    <input type="date" id="tree-modal-date">
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('add-tree-modal')">취소</button>
+      <button class="btn-ok" onclick="addTree()">추가</button>
+    </div>
+  </div>
+</div>
+
+<!-- 나무 수정 모달 -->
+<div class="modal-bg hidden" id="edit-tree-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h3>나무 정보 수정</h3>
+    <select id="edit-tree-emoji">
+      <option value="🍋">🍋 감나무</option>
+      <option value="🌼">🌼 개나리</option>
+      <option value="🍊">🍊 귤나무</option>
+      <option value="🌳">🌳 느티나무</option>
+      <option value="🍁">🍁 단풍나무</option>
+      <option value="🎋">🎋 대나무</option>
+      <option value="🫘">🫘 대추나무</option>
+      <option value="🌱">🌱 라일락</option>
+      <option value="🌿">🌿 매화나무</option>
+      <option value="🪷">🪷 목련</option>
+      <option value="🍈">🍈 무화과나무</option>
+      <option value="🌰">🌰 밤나무</option>
+      <option value="🍐">🍐 배나무</option>
+      <option value="🍃">🍃 배롱나무</option>
+      <option value="🌸">🌸 벚나무</option>
+      <option value="🍒">🍒 보리수나무</option>
+      <option value="🍑">🍑 복숭아나무</option>
+      <option value="🫐">🫐 블루베리나무</option>
+      <option value="🌾">🌾 뽕나무</option>
+      <option value="🍎">🍎 사과나무</option>
+      <option value="🌲">🌲 소나무</option>
+      <option value="💐">💐 수국</option>
+      <option value="🫑">🫑 앵두나무</option>
+      <option value="🫒">🫒 올리브나무</option>
+      <option value="🍂">🍂 은행나무</option>
+      <option value="🍇">🍇 자두나무</option>
+      <option value="🍀">🍀 주목</option>
+      <option value="🌺">🌺 철쭉</option>
+      <option value="🪵">🪵 편백나무</option>
+      <option value="🥝">🥝 포도나무</option>
+      <option value="🌻">🌻 해바라기나무</option>
+      <option value="🌵">🌵 향나무</option>
+      <option value="🥜">🥜 호두나무</option>
+      <option value="🌙">🌙 회화나무</option>
+      <option value="🪴">🪴 기타</option>
+    </select>
+    <input type="text" id="edit-tree-name" placeholder="나무 이름" maxlength="15">
+    <div class="mlabel">심은 날짜</div>
+    <input type="date" id="edit-tree-date">
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('edit-tree-modal')">취소</button>
+      <button class="btn-ok" onclick="saveEditTree()">저장</button>
+    </div>
+  </div>
+</div>
 <!-- 삭제 확인 모달 -->
 <div class="modal-bg hidden" id="confirm-modal">
   <div class="modal">
