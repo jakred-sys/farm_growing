@@ -223,6 +223,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
     <div id="topbar-title">🌙 달빛 농장</div>
     <div id="topbar-right">
       <div id="date-chip" onclick="openDatePicker()"></div>
+      <button onclick="exportData()" style="height:34px;padding:0 12px;border-radius:17px;border:none;background:var(--green);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap">💾 저장</button>
       <button id="settings-btn" onclick="switchTab('settings')">⚙</button>
     </div>
   </div>
@@ -264,6 +265,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
     <!-- 설정 -->
     <div class="pg" id="tab-settings" style="padding:14px">
       <div class="pg-title">환경설정</div>
+      <div id="version-badge" style="display:inline-block;background:var(--gl);color:var(--green);font-size:12px;font-weight:700;padding:5px 13px;border-radius:14px;margin-bottom:14px;letter-spacing:.03em"></div>
       <div class="settings-panel">
         <div class="ss-sec">
           <div class="ss-title">배경 색상</div>
@@ -366,6 +368,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
       <option value="🍆">🍆 가지</option><option value="🎃">🎃 호박</option>
       <option value="🧄">🧄 마늘</option><option value="🍉">🍉 수박</option>
       <option value="🍈">🍈 참외</option><option value="🍑">🍑 매실</option>
+      <option value="🍠">🍠 고구마</option><option value="🍑">🍑 복숭아</option><option value="🫐">🫐 자두</option>
       <option value="🌿">🌿 기타</option>
     </select>
     <input type="text" id="modal-name" placeholder="작물 이름 (예: 방울토마토)" maxlength="15">
@@ -391,6 +394,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
       <option value="🍆">🍆 가지</option><option value="🎃">🎃 호박</option>
       <option value="🧄">🧄 마늘</option><option value="🍉">🍉 수박</option>
       <option value="🍈">🍈 참외</option><option value="🍑">🍑 매실</option>
+      <option value="🍠">🍠 고구마</option><option value="🍑">🍑 복숭아</option><option value="🫐">🫐 자두</option>
       <option value="🌿">🌿 기타</option>
     </select>
     <input type="text" id="edit-crop-name" placeholder="작물 이름" maxlength="15">
@@ -520,6 +524,23 @@ function updateDateDisplay(){document.getElementById('date-chip').textContent=fm
 function openDatePicker(){document.getElementById('global-date-input').value=globalDate;document.getElementById('date-pick-modal').classList.remove('hidden')}
 function applyGlobalDate(){const v=document.getElementById('global-date-input').value;if(v)globalDate=v;updateDateDisplay();closeModal('date-pick-modal')}
 
+/* ── 버전 ── */
+// 버전 형식: ver연도월일수정횟수(2자리)
+// APP_VERSION_SEQ: 해당 날짜의 수정 순번 (1부터 시작, 수정할 때마다 +1)
+const APP_VERSION_SEQ = 1;
+function getVersion(){
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  const seq = String(APP_VERSION_SEQ).padStart(2,'0');
+  return `ver${y}${m}${day}${seq}`;
+}
+function renderVersion(){
+  const el = document.getElementById('version-badge');
+  if(el) el.textContent = getVersion();
+}
+
 /* ── 배경색 ── */
 function applyBg(color,source){
   if(source==='reset')color='';
@@ -530,6 +551,7 @@ function applyBg(color,source){
   if(source!=='custom'&&color)document.getElementById('custom-bg-color').value=color;
 }
 function renderSwatches(){
+  renderVersion();
   document.getElementById('color-swatches').innerHTML=BG_PRESETS.map(p=>
     `<div class="swatch${settings.bgColor===p.color?' active':''}" style="background:${p.color};border:1px solid #ccc" title="${p.label}" data-color="${p.color}" onclick="applyBg('${p.color}','preset')"></div>`
   ).join('');
@@ -570,7 +592,9 @@ function renderList(){
   const grid=document.getElementById('crop-grid');grid.innerHTML='';
   crops.forEach(c=>{
     const allPhotos=(c.entries||[]).flatMap(e=>e.photos||[]);
-    const imgH=allPhotos.length>0?`<img src="${allPhotos[allPhotos.length-1]}" alt="">`:`<div style="display:flex;flex-direction:column;align-items:center;gap:5px"><span style="font-size:38px">${c.emoji}</span><span style="font-size:12px;font-weight:600;color:var(--tx2);text-align:center;padding:0 4px">${c.name}</span></div>`;
+    const imgH=allPhotos.length>0
+      ?`<div style="position:relative;width:100%;height:100%"><img src="${allPhotos[allPhotos.length-1]}" alt="" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.55));padding:5px 6px 6px;font-size:12px;font-weight:700;color:#fff;text-align:center">${c.emoji} ${c.name}</div></div>`
+      :`<div style="display:flex;flex-direction:column;align-items:center;gap:5px"><span style="font-size:38px">${c.emoji}</span><span style="font-size:12px;font-weight:600;color:var(--tx2);text-align:center;padding:0 4px">${c.name}</span></div>`;
     const card=document.createElement('div');
     card.className='crop-card'+(c.harvested?' harvested':'');
     card.innerHTML=`${c.harvested?'<span class="hvbadge">수확 완료</span>':''}
@@ -804,9 +828,9 @@ function switchTab(tab){
   });
   // 탑바 제목 복원
   document.getElementById('topbar-title').textContent='🌙 달빛 농장';
-  // 할일 섹션: 설정/연도별에서 숨김
+  // 할일 섹션: 설정/연도별/작물키우기에서 숨김
   const ts=document.getElementById('todo-section');
-  ts.classList.toggle('hidden',tab==='settings'||tab==='yearly');
+  ts.classList.toggle('hidden',tab==='settings'||tab==='yearly'||tab==='list');
   // 스크롤 초기화
   document.getElementById('scroll-area').scrollTop=0;
   // 렌더
