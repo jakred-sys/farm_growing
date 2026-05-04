@@ -623,6 +623,13 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
     <input type="date" id="edit-post-date">
     <div class="mlabel">제목</div>
     <input type="text" id="edit-post-title" placeholder="제목을 입력하세요..." maxlength="50">
+    <div class="mlabel">사진 관리</div>
+    <div class="edit-photos-grid" id="edit-post-photos-grid"></div>
+    <label class="add-more-photo-label" for="edit-post-add-photo" style="margin-bottom:14px">
+      <span class="add-more-photo-icon">+📷</span>
+      <span style="font-size:11px">사진 추가</span>
+    </label>
+    <input type="file" id="edit-post-add-photo" accept="image/*" multiple class="hidden" onchange="editPostAddPhotos(event)">
     <div class="mlabel">내용</div>
     <textarea id="edit-post-body" placeholder="내용을 입력하세요..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'" style="min-height:120px"></textarea>
     <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('edit-post-modal')">취소</button><button class="btn-ok" onclick="saveEditPost()">저장</button></div>
@@ -936,14 +943,39 @@ function openEditPost(id){
   document.getElementById('edit-post-date').value=p.date||globalDate;
   document.getElementById('edit-post-title').value=p.title||'';
   document.getElementById('edit-post-body').value=p.body||'';
+  renderEditPostPhotos(p.photos||[]);
   document.getElementById('edit-post-modal').classList.remove('hidden');
+}
+function renderEditPostPhotos(photos){
+  document.getElementById('edit-post-photos-grid').innerHTML=photos.map((ph,i)=>
+    `<div class="edit-photo-thumb"><img src="${ph}" alt=""><button class="edit-photo-del" onclick="editPostDeletePhoto(${i})">✕</button></div>`
+  ).join('');
+}
+function editPostDeletePhoto(pi){
+  const p=boardPosts.find(p=>p.id===editingPostId);if(!p)return;
+  if(!p.photos)p.photos=[];
+  p.photos.splice(pi,1);
+  saveBoard();
+  renderEditPostPhotos(p.photos);
+}
+function editPostAddPhotos(ev){
+  const files=Array.from(ev.target.files);if(!files.length)return;
+  const p=boardPosts.find(p=>p.id===editingPostId);if(!p)return;
+  if(!p.photos)p.photos=[];
+  let n=0;
+  files.forEach(f=>{
+    const r=new FileReader();
+    r.onload=x=>{p.photos.push(x.target.result);n++;if(n===files.length){saveBoard();renderEditPostPhotos(p.photos);}};
+    r.readAsDataURL(f);
+  });
+  ev.target.value='';
 }
 function saveEditPost(){
   const p=boardPosts.find(p=>p.id===editingPostId);if(!p)return;
   p.date=document.getElementById('edit-post-date').value||p.date;
   p.title=document.getElementById('edit-post-title').value.trim()||'(제목 없음)';
   p.body=document.getElementById('edit-post-body').value.trim();
-  saveBoard();closeModal('edit-post-modal');renderBoard();
+  saveBoard();closeModal('edit-post-modal');editingPostId=null;renderBoard();
 }
 
 /* 게시판 렌더 - 작성날짜 최신순 (#3) */
