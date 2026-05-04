@@ -1329,12 +1329,24 @@ history.pushState(null,'',location.href);
 ════════════════════════════════════ */
 
 /* ── 나무 목록 렌더 (심은 날 최신순 #7) ── */
+const TREE_EMOJI_NAME={
+  '🍑':'감나무','🌼':'개나리','🌸':'감태나무','🍊':'귤나무',
+  '🌳':'느티나무','🍁':'단풍나무','🎋':'대나무','🟤':'대추나무','🌱':'라일락',
+  '🌺':'매화나무','🪷':'목련','🍈':'무화과나무','🌰':'밤나무',
+  '🍐':'배나무','🌿':'배롱나무','🍒':'보리수나무','🫐':'블루베리나무',
+  '🌾':'뽕나무','🍎':'사과나무','🌄':'산수유나무','🌲':'소나무',
+  '💐':'수국','🫒':'올리브나무','🍂':'은행나무','🍇':'자두나무',
+  '🍀':'주목','🪵':'편백나무','🥝':'포도나무','🌻':'해바라기',
+  '🌵':'향나무','🥜':'호두나무','🌙':'회화나무','🪴':'기타'
+};
+function treeEmojiLabel(emoji){return TREE_EMOJI_NAME[emoji]||''}
+
 function renderTreeList(){
   const grid=document.getElementById('tree-grid');grid.innerHTML='';
   // 심은 날 기준 최신순 정렬 (#7)
   const sorted=[...trees].sort((a,b)=>b.planted.localeCompare(a.planted));
   sorted.forEach(t=>{
-    const kindName=treeEmojiLabel(t.emoji)||t.name;
+    const kindName=t.kind||treeEmojiLabel(t.emoji)||t.name;
     const allPhotos=(t.entries||[]).flatMap(e=>e.photos||[]);
     const imgH=allPhotos.length>0
       ?`<div style="position:relative;width:100%;height:100%"><img src="${allPhotos[allPhotos.length-1]}" alt="" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.65));padding:5px 6px 7px;text-align:center"><div style="font-size:12px;font-weight:700;color:#fff">${t.emoji} ${kindName}</div><div style="font-size:10px;color:rgba(255,255,255,.8);margin-top:1px">${t.name}</div></div></div>`
@@ -1359,11 +1371,13 @@ function renderTreeList(){
 
 function addTree(){
   const name=document.getElementById('tree-modal-name').value.trim();
-  const emoji=document.getElementById('tree-modal-emoji').value;
+  const sel=document.getElementById('tree-modal-emoji');
+  const emoji=sel.value;
+  const kind=sel.options[sel.selectedIndex].text.replace(/^\S+\s*/,'').trim();
   const planted=document.getElementById('tree-modal-date').value||globalDate;
   if(!name){showConfirm('입력 필요','나무 이름을 입력해주세요.',()=>{},'확인','var(--green)');return;}
   const id=trees.length>0?Math.max(...trees.map(t=>t.id))+1:1;
-  trees.push({id,name,emoji,planted,entries:[]});
+  trees.push({id,name,emoji,kind,planted,entries:[]});
   saveTrees();document.getElementById('tree-modal-name').value='';closeModal('add-tree-modal');renderTreeList();
 }
 
@@ -1523,7 +1537,9 @@ function saveEditTree(){
   const t=trees.find(t=>t.id===editTreeId);if(!t)return;
   const name=document.getElementById('edit-tree-name').value.trim();
   if(!name){showConfirm('입력 필요','나무 이름을 입력해주세요.',()=>{},'확인','var(--green)');return;}
-  t.emoji=document.getElementById('edit-tree-emoji').value;
+  const sel=document.getElementById('edit-tree-emoji');
+  t.emoji=sel.value;
+  t.kind=sel.options[sel.selectedIndex].text.replace(/^\S+\s*/,'').trim();
   t.name=name;
   t.planted=document.getElementById('edit-tree-date').value||t.planted;
   saveTrees();closeModal('edit-tree-modal');
