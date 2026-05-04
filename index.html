@@ -443,7 +443,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
       <option value="🌶️">🌶️ 고추</option>
       <option value="🍠">🍠 고구마</option>
       <option value="🥕">🥕 당근</option>
-      <option value="🧅">🧅 대파</option>
+      <option value="🫛">🫛 대파</option>
       <option value="🧄">🧄 마늘</option>
       <option value="🫒">🫒 매실</option>
       <option value="🍑">🍑 복숭아</option>
@@ -455,7 +455,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
       <option value="🌽">🌽 옥수수</option>
       <option value="🫐">🫐 자두</option>
       <option value="🍈">🍈 참외</option>
-      <option value="🌿">🌿 쪽파</option>
+      <option value="🪴">🪴 쪽파</option>
       <option value="🍅">🍅 토마토</option>
       <option value="🎃">🎃 호박</option>
       <option value="🌾">🌾 기타</option>
@@ -481,7 +481,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
       <option value="🌶️">🌶️ 고추</option>
       <option value="🍠">🍠 고구마</option>
       <option value="🥕">🥕 당근</option>
-      <option value="🧅">🧅 대파</option>
+      <option value="🫛">🫛 대파</option>
       <option value="🧄">🧄 마늘</option>
       <option value="🫒">🫒 매실</option>
       <option value="🍑">🍑 복숭아</option>
@@ -493,7 +493,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
       <option value="🌽">🌽 옥수수</option>
       <option value="🫐">🫐 자두</option>
       <option value="🍈">🍈 참외</option>
-      <option value="🌿">🌿 쪽파</option>
+      <option value="🪴">🪴 쪽파</option>
       <option value="🍅">🍅 토마토</option>
       <option value="🎃">🎃 호박</option>
       <option value="🌾">🌾 기타</option>
@@ -872,9 +872,9 @@ function deleteTodo(id){todos=todos.filter(t=>t.id!==id);saveTodos();renderTodos
 /* ── 작물 목록 (심은 날 최신순 정렬 #7) ── */
 const EMOJI_NAME={
   '🍆':'가지','🥔':'감자','🌶️':'고추','🍠':'고구마','🥕':'당근',
-  '🧅':'대파/양파','🧄':'마늘','🫒':'매실','🍑':'복숭아','🥬':'상추',
-  '🍉':'수박','🌱':'아스파라거스','🥒':'오이','🌽':'옥수수',
-  '🫐':'자두','🍈':'참외','🌿':'쪽파/기타','🍅':'토마토','🎃':'호박','🌾':'기타'
+  '🫛':'대파','🧄':'마늘','🫒':'매실','🍑':'복숭아','🥬':'상추',
+  '🍉':'수박','🌱':'아스파라거스','🧅':'양파','🥒':'오이','🌽':'옥수수',
+  '🫐':'자두','🍈':'참외','🪴':'쪽파','🍅':'토마토','🎃':'호박','🌾':'기타'
 };
 function emojiLabel(emoji){return EMOJI_NAME[emoji]||''}
 
