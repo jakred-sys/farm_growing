@@ -20,33 +20,23 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden}
 body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--tx);font-size:15px;transition:background .3s}
-
-/* ── 앱 레이아웃 ── */
 #app{display:flex;flex-direction:column;height:100vh;height:100dvh}
 #topbar{height:var(--tph);flex-shrink:0;background:var(--sur);border-bottom:.5px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:20;padding-top:env(safe-area-inset-top,0)}
 #topbar-title{font-size:17px;font-weight:700;letter-spacing:-.3px;color:var(--tx)}
 #topbar-right{display:flex;align-items:center;gap:8px}
 #date-chip{font-size:12px;color:var(--green);font-weight:600;background:var(--gl);padding:5px 11px;border-radius:14px;cursor:pointer;white-space:nowrap}
 #settings-btn{width:36px;height:36px;border-radius:50%;border:.5px solid var(--bdm);background:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-
-/* ── 스크롤 영역 ── */
 #scroll-area{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--tbh) + env(safe-area-inset-bottom,0px))}
 #scroll-area::-webkit-scrollbar{width:3px}
 #scroll-area::-webkit-scrollbar-thumb{background:var(--bdm);border-radius:2px}
-
-/* ── 하단 탭바 ── */
 #tabbar{height:calc(var(--tbh) + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px);flex-shrink:0;background:var(--sur);border-top:.5px solid var(--bd);display:flex;z-index:20}
 .tb-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;font-family:inherit;color:var(--tx3);cursor:pointer;padding:8px 0 4px}
 .tb-btn.active{color:var(--green)}
 .tb-icon{font-size:22px;line-height:1}
 .tb-label{font-size:10px;font-weight:500;letter-spacing:-.2px}
-
-/* ── 페이지 ── */
 .pg{display:none;padding:14px}
 .pg.active{display:block}
 .pg-title{font-size:18px;font-weight:600;margin-bottom:14px;letter-spacing:-.3px}
-
-/* ── 할일 ── */
 .todo-board{background:var(--sur);border-radius:var(--r);box-shadow:var(--sh);padding:14px 15px;margin-bottom:12px}
 .bh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .bh-title{font-size:14px;font-weight:600}
@@ -66,8 +56,6 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .tdel{background:none;border:none;color:var(--tx3);font-size:18px;cursor:pointer;padding:2px 6px;min-width:32px}
 .no-todo{font-size:13px;color:var(--tx3);padding:4px 0}
 .more-btn{display:block;width:100%;border:none;background:none;font-size:13px;color:var(--green);cursor:pointer;padding:9px 0 3px;font-family:inherit;text-align:left}
-
-/* ── 작물 그리드 ── */
 .crop-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
 .crop-card{background:var(--sur);border-radius:var(--r);overflow:hidden;position:relative;box-shadow:var(--sh)}
 .crop-card.harvested{opacity:.55}
@@ -85,7 +73,12 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .add-crop-btn{background:var(--sur);border:1.5px dashed var(--bdm);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;height:155px;cursor:pointer;color:var(--tx3);font-size:13px;font-family:inherit;box-shadow:var(--sh)}
 .add-icon{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--bdm);display:flex;align-items:center;justify-content:center;font-size:17px}
 
-/* ── 상세 화면 ── */
+/* 정렬 토글 (#1) */
+.sort-bar{display:flex;gap:6px;margin-bottom:12px;align-items:center}
+.sort-bar span{font-size:12px;color:var(--tx3)}
+.sort-btn{font-size:12px;padding:5px 12px;border-radius:14px;border:.5px solid var(--bdm);background:var(--sur);color:var(--tx2);cursor:pointer;font-family:inherit;font-weight:500}
+.sort-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
+
 .detail-panel{background:var(--sur);border-radius:var(--r);box-shadow:var(--sh);padding:16px}
 .det-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .det-emoji{font-size:34px}
@@ -94,8 +87,6 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .back-btn{font-size:13px;color:var(--tx2);background:none;border:.5px solid var(--bdm);border-radius:var(--rs);padding:7px 14px;cursor:pointer;font-family:inherit}
 .slabel{font-size:11px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin:16px 0 9px}
 .entry-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
-
-/* 기록 슬롯 */
 .entry-slot{background:var(--sur);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
 .entry-slot-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--sur2)}
 .edate{font-size:12px;font-weight:600;color:var(--tx2)}
@@ -111,8 +102,6 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .ememo-text{font-size:14px;color:var(--tx);line-height:1.6;white-space:pre-wrap}
 .ememo-empty{font-size:13px;color:var(--tx3);font-style:italic}
 .entry-edit-btn{width:100%;background:var(--gl);color:var(--green);border:none;border-radius:var(--rs);padding:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px}
-
-/* 새 기록 추가 */
 .add-entry-area{background:var(--sur);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:20px;overflow:hidden}
 .add-entry-toolbar{display:flex;align-items:center;gap:8px;padding:11px 13px;background:var(--sur2);flex-wrap:wrap}
 .add-entry-toolbar span{font-size:13px;color:var(--tx2);font-weight:500}
@@ -126,8 +115,6 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .no-preview-placeholder{width:52px;height:52px;border-radius:8px;background:var(--sur2);display:flex;align-items:center;justify-content:center;font-size:22px;opacity:.3}
 .add-entry-memo{width:100%;border:none;background:none;padding:12px 13px;font-size:14px;color:var(--tx);font-family:inherit;resize:none;outline:none;min-height:80px;max-height:none;line-height:1.6;border-top:.5px solid var(--bd);overflow-y:auto}
 .add-entry-save{width:100%;border:none;border-top:.5px solid var(--bd);background:none;padding:13px;font-size:14px;color:var(--green);cursor:pointer;font-weight:700;font-family:inherit}
-
-/* ── 최근기록 ── */
 .tl-item{background:var(--sur);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;box-shadow:var(--sh)}
 .tl-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .tl-who{font-size:14px;font-weight:600}
@@ -135,8 +122,6 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .tl-photos{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:6px;scrollbar-width:none}
 .tl-photos::-webkit-scrollbar{display:none}
 .yield-tag{font-size:11px;background:var(--gl);color:var(--green);border-radius:8px;padding:3px 9px;display:inline-block}
-
-/* ── 연도별 ── */
 .year-block{background:var(--sur);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:12px;overflow:hidden}
 .year-header{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;background:var(--sur2);cursor:pointer}
 .year-title{font-size:15px;font-weight:600}
@@ -155,7 +140,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .ycright{flex-shrink:0}
 .growing-tag{font-size:11px;color:var(--tx3)}
 
-/* ── 농장 기록 (게시판) ── */
+/* ── 농장 기록 게시판 ── */
 .board-write-area{background:var(--sur);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:14px;overflow:hidden}
 .board-write-toolbar{display:flex;align-items:center;gap:8px;padding:11px 13px;background:var(--sur2);flex-wrap:wrap}
 .board-write-toolbar span{font-size:13px;color:var(--tx2);font-weight:500}
@@ -173,8 +158,8 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .post-photos::-webkit-scrollbar{display:none}
 .post-photos img{width:80px;height:80px;object-fit:cover;border-radius:8px;flex-shrink:0;cursor:pointer}
 .no-post{text-align:center;color:var(--tx3);font-size:13px;padding:2rem 0}
+.post-edit-btn{width:100%;background:var(--gl);color:var(--green);border:none;padding:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border-top:.5px solid var(--bd)}
 
-/* ── 설정 ── */
 .settings-panel{display:flex;flex-direction:column;gap:12px}
 .ss-sec{background:var(--sur);border-radius:var(--r);box-shadow:var(--sh);padding:14px 15px}
 .ss-title{font-size:13px;font-weight:600;margin-bottom:12px;padding-bottom:8px;border-bottom:.5px solid var(--bd)}
@@ -187,8 +172,6 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .cc-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .cc-row input[type=color]{width:42px;height:34px;border:.5px solid var(--bdm);border-radius:var(--rs);padding:2px;cursor:pointer;background:none}
 .info-row{font-size:12px;color:var(--tx3);line-height:1.55;margin-top:6px}
-
-/* ── 모달 (하단 슬라이드업) ── */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:flex;align-items:flex-end;justify-content:center}
 .modal-bg.hidden{display:none}
 .modal{background:var(--sur);border-radius:20px 20px 0 0;padding:16px 20px calc(24px + env(safe-area-inset-bottom,0px));width:100%;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -202,16 +185,12 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .modal-btns button,.btn-cancel,.btn-ok{flex:1;padding:14px;border-radius:var(--rs);font-size:15px;cursor:pointer;font-family:inherit;font-weight:600;border:none}
 .btn-cancel{background:var(--sur2);color:var(--tx2)}
 .btn-ok{background:var(--green);color:#fff}
-
-/* 수정모달 사진 */
 .edit-photos-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
 .edit-photo-thumb{width:76px;height:76px;border-radius:var(--rs);overflow:hidden;position:relative}
 .edit-photo-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .edit-photo-del{position:absolute;top:2px;right:2px;width:22px;height:22px;background:rgba(160,20,20,.88);border:none;border-radius:50%;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .add-more-photo-label{width:76px;height:76px;border:1.5px dashed var(--bdm);border-radius:var(--rs);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;color:var(--tx3);font-size:11px;gap:3px;background:var(--sur2);display:inline-flex}
 .add-more-photo-icon{font-size:22px}
-
-/* ── 라이트박스 ── */
 .lightbox{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;z-index:200}
 .lightbox.hidden{display:none}
 .lb-topbar{display:flex;align-items:center;gap:12px;padding:calc(14px + env(safe-area-inset-top,0px)) 16px 14px;flex-shrink:0}
@@ -224,18 +203,12 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .lb-memo-hdr{font-size:10px;font-weight:600;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
 .lb-memo-body{font-size:14px;color:rgba(255,255,255,.85);line-height:1.65}
 .lb-no-memo{font-size:13px;color:rgba(255,255,255,.35)}
-
-/* ── 유틸 ── */
 .hidden{display:none!important}
-.tab-content{display:none}
-.tab-content.active-tab{display:block}
 #todo-section.hidden{display:none}
 </style>
 </head>
 <body>
 <div id="app">
-
-  <!-- 상단바 -->
   <div id="topbar">
     <div id="topbar-title">🌙 달빛 농장</div>
     <div id="topbar-right">
@@ -245,10 +218,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
     </div>
   </div>
 
-  <!-- 스크롤 영역 -->
   <div id="scroll-area">
-
-    <!-- 할일 -->
     <div id="todo-section" style="padding:14px 14px 0">
       <div class="todo-board">
         <div class="bh"><span class="bh-title">다음에 할 일</span><span class="bh-count" id="todo-counts"></span></div>
@@ -276,6 +246,12 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
     <!-- 나무 키우기 -->
     <div class="pg" id="tab-tree" style="padding:0 14px 14px">
       <div class="pg-title">나무 키우기</div>
+      <!-- 정렬 버튼 (#1) -->
+      <div class="sort-bar">
+        <span>정렬:</span>
+        <button class="sort-btn active" id="sort-date-btn" onclick="setTreeSort('date')">심은 날짜순</button>
+        <button class="sort-btn" id="sort-name-btn" onclick="setTreeSort('name')">명칭순</button>
+      </div>
       <div class="crop-grid" id="tree-grid"></div>
     </div>
 
@@ -315,7 +291,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
       <div id="yearly-content"></div>
     </div>
 
-    <!-- 농장 기록 (게시판) -->
+    <!-- 농장 기록 -->
     <div class="pg" id="tab-board" style="padding:14px">
       <div class="pg-title">농장 기록</div>
       <div class="board-write-area">
@@ -357,11 +333,11 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
         <div class="ss-sec">
           <div class="ss-title">데이터 관리</div>
           <button class="ss-btn danger" onclick="resetAll()">⚠ 모든 데이터 초기화</button>
-          <div class="info-row">초기화 시 작물, 메모, 할 일이 모두 삭제됩니다.</div>
+          <div class="info-row">초기화 시 작물, 나무, 메모, 할 일이 모두 삭제됩니다.</div>
         </div>
         <div class="ss-sec">
           <div class="ss-title">앱 정보</div>
-          <div class="info-row">달빛 농장 v8.0 — 작물·나무 기록, 사진·메모 연동, 할 일 관리, 연도별 수확 통계, 농장 기록 게시판</div>
+          <div class="info-row">달빛 농장 v8.1 — 작물·나무 기록, 사진·메모 연동, 할 일 관리, 연도별 수확 통계, 농장 기록 게시판</div>
         </div>
       </div>
     </div>
@@ -395,323 +371,142 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
         </div>
       </div>
     </div>
-
-  </div><!-- /scroll-area -->
-
-  <!-- 하단 탭바 -->
-  <div id="tabbar">
-    <button class="tb-btn active" id="nav-timeline" onclick="switchTab('timeline')">
-      <span class="tb-icon">📋</span><span class="tb-label">최근기록</span>
-    </button>
-    <button class="tb-btn" id="nav-list" onclick="switchTab('list')">
-      <span class="tb-icon">🌿</span><span class="tb-label">작물키우기</span>
-    </button>
-    <button class="tb-btn" id="nav-tree" onclick="switchTab('tree')">
-      <span class="tb-icon">🌳</span><span class="tb-label">나무키우기</span>
-    </button>
-    <button class="tb-btn" id="nav-yearly" onclick="switchTab('yearly')">
-      <span class="tb-icon">📅</span><span class="tb-label">연도별</span>
-    </button>
-    <button class="tb-btn" id="nav-board" onclick="switchTab('board')">
-      <span class="tb-icon">📝</span><span class="tb-label">농장기록</span>
-    </button>
   </div>
 
-</div><!-- /app -->
+  <div id="tabbar">
+    <button class="tb-btn active" id="nav-timeline" onclick="switchTab('timeline')"><span class="tb-icon">📋</span><span class="tb-label">최근기록</span></button>
+    <button class="tb-btn" id="nav-list" onclick="switchTab('list')"><span class="tb-icon">🌿</span><span class="tb-label">작물키우기</span></button>
+    <button class="tb-btn" id="nav-tree" onclick="switchTab('tree')"><span class="tb-icon">🌳</span><span class="tb-label">나무키우기</span></button>
+    <button class="tb-btn" id="nav-yearly" onclick="switchTab('yearly')"><span class="tb-icon">📅</span><span class="tb-label">연도별</span></button>
+    <button class="tb-btn" id="nav-board" onclick="switchTab('board')"><span class="tb-icon">📝</span><span class="tb-label">농장기록</span></button>
+  </div>
+</div>
 
 <!-- 날짜 선택 모달 -->
 <div class="modal-bg hidden" id="date-pick-modal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3>날짜 선택</h3>
+  <div class="modal"><div class="modal-handle"></div><h3>날짜 선택</h3>
     <input type="date" id="global-date-input">
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal('date-pick-modal')">취소</button>
-      <button class="btn-ok" onclick="applyGlobalDate()">적용</button>
-    </div>
+    <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('date-pick-modal')">취소</button><button class="btn-ok" onclick="applyGlobalDate()">적용</button></div>
   </div>
 </div>
 
 <!-- 작물 추가 모달 -->
 <div class="modal-bg hidden" id="add-modal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3>새 작물 추가</h3>
+  <div class="modal"><div class="modal-handle"></div><h3>새 작물 추가</h3>
     <select id="modal-emoji">
-      <option value="🍆">🍆 가지</option>
-      <option value="🥔">🥔 감자</option>
-      <option value="🌶️">🌶️ 고추</option>
-      <option value="🍠">🍠 고구마</option>
-      <option value="🥕">🥕 당근</option>
-      <option value="🌿">🌿 대파</option>
-      <option value="🧄">🧄 마늘</option>
-      <option value="🟢">🟢 매실</option>
-      <option value="🍑">🍑 복숭아</option>
-      <option value="🥬">🥬 상추</option>
-      <option value="🍉">🍉 수박</option>
-      <option value="🌱">🌱 아스파라거스</option>
-      <option value="🧅">🧅 양파</option>
-      <option value="🥒">🥒 오이</option>
-      <option value="🌽">🌽 옥수수</option>
-      <option value="🫐">🫐 자두</option>
-      <option value="🍈">🍈 참외</option>
-      <option value="🪴">🪴 쪽파</option>
-      <option value="🍅">🍅 토마토</option>
-      <option value="🎃">🎃 호박</option>
-      <option value="🌾">🌾 기타</option>
+      <option value="🍆">🍆 가지</option><option value="🥔">🥔 감자</option><option value="🌶️">🌶️ 고추</option><option value="🍠">🍠 고구마</option><option value="🥕">🥕 당근</option><option value="🌿">🌿 대파</option><option value="🧄">🧄 마늘</option><option value="🟢">🟢 매실</option><option value="🍑">🍑 복숭아</option><option value="🥬">🥬 상추</option><option value="🍉">🍉 수박</option><option value="🌱">🌱 아스파라거스</option><option value="🧅">🧅 양파</option><option value="🥒">🥒 오이</option><option value="🌽">🌽 옥수수</option><option value="🫐">🫐 자두</option><option value="🍈">🍈 참외</option><option value="🪴">🪴 쪽파</option><option value="🍅">🍅 토마토</option><option value="🎃">🎃 호박</option><option value="🌾">🌾 기타</option>
     </select>
     <input type="text" id="modal-name" placeholder="작물 이름 (예: 방울토마토)" maxlength="15">
-    <div class="mlabel">심은 날짜</div>
-    <input type="date" id="modal-date">
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal('add-modal')">취소</button>
-      <button class="btn-ok" onclick="addCrop()">추가</button>
-    </div>
+    <div class="mlabel">심은 날짜</div><input type="date" id="modal-date">
+    <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('add-modal')">취소</button><button class="btn-ok" onclick="addCrop()">추가</button></div>
   </div>
 </div>
 
 <!-- 작물 수정 모달 -->
 <div class="modal-bg hidden" id="edit-crop-modal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3>작물 정보 수정</h3>
+  <div class="modal"><div class="modal-handle"></div><h3>작물 정보 수정</h3>
     <select id="edit-crop-emoji">
-      <option value="🍆">🍆 가지</option>
-      <option value="🥔">🥔 감자</option>
-      <option value="🌶️">🌶️ 고추</option>
-      <option value="🍠">🍠 고구마</option>
-      <option value="🥕">🥕 당근</option>
-      <option value="🌿">🌿 대파</option>
-      <option value="🧄">🧄 마늘</option>
-      <option value="🟢">🟢 매실</option>
-      <option value="🍑">🍑 복숭아</option>
-      <option value="🥬">🥬 상추</option>
-      <option value="🍉">🍉 수박</option>
-      <option value="🌱">🌱 아스파라거스</option>
-      <option value="🧅">🧅 양파</option>
-      <option value="🥒">🥒 오이</option>
-      <option value="🌽">🌽 옥수수</option>
-      <option value="🫐">🫐 자두</option>
-      <option value="🍈">🍈 참외</option>
-      <option value="🪴">🪴 쪽파</option>
-      <option value="🍅">🍅 토마토</option>
-      <option value="🎃">🎃 호박</option>
-      <option value="🌾">🌾 기타</option>
+      <option value="🍆">🍆 가지</option><option value="🥔">🥔 감자</option><option value="🌶️">🌶️ 고추</option><option value="🍠">🍠 고구마</option><option value="🥕">🥕 당근</option><option value="🌿">🌿 대파</option><option value="🧄">🧄 마늘</option><option value="🟢">🟢 매실</option><option value="🍑">🍑 복숭아</option><option value="🥬">🥬 상추</option><option value="🍉">🍉 수박</option><option value="🌱">🌱 아스파라거스</option><option value="🧅">🧅 양파</option><option value="🥒">🥒 오이</option><option value="🌽">🌽 옥수수</option><option value="🫐">🫐 자두</option><option value="🍈">🍈 참외</option><option value="🪴">🪴 쪽파</option><option value="🍅">🍅 토마토</option><option value="🎃">🎃 호박</option><option value="🌾">🌾 기타</option>
     </select>
     <input type="text" id="edit-crop-name" placeholder="작물 이름" maxlength="15">
-    <div class="mlabel">심은 날짜</div>
-    <input type="date" id="edit-crop-date">
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal('edit-crop-modal')">취소</button>
-      <button class="btn-ok" onclick="saveEditCrop()">저장</button>
-    </div>
+    <div class="mlabel">심은 날짜</div><input type="date" id="edit-crop-date">
+    <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('edit-crop-modal')">취소</button><button class="btn-ok" onclick="saveEditCrop()">저장</button></div>
   </div>
 </div>
 
 <!-- 수확 모달 -->
 <div class="modal-bg hidden" id="harvest-modal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3>수확 완료 기록</h3>
+  <div class="modal"><div class="modal-handle"></div><h3>수확 완료 기록</h3>
     <p style="font-size:13px;color:var(--tx3);margin-bottom:12px;line-height:1.5" id="harvest-info"></p>
     <div class="mlabel">수확량 (예: 2kg, 30개, 한 바구니)</div>
     <input type="text" id="harvest-yield" placeholder="수확량 입력..." maxlength="30">
-    <div class="mlabel">수확 날짜</div>
-    <input type="date" id="harvest-date">
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="cancelHarvest()">취소</button>
-      <button class="btn-ok" onclick="confirmHarvest()">수확 완료</button>
-    </div>
+    <div class="mlabel">수확 날짜</div><input type="date" id="harvest-date">
+    <div class="modal-btns"><button class="btn-cancel" onclick="cancelHarvest()">취소</button><button class="btn-ok" onclick="confirmHarvest()">수확 완료</button></div>
   </div>
 </div>
 
-<!-- 기록 수정 모달 (날짜 수정 포함) -->
+<!-- 기록 수정 모달 -->
 <div class="modal-bg hidden" id="edit-entry-modal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3 id="edit-modal-title">기록 수정</h3>
+  <div class="modal"><div class="modal-handle"></div><h3 id="edit-modal-title">기록 수정</h3>
     <div class="mlabel">날짜 수정</div>
     <input type="date" id="edit-entry-date-input" style="width:100%;border:.5px solid var(--bdm);border-radius:var(--rs);padding:12px;font-size:15px;color:var(--tx);background:var(--sur2);margin-bottom:10px;font-family:inherit;outline:none;-webkit-appearance:none;appearance:none">
     <div class="mlabel">사진 관리</div>
     <div class="edit-photos-grid" id="edit-photos-grid"></div>
-    <label class="add-more-photo-label" for="edit-add-photo-input" style="margin-bottom:14px">
-      <span class="add-more-photo-icon">+📷</span>
-      <span style="font-size:11px">사진 추가</span>
-    </label>
+    <label class="add-more-photo-label" for="edit-add-photo-input" style="margin-bottom:14px"><span class="add-more-photo-icon">+📷</span><span style="font-size:11px">사진 추가</span></label>
     <input type="file" id="edit-add-photo-input" accept="image/*" multiple class="hidden" onchange="editAddPhotos(event)">
     <div class="mlabel">메모</div>
     <textarea id="edit-modal-memo" placeholder="메모를 입력하세요..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal('edit-entry-modal')">취소</button>
-      <button class="btn-ok" onclick="saveEditEntry()">저장</button>
-    </div>
+    <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('edit-entry-modal')">취소</button><button class="btn-ok" onclick="saveEditEntry()">저장</button></div>
   </div>
 </div>
 
-<!-- 나무 기록 수정 모달 (날짜 수정 포함) -->
+<!-- 나무 기록 수정 모달 -->
 <div class="modal-bg hidden" id="edit-tree-entry-modal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3 id="edit-tree-entry-title">기록 수정</h3>
+  <div class="modal"><div class="modal-handle"></div><h3 id="edit-tree-entry-title">기록 수정</h3>
     <div class="mlabel">날짜 수정</div>
     <input type="date" id="edit-tree-entry-date-input" style="width:100%;border:.5px solid var(--bdm);border-radius:var(--rs);padding:12px;font-size:15px;color:var(--tx);background:var(--sur2);margin-bottom:10px;font-family:inherit;outline:none;-webkit-appearance:none;appearance:none">
     <div class="mlabel">사진 관리</div>
     <div class="edit-photos-grid" id="edit-tree-photos-grid"></div>
-    <label class="add-more-photo-label" for="edit-tree-add-photo-input" style="margin-bottom:14px">
-      <span class="add-more-photo-icon">+📷</span>
-      <span style="font-size:11px">사진 추가</span>
-    </label>
+    <label class="add-more-photo-label" for="edit-tree-add-photo-input" style="margin-bottom:14px"><span class="add-more-photo-icon">+📷</span><span style="font-size:11px">사진 추가</span></label>
     <input type="file" id="edit-tree-add-photo-input" accept="image/*" multiple class="hidden" onchange="editTreeAddPhotos(event)">
     <div class="mlabel">메모</div>
     <textarea id="edit-tree-entry-memo" placeholder="메모를 입력하세요..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal('edit-tree-entry-modal')">취소</button>
-      <button class="btn-ok" onclick="saveEditTreeEntry()">저장</button>
-    </div>
+    <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('edit-tree-entry-modal')">취소</button><button class="btn-ok" onclick="saveEditTreeEntry()">저장</button></div>
   </div>
 </div>
 
 <!-- 라이트박스 -->
 <div class="lightbox hidden" id="lightbox">
-  <div class="lb-topbar">
-    <button class="lb-back" onclick="closeLightbox()">← 돌아가기</button>
-    <span class="lb-info" id="lb-date-info"></span>
-  </div>
+  <div class="lb-topbar"><button class="lb-back" onclick="closeLightbox()">← 돌아가기</button><span class="lb-info" id="lb-date-info"></span></div>
   <div class="lb-body">
     <div class="lb-img-area"><img id="lb-img" src="" alt=""></div>
-    <div class="lb-memo-panel">
-      <div class="lb-memo-hdr">같은 날 메모</div>
-      <div class="lb-memo-body" id="lb-memo-list"></div>
-    </div>
+    <div class="lb-memo-panel"><div class="lb-memo-hdr">같은 날 메모</div><div class="lb-memo-body" id="lb-memo-list"></div></div>
   </div>
 </div>
 
 <!-- 나무 추가 모달 -->
 <div class="modal-bg hidden" id="add-tree-modal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3>새 나무 추가</h3>
+  <div class="modal"><div class="modal-handle"></div><h3>새 나무 추가</h3>
     <select id="tree-modal-emoji">
-      <option value="🟠">🟠 감나무</option>
-      <option value="🌸">🌸 감태나무</option>
-      <option value="🌼">🌼 개나리</option>
-      <option value="🍊">🍊 귤나무</option>
-      <option value="🌳">🌳 느티나무</option>
-      <option value="🍁">🍁 단풍나무</option>
-      <option value="🎋">🎋 대나무</option>
-      <option value="🟤">🟤 대추나무</option>
-      <option value="🌼">🌼 라일락</option>
-      <option value="🌸">🌸 매화나무</option>
-      <option value="🪷">🪷 목련</option>
-      <option value="🍈">🍈 무화과나무</option>
-      <option value="🌰">🌰 밤나무</option>
-      <option value="🍐">🍐 배나무</option>
-      <option value="🌺">🌺 배롱나무</option>
-      <option value="🌸">🌸 벚나무</option>
-      <option value="🍒">🍒 보리수나무</option>
-      <option value="🍑">🍑 복숭아나무</option>
-      <option value="🫐">🫐 블루베리나무</option>
-      <option value="🌾">🌾 뽕나무</option>
-      <option value="🍎">🍎 사과나무</option>
-      <option value="🌼">🌼 산수유나무</option>
-      <option value="🍑">🍑 살구나무</option>
-      <option value="🔴">🔴 석류나무</option>
-      <option value="🌲">🌲 소나무</option>
-      <option value="💐">💐 수국</option>
-      <option value="🌺">🌺 앵두나무</option>
-      <option value="🫒">🫒 올리브나무</option>
-      <option value="🍂">🍂 은행나무</option>
-      <option value="🫐">🫐 자두나무</option>
-      <option value="🍀">🍀 주목</option>
-      <option value="🌺">🌺 철쭉</option>
-      <option value="🌼">🌼 치자나무</option>
-      <option value="🪵">🪵 편백나무</option>
-      <option value="🍇">🍇 포도나무</option>
-      <option value="🌻">🌻 해바라기나무</option>
-      <option value="🌲">🌲 향나무</option>
-      <option value="🔴">🔴 홍가시나무</option>
-      <option value="🥜">🥜 호두나무</option>
-      <option value="🌙">🌙 회화나무</option>
-      <option value="🪴">🪴 기타</option>
+      <option value="🟠">🟠 감나무</option><option value="🌸">🌸 감태나무</option><option value="🌼">🌼 개나리</option><option value="🍊">🍊 귤나무</option><option value="🌳">🌳 느티나무</option><option value="🍁">🍁 단풍나무</option><option value="🎋">🎋 대나무</option><option value="🟤">🟤 대추나무</option><option value="🌼">🌼 라일락</option><option value="🌸">🌸 매화나무</option><option value="🪷">🪷 목련</option><option value="🍈">🍈 무화과나무</option><option value="🌰">🌰 밤나무</option><option value="🍐">🍐 배나무</option><option value="🌺">🌺 배롱나무</option><option value="🌸">🌸 벚나무</option><option value="🍒">🍒 보리수나무</option><option value="🍑">🍑 복숭아나무</option><option value="🫐">🫐 블루베리나무</option><option value="🌾">🌾 뽕나무</option><option value="🍎">🍎 사과나무</option><option value="🌼">🌼 산수유나무</option><option value="🍑">🍑 살구나무</option><option value="🔴">🔴 석류나무</option><option value="🌲">🌲 소나무</option><option value="💐">💐 수국</option><option value="🌺">🌺 앵두나무</option><option value="🫒">🫒 올리브나무</option><option value="🍂">🍂 은행나무</option><option value="🫐">🫐 자두나무</option><option value="🍀">🍀 주목</option><option value="🌺">🌺 철쭉</option><option value="🌼">🌼 치자나무</option><option value="🪵">🪵 편백나무</option><option value="🍇">🍇 포도나무</option><option value="🌻">🌻 해바라기나무</option><option value="🌲">🌲 향나무</option><option value="🔴">🔴 홍가시나무</option><option value="🥜">🥜 호두나무</option><option value="🌙">🌙 회화나무</option><option value="🪴">🪴 기타</option>
     </select>
     <input type="text" id="tree-modal-name" placeholder="나무 이름 (예: 왕벚나무)" maxlength="15">
-    <div class="mlabel">심은 날짜</div>
-    <input type="date" id="tree-modal-date">
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal('add-tree-modal')">취소</button>
-      <button class="btn-ok" onclick="addTree()">추가</button>
-    </div>
+    <div class="mlabel">심은 날짜</div><input type="date" id="tree-modal-date">
+    <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('add-tree-modal')">취소</button><button class="btn-ok" onclick="addTree()">추가</button></div>
   </div>
 </div>
 
 <!-- 나무 수정 모달 -->
 <div class="modal-bg hidden" id="edit-tree-modal">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3>나무 정보 수정</h3>
+  <div class="modal"><div class="modal-handle"></div><h3>나무 정보 수정</h3>
     <select id="edit-tree-emoji">
-      <option value="🟠">🟠 감나무</option>
-      <option value="🌸">🌸 감태나무</option>
-      <option value="🌼">🌼 개나리</option>
-      <option value="🍊">🍊 귤나무</option>
-      <option value="🌳">🌳 느티나무</option>
-      <option value="🍁">🍁 단풍나무</option>
-      <option value="🎋">🎋 대나무</option>
-      <option value="🟤">🟤 대추나무</option>
-      <option value="🌼">🌼 라일락</option>
-      <option value="🌸">🌸 매화나무</option>
-      <option value="🪷">🪷 목련</option>
-      <option value="🍈">🍈 무화과나무</option>
-      <option value="🌰">🌰 밤나무</option>
-      <option value="🍐">🍐 배나무</option>
-      <option value="🌺">🌺 배롱나무</option>
-      <option value="🌸">🌸 벚나무</option>
-      <option value="🍒">🍒 보리수나무</option>
-      <option value="🍑">🍑 복숭아나무</option>
-      <option value="🫐">🫐 블루베리나무</option>
-      <option value="🌾">🌾 뽕나무</option>
-      <option value="🍎">🍎 사과나무</option>
-      <option value="🌼">🌼 산수유나무</option>
-      <option value="🍑">🍑 살구나무</option>
-      <option value="🔴">🔴 석류나무</option>
-      <option value="🌲">🌲 소나무</option>
-      <option value="💐">💐 수국</option>
-      <option value="🌺">🌺 앵두나무</option>
-      <option value="🫒">🫒 올리브나무</option>
-      <option value="🍂">🍂 은행나무</option>
-      <option value="🫐">🫐 자두나무</option>
-      <option value="🍀">🍀 주목</option>
-      <option value="🌺">🌺 철쭉</option>
-      <option value="🌼">🌼 치자나무</option>
-      <option value="🪵">🪵 편백나무</option>
-      <option value="🍇">🍇 포도나무</option>
-      <option value="🌻">🌻 해바라기나무</option>
-      <option value="🌲">🌲 향나무</option>
-      <option value="🔴">🔴 홍가시나무</option>
-      <option value="🥜">🥜 호두나무</option>
-      <option value="🌙">🌙 회화나무</option>
-      <option value="🪴">🪴 기타</option>
+      <option value="🟠">🟠 감나무</option><option value="🌸">🌸 감태나무</option><option value="🌼">🌼 개나리</option><option value="🍊">🍊 귤나무</option><option value="🌳">🌳 느티나무</option><option value="🍁">🍁 단풍나무</option><option value="🎋">🎋 대나무</option><option value="🟤">🟤 대추나무</option><option value="🌼">🌼 라일락</option><option value="🌸">🌸 매화나무</option><option value="🪷">🪷 목련</option><option value="🍈">🍈 무화과나무</option><option value="🌰">🌰 밤나무</option><option value="🍐">🍐 배나무</option><option value="🌺">🌺 배롱나무</option><option value="🌸">🌸 벚나무</option><option value="🍒">🍒 보리수나무</option><option value="🍑">🍑 복숭아나무</option><option value="🫐">🫐 블루베리나무</option><option value="🌾">🌾 뽕나무</option><option value="🍎">🍎 사과나무</option><option value="🌼">🌼 산수유나무</option><option value="🍑">🍑 살구나무</option><option value="🔴">🔴 석류나무</option><option value="🌲">🌲 소나무</option><option value="💐">💐 수국</option><option value="🌺">🌺 앵두나무</option><option value="🫒">🫒 올리브나무</option><option value="🍂">🍂 은행나무</option><option value="🫐">🫐 자두나무</option><option value="🍀">🍀 주목</option><option value="🌺">🌺 철쭉</option><option value="🌼">🌼 치자나무</option><option value="🪵">🪵 편백나무</option><option value="🍇">🍇 포도나무</option><option value="🌻">🌻 해바라기나무</option><option value="🌲">🌲 향나무</option><option value="🔴">🔴 홍가시나무</option><option value="🥜">🥜 호두나무</option><option value="🌙">🌙 회화나무</option><option value="🪴">🪴 기타</option>
     </select>
     <input type="text" id="edit-tree-name" placeholder="나무 이름" maxlength="15">
-    <div class="mlabel">심은 날짜</div>
-    <input type="date" id="edit-tree-date">
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal('edit-tree-modal')">취소</button>
-      <button class="btn-ok" onclick="saveEditTree()">저장</button>
-    </div>
+    <div class="mlabel">심은 날짜</div><input type="date" id="edit-tree-date">
+    <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('edit-tree-modal')">취소</button><button class="btn-ok" onclick="saveEditTree()">저장</button></div>
+  </div>
+</div>
+
+<!-- 게시글 수정 모달 (#2) -->
+<div class="modal-bg hidden" id="edit-post-modal">
+  <div class="modal"><div class="modal-handle"></div><h3>게시글 수정</h3>
+    <div class="mlabel">날짜</div>
+    <input type="date" id="edit-post-date">
+    <div class="mlabel">제목</div>
+    <input type="text" id="edit-post-title" placeholder="제목을 입력하세요..." maxlength="50">
+    <div class="mlabel">내용</div>
+    <textarea id="edit-post-body" placeholder="내용을 입력하세요..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'" style="min-height:120px"></textarea>
+    <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('edit-post-modal')">취소</button><button class="btn-ok" onclick="saveEditPost()">저장</button></div>
   </div>
 </div>
 
 <!-- 삭제 확인 모달 -->
 <div class="modal-bg hidden" id="confirm-modal">
-  <div class="modal">
-    <div class="modal-handle"></div>
+  <div class="modal"><div class="modal-handle"></div>
     <h3 id="confirm-title">확인</h3>
     <p id="confirm-msg" style="font-size:14px;color:var(--tx2);line-height:1.6;margin-bottom:16px"></p>
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal('confirm-modal')">취소</button>
-      <button id="confirm-ok-btn" class="btn-ok" style="background:var(--red)" onclick="confirmAction()">삭제</button>
-    </div>
+    <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('confirm-modal')">취소</button><button id="confirm-ok-btn" class="btn-ok" style="background:var(--red)" onclick="confirmAction()">삭제</button></div>
   </div>
 </div>
 
@@ -727,19 +522,21 @@ const MAX=8;
 let crops=[],todos=[],settings={bgColor:''},boardPosts=[];
 let currentCropId=null,prevTab='timeline',harvestPendingId=null;
 let pendingPhotos=[];
-let editingEntryDate=null;
+let editingEntryDate=null,editingEntryIdx=null;
 let showAllPending=false,showAllDone=false;
 let globalDate=new Date().toISOString().slice(0,10);
+let treeSortMode='date'; // (#1) 나무 정렬 기준
 
 // 나무
 let trees=[];
 let currentTreeId=null;
 let treePendingPhotos=[];
-let editingTreeEntryDate=null;
+let editingTreeEntryDate=null,editingTreeEntryIdx=null;
 let editTreeId=null;
 
-// 농장기록 게시판
+// 농장기록
 let boardPendingPhotos=[];
+let editingPostId=null; // (#2)
 
 try{crops=JSON.parse(localStorage.getItem('gv7_crops')||'[]')}catch(e){crops=[]}
 try{todos=JSON.parse(localStorage.getItem('gv7_todos')||'[]')}catch(e){todos=[]}
@@ -760,22 +557,11 @@ if(crops.length===0){
     {id:4,name:'고추',emoji:'🌶️',planted:'2026-04-15',harvested:false,harvestDate:'',yieldNote:'',entries:[]},
   ];save();
 }
-
 crops.forEach(c=>{
-  if(!c.entries){
-    const map={};
-    (c.memos||[]).forEach(m=>{if(!map[m.date])map[m.date]={date:m.date,photos:[],memo:''};map[m.date].memo=m.text;});
-    (c.photos||[]).forEach(p=>{if(!map[p.date])map[p.date]={date:p.date,photos:[],memo:''};map[p.date].photos.push(p.data);});
-    c.entries=Object.values(map).sort((a,b)=>a.date.localeCompare(b.date));
-    delete c.memos;delete c.photos;
-  }
-  c.entries.forEach(e=>{
-    if(e.photo!==undefined){e.photos=e.photo?[e.photo]:[];delete e.photo;}
-    if(!e.photos)e.photos=[];
-  });
+  if(!c.entries){const map={};(c.memos||[]).forEach(m=>{if(!map[m.date])map[m.date]={date:m.date,photos:[],memo:''};map[m.date].memo=m.text;});(c.photos||[]).forEach(p=>{if(!map[p.date])map[p.date]={date:p.date,photos:[],memo:''};map[p.date].photos.push(p.data);});c.entries=Object.values(map).sort((a,b)=>a.date.localeCompare(b.date));delete c.memos;delete c.photos;}
+  c.entries.forEach(e=>{if(e.photo!==undefined){e.photos=e.photo?[e.photo]:[];delete e.photo;}if(!e.photos)e.photos=[];});
   save();
 });
-
 if(todos.length===0){todos=[{id:1,text:'고추 지지대 설치',done:false,addedDate:'2026-04-30'},{id:2,text:'퇴비 추가',done:true,addedDate:'2026-04-15'}];saveTodos();}
 
 function save(){try{localStorage.setItem('gv7_crops',JSON.stringify(crops))}catch(e){}}
@@ -786,60 +572,36 @@ function saveBoard(){try{localStorage.setItem('gv8_board',JSON.stringify(boardPo
 
 function fmtDate(d){if(!d)return'';const[y,m,day]=d.split('-');return`${y}.${m}.${day}`}
 function fmtShort(d){if(!d)return'';const[y,m,day]=d.split('-');return`${String(y).slice(2)}.${m}.${day}`}
-
-// 작물: 심은 지 N일
-function daysSince(d){
-  if(!d)return'';
-  const diff=Math.floor((new Date()-new Date(d))/86400000);
-  return`심은 지 ${diff}일`;
-}
-
-// 나무: 심은 지 N년 N개월 (변경 #6)
+function daysSince(d){if(!d)return'';const diff=Math.floor((new Date()-new Date(d))/86400000);return`심은 지 ${diff}일`}
 function daysSinceTree(d){
-  if(!d)return'';
-  const start=new Date(d);
-  const now=new Date();
-  let years=now.getFullYear()-start.getFullYear();
-  let months=now.getMonth()-start.getMonth();
+  if(!d)return'';const start=new Date(d);const now=new Date();
+  let years=now.getFullYear()-start.getFullYear();let months=now.getMonth()-start.getMonth();
   if(months<0){years--;months+=12;}
   if(years>0&&months>0)return`심은 지 ${years}년 ${months}개월`;
   if(years>0)return`심은 지 ${years}년`;
   if(months>0)return`심은 지 ${months}개월`;
-  const diff=Math.floor((now-start)/86400000);
-  return`심은 지 ${diff}일`;
+  return`심은 지 ${Math.floor((now-start)/86400000)}일`;
 }
-
 function getYear(d){return d?d.slice(0,4):''}
 
-/* ── 날짜 ── */
 function updateDateDisplay(){document.getElementById('date-chip').textContent=fmtDate(globalDate)}
 function openDatePicker(){document.getElementById('global-date-input').value=globalDate;document.getElementById('date-pick-modal').classList.remove('hidden')}
 function applyGlobalDate(){const v=document.getElementById('global-date-input').value;if(v)globalDate=v;updateDateDisplay();closeModal('date-pick-modal')}
 
-/* ── 버전 ── */
-function getVersion(){
-  const d=new Date();
-  return`ver${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}${String(d.getHours()).padStart(2,'0')}${String(d.getMinutes()).padStart(2,'0')}`;
-}
+function getVersion(){const d=new Date();return`ver${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}${String(d.getHours()).padStart(2,'0')}${String(d.getMinutes()).padStart(2,'0')}`;}
 function renderVersion(){const el=document.getElementById('version-badge');if(el)el.textContent=getVersion();}
 
-/* ── 배경색 ── */
 function applyBg(color,source){
-  if(source==='reset')color='';
-  settings.bgColor=color;saveSettings();
-  document.body.style.background=color||'';
+  if(source==='reset')color='';settings.bgColor=color;saveSettings();document.body.style.background=color||'';
   document.getElementById('custom-color-hex').textContent=color||'기본값';
   document.querySelectorAll('.swatch').forEach(s=>s.classList.toggle('active',s.dataset.color===color));
   if(source!=='custom'&&color)document.getElementById('custom-bg-color').value=color;
 }
 function renderSwatches(){
   renderVersion();
-  document.getElementById('color-swatches').innerHTML=BG_PRESETS.map(p=>
-    `<div class="swatch${settings.bgColor===p.color?' active':''}" style="background:${p.color};border:1px solid #ccc" title="${p.label}" data-color="${p.color}" onclick="applyBg('${p.color}','preset')"></div>`
-  ).join('');
+  document.getElementById('color-swatches').innerHTML=BG_PRESETS.map(p=>`<div class="swatch${settings.bgColor===p.color?' active':''}" style="background:${p.color};border:1px solid #ccc" title="${p.label}" data-color="${p.color}" onclick="applyBg('${p.color}','preset')"></div>`).join('');
 }
 
-/* ── 할일 ── */
 function todoItemHtml(t){
   const dateTag=t.addedDate?`<span class="tdateTag">(${fmtShort(t.addedDate)})</span>`:'';
   if(t.done)return`<div class="titem"><div class="tcb done" onclick="toggleTodo(${t.id})"></div><span class="ttxt done">${t.text} ${dateTag}</span><button class="tdel" onclick="deleteTodo(${t.id})">✕</button></div>`;
@@ -860,22 +622,11 @@ function renderTodos(){
   if(done.length>MAX){const n=done.length-MAX;dh+=`<button class="more-btn" onclick="showAllDone=!showAllDone;renderTodos()">${showAllDone?'▲ 접기':'▼ 더보기 ('+n+'개)'}</button>`;}
   dEl.innerHTML=dh;
 }
-function addTodo(){
-  const v=document.getElementById('todo-input').value.trim();if(!v)return;
-  const id=todos.length>0?Math.max(...todos.map(t=>t.id))+1:1;
-  todos.unshift({id,text:v,done:false,addedDate:globalDate});
-  saveTodos();document.getElementById('todo-input').value='';renderTodos();
-}
+function addTodo(){const v=document.getElementById('todo-input').value.trim();if(!v)return;const id=todos.length>0?Math.max(...todos.map(t=>t.id))+1:1;todos.unshift({id,text:v,done:false,addedDate:globalDate});saveTodos();document.getElementById('todo-input').value='';renderTodos();}
 function toggleTodo(id){const t=todos.find(t=>t.id===id);if(t){t.done=!t.done;saveTodos();renderTodos()}}
 function deleteTodo(id){todos=todos.filter(t=>t.id!==id);saveTodos();renderTodos()}
 
-/* ── 작물 목록 (심은 날 최신순 정렬 #7) ── */
-const EMOJI_NAME={
-  '🍆':'가지','🥔':'감자','🌶️':'고추','🍠':'고구마','🥕':'당근',
-  '🌿':'대파','🧄':'마늘','🟢':'매실','🍑':'복숭아','🥬':'상추',
-  '🍉':'수박','🌱':'아스파라거스','🧅':'양파','🥒':'오이','🌽':'옥수수',
-  '🫐':'자두','🍈':'참외','🪴':'쪽파','🍅':'토마토','🎃':'호박','🌾':'기타'
-};
+const EMOJI_NAME={'🍆':'가지','🥔':'감자','🌶️':'고추','🍠':'고구마','🥕':'당근','🌿':'대파','🧄':'마늘','🟢':'매실','🍑':'복숭아','🥬':'상추','🍉':'수박','🌱':'아스파라거스','🧅':'양파','🥒':'오이','🌽':'옥수수','🫐':'자두','🍈':'참외','🪴':'쪽파','🍅':'토마토','🎃':'호박','🌾':'기타'};
 function emojiLabel(emoji){return EMOJI_NAME[emoji]||''}
 
 function renderList(){
@@ -907,13 +658,10 @@ function renderList(){
 }
 
 function toggleHarvest(e,id){
-  e.stopPropagation();
-  const c=crops.find(c=>c.id===id);if(!c)return;
+  e.stopPropagation();const c=crops.find(c=>c.id===id);if(!c)return;
   if(!c.harvested){
-    harvestPendingId=id;
-    document.getElementById('harvest-info').textContent=`${c.emoji} ${c.name}의 최종 수확 정보를 기록해주세요.`;
-    document.getElementById('harvest-yield').value=c.yieldNote||'';
-    document.getElementById('harvest-date').value=globalDate;
+    harvestPendingId=id;document.getElementById('harvest-info').textContent=`${c.emoji} ${c.name}의 최종 수확 정보를 기록해주세요.`;
+    document.getElementById('harvest-yield').value=c.yieldNote||'';document.getElementById('harvest-date').value=globalDate;
     document.getElementById('harvest-modal').classList.remove('hidden');
   } else {c.harvested=false;c.harvestDate='';c.yieldNote='';save();renderList()}
 }
@@ -925,12 +673,9 @@ function confirmHarvest(){
   save();document.getElementById('harvest-modal').classList.add('hidden');harvestPendingId=null;renderList();
 }
 
-/* ── 작물 상세 ── */
 function showDetail(id){
-  currentCropId=id;
-  const c=crops.find(c=>c.id===id);
-  document.getElementById('d-emoji').textContent=c.emoji;
-  document.getElementById('d-name').textContent=c.name;
+  currentCropId=id;const c=crops.find(c=>c.id===id);
+  document.getElementById('d-emoji').textContent=c.emoji;document.getElementById('d-name').textContent=c.name;
   document.getElementById('d-planted').textContent=`심은 날: ${fmtDate(c.planted)} · ${daysSince(c.planted)}`;
   document.getElementById('entry-date-sel').value=globalDate;
   resetNewEntryForm();renderEntries(c);
@@ -940,181 +685,87 @@ function showDetail(id){
   document.getElementById('scroll-area').scrollTop=0;
   document.getElementById('topbar-title').innerHTML=`<button onclick="showPrev()" style="background:none;border:none;font-size:15px;color:var(--green);font-family:inherit;font-weight:600;padding:0;cursor:pointer">← 뒤로</button>`;
 }
-function showPrev(){
-  document.getElementById('detail-view').classList.remove('active');
-  document.getElementById('topbar-title').textContent='🌙 달빛 농장';
-  switchTab(prevTab);
-}
+function showPrev(){document.getElementById('detail-view').classList.remove('active');document.getElementById('topbar-title').textContent='🌙 달빛 농장';switchTab(prevTab);}
 
 function renderEntries(c){
   const list=document.getElementById('entry-list');
   const sorted=[...(c.entries||[])].sort((a,b)=>b.date.localeCompare(a.date));
-  if(!sorted.length){list.innerHTML='<div style="font-size:13px;color:var(--tx3);padding:4px 0 10px">아직 기록이 없어요. 아래에서 첫 기록을 추가해보세요.</div>';return;}
+  if(!sorted.length){list.innerHTML='<div style="font-size:13px;color:var(--tx3);padding:4px 0 10px">아직 기록이 없어요.</div>';return;}
   list.innerHTML=sorted.map(entry=>{
     const oi=c.entries.findIndex(e=>e.date===entry.date);
     const photos=entry.photos||[];
-    const strip=photos.length
-      ?'<div class="entry-photos-col">'+photos.map((ph,pi)=>`<div class="ephoto-wrap"><img src="${ph}" alt="" onclick="openLightboxDetail(${oi},${pi})"><button class="ephoto-del" onclick="deleteEntryPhoto(${oi},${pi})">✕</button></div>`).join('')+'</div>'
-      :'<div class="no-photo-strip">사진 없음</div>';
+    const strip=photos.length?'<div class="entry-photos-col">'+photos.map((ph,pi)=>`<div class="ephoto-wrap"><img src="${ph}" alt="" onclick="openLightboxDetail(${oi},${pi})"><button class="ephoto-del" onclick="deleteEntryPhoto(${oi},${pi})">✕</button></div>`).join('')+'</div>':'<div class="no-photo-strip">사진 없음</div>';
     const memoH=entry.memo?entry.memo.replace(/</g,'&lt;').replace(/\n/g,'<br>'):'';
-    return`<div class="entry-slot">
-      <div class="entry-slot-header">
-        <span class="edate">${fmtDate(entry.date)}<span class="ecount">사진 ${photos.length}장</span></span>
-        <button class="edelete-all" onclick="deleteEntry(${oi})">삭제</button>
-      </div>
-      ${strip}
-      <div class="entry-memo-col">
-        ${memoH?`<div class="ememo-text">${memoH}</div>`:'<div class="ememo-empty">메모 없음</div>'}
-        <button class="entry-edit-btn" onclick="openEditEntry(${oi})">✎ 날짜·사진·메모 수정</button>
-      </div>
-    </div>`;
+    return`<div class="entry-slot"><div class="entry-slot-header"><span class="edate">${fmtDate(entry.date)}<span class="ecount">사진 ${photos.length}장</span></span><button class="edelete-all" onclick="deleteEntry(${oi})">삭제</button></div>${strip}<div class="entry-memo-col">${memoH?`<div class="ememo-text">${memoH}</div>`:'<div class="ememo-empty">메모 없음</div>'}<button class="entry-edit-btn" onclick="openEditEntry(${oi})">✎ 날짜·사진·메모 수정</button></div></div>`;
   }).join('');
 }
-
-function deleteEntryPhoto(oi,pi){
-  showConfirm('사진 삭제','이 사진을 삭제할까요?',()=>{
-    const c=crops.find(c=>c.id===currentCropId);c.entries[oi].photos.splice(pi,1);save();renderEntries(c);
-  });
-}
-function deleteEntry(idx){
-  showConfirm('기록 삭제','이 날의 사진과 메모를 모두 삭제할까요?',()=>{
-    const c=crops.find(c=>c.id===currentCropId);c.entries.splice(idx,1);save();renderEntries(c);
-  });
-}
-function openLightboxDetail(oi,pi){
-  const c=crops.find(c=>c.id===currentCropId);const e=c.entries[oi];
-  openLightboxDirect(e.photos[pi],e.date,e.memo,pi,e.photos.length);
-}
+function deleteEntryPhoto(oi,pi){showConfirm('사진 삭제','이 사진을 삭제할까요?',()=>{const c=crops.find(c=>c.id===currentCropId);c.entries[oi].photos.splice(pi,1);save();renderEntries(c);});}
+function deleteEntry(idx){showConfirm('기록 삭제','이 날의 사진과 메모를 모두 삭제할까요?',()=>{const c=crops.find(c=>c.id===currentCropId);c.entries.splice(idx,1);save();renderEntries(c);});}
+function openLightboxDetail(oi,pi){const c=crops.find(c=>c.id===currentCropId);const e=c.entries[oi];openLightboxDirect(e.photos[pi],e.date,e.memo,pi,e.photos.length);}
 function openLightboxDirect(src,date,memo,idx,total){
   document.getElementById('lb-img').src=src;
   document.getElementById('lb-date-info').textContent=`${fmtDate(date)} (${idx+1}/${total}장)`;
-  document.getElementById('lb-memo-list').innerHTML=memo
-    ?memo.replace(/</g,'&lt;').replace(/\n/g,'<br>')
-    :'<span class="lb-no-memo">이 날짜에 작성된 메모가 없어요.</span>';
+  document.getElementById('lb-memo-list').innerHTML=memo?memo.replace(/</g,'&lt;').replace(/\n/g,'<br>'):'<span class="lb-no-memo">메모 없음</span>';
   document.getElementById('lightbox').classList.remove('hidden');
 }
 function closeLightbox(){document.getElementById('lightbox').classList.add('hidden')}
 
-/* 새 기록 */
-function previewPhotos(e){
-  const files=Array.from(e.target.files);if(!files.length)return;
-  let n=0;
-  files.forEach(f=>{const r=new FileReader();r.onload=ev=>{pendingPhotos.push(ev.target.result);n++;if(n===files.length)renderPreviewArea();};r.readAsDataURL(f);});
-  e.target.value='';
-}
-function renderPreviewArea(){
-  const a=document.getElementById('add-photos-col');
-  if(!pendingPhotos.length){a.innerHTML='<div class="no-preview-placeholder">📷</div>';return;}
-  a.innerHTML=pendingPhotos.map((ph,i)=>`<div class="preview-wrap"><img src="${ph}" alt=""><button class="preview-del" onclick="removePendingPhoto(${i})">✕</button></div>`).join('');
-}
+function previewPhotos(e){const files=Array.from(e.target.files);if(!files.length)return;let n=0;files.forEach(f=>{const r=new FileReader();r.onload=ev=>{pendingPhotos.push(ev.target.result);n++;if(n===files.length)renderPreviewArea();};r.readAsDataURL(f);});e.target.value='';}
+function renderPreviewArea(){const a=document.getElementById('add-photos-col');if(!pendingPhotos.length){a.innerHTML='<div class="no-preview-placeholder">📷</div>';return;}a.innerHTML=pendingPhotos.map((ph,i)=>`<div class="preview-wrap"><img src="${ph}" alt=""><button class="preview-del" onclick="removePendingPhoto(${i})">✕</button></div>`).join('');}
 function removePendingPhoto(i){pendingPhotos.splice(i,1);renderPreviewArea()}
 function resetNewEntryForm(){pendingPhotos=[];renderPreviewArea();document.getElementById('new-entry-memo').value=''}
 function saveEntry(){
-  const date=document.getElementById('entry-date-sel').value||globalDate;
-  const memo=document.getElementById('new-entry-memo').value.trim();
+  const date=document.getElementById('entry-date-sel').value||globalDate;const memo=document.getElementById('new-entry-memo').value.trim();
   if(!pendingPhotos.length&&!memo){showConfirm('입력 필요','사진이나 메모 중 하나 이상 입력해주세요.',()=>{},'확인','var(--green)');return;}
-  const c=crops.find(c=>c.id===currentCropId);
-  const ei=c.entries.findIndex(e=>e.date===date);
-  if(ei>=0){
-    showConfirm('기록 추가',`${fmtDate(date)}에 이미 기록이 있습니다. 사진·메모를 추가할까요?`,()=>{
-      c.entries[ei].photos.push(...pendingPhotos);if(memo)c.entries[ei].memo=memo;
-      save();resetNewEntryForm();renderEntries(c);document.getElementById('scroll-area').scrollTop=0;
-    },'추가','var(--green)');
-  } else {
-    c.entries.push({date,photos:[...pendingPhotos],memo});
-    save();resetNewEntryForm();renderEntries(c);document.getElementById('scroll-area').scrollTop=0;
-  }
+  const c=crops.find(c=>c.id===currentCropId);const ei=c.entries.findIndex(e=>e.date===date);
+  if(ei>=0){showConfirm('기록 추가',`${fmtDate(date)}에 이미 기록이 있습니다. 추가할까요?`,()=>{c.entries[ei].photos.push(...pendingPhotos);if(memo)c.entries[ei].memo=memo;save();resetNewEntryForm();renderEntries(c);document.getElementById('scroll-area').scrollTop=0;},'추가','var(--green)');}
+  else{c.entries.push({date,photos:[...pendingPhotos],memo});save();resetNewEntryForm();renderEntries(c);document.getElementById('scroll-area').scrollTop=0;}
 }
-
-/* 수정 모달 - 날짜 수정 포함 (#3) */
-let editingEntryIdx=null;
 function openEditEntry(idx){
   const c=crops.find(c=>c.id===currentCropId);const e=c.entries[idx];
-  editingEntryDate=e.date;
-  editingEntryIdx=idx;
-  document.getElementById('edit-modal-title').textContent=`기록 수정`;
+  editingEntryDate=e.date;editingEntryIdx=idx;
+  document.getElementById('edit-modal-title').textContent='기록 수정';
   document.getElementById('edit-entry-date-input').value=e.date;
-  renderEditPhotosGrid(e.photos||[]);
-  document.getElementById('edit-modal-memo').value=e.memo||'';
+  renderEditPhotosGrid(e.photos||[]);document.getElementById('edit-modal-memo').value=e.memo||'';
   document.getElementById('edit-entry-modal').classList.remove('hidden');
 }
-function renderEditPhotosGrid(photos){
-  document.getElementById('edit-photos-grid').innerHTML=photos.map((ph,i)=>`<div class="edit-photo-thumb"><img src="${ph}" alt=""><button class="edit-photo-del" onclick="editDeletePhoto(${i})">✕</button></div>`).join('');
-}
-function editDeletePhoto(pi){
-  const c=crops.find(c=>c.id===currentCropId);const e=c.entries.find(e=>e.date===editingEntryDate);
-  if(!e)return;e.photos.splice(pi,1);save();renderEditPhotosGrid(e.photos);
-}
-function editAddPhotos(ev){
-  const files=Array.from(ev.target.files);if(!files.length)return;let n=0;
-  const c=crops.find(c=>c.id===currentCropId);const e=c.entries.find(e=>e.date===editingEntryDate);
-  files.forEach(f=>{const r=new FileReader();r.onload=x=>{if(e)e.photos.push(x.target.result);n++;if(n===files.length){save();renderEditPhotosGrid(e?e.photos:[]);}};r.readAsDataURL(f);});
-  ev.target.value='';
-}
+function renderEditPhotosGrid(photos){document.getElementById('edit-photos-grid').innerHTML=photos.map((ph,i)=>`<div class="edit-photo-thumb"><img src="${ph}" alt=""><button class="edit-photo-del" onclick="editDeletePhoto(${i})">✕</button></div>`).join('');}
+function editDeletePhoto(pi){const c=crops.find(c=>c.id===currentCropId);const e=c.entries.find(e=>e.date===editingEntryDate);if(!e)return;e.photos.splice(pi,1);save();renderEditPhotosGrid(e.photos);}
+function editAddPhotos(ev){const files=Array.from(ev.target.files);if(!files.length)return;let n=0;const c=crops.find(c=>c.id===currentCropId);const e=c.entries.find(e=>e.date===editingEntryDate);files.forEach(f=>{const r=new FileReader();r.onload=x=>{if(e)e.photos.push(x.target.result);n++;if(n===files.length){save();renderEditPhotosGrid(e?e.photos:[]);}};r.readAsDataURL(f);});ev.target.value='';}
 function saveEditEntry(){
-  const c=crops.find(c=>c.id===currentCropId);
-  const e=c.entries.find(e=>e.date===editingEntryDate);
-  if(!e)return;
+  const c=crops.find(c=>c.id===currentCropId);const e=c.entries.find(e=>e.date===editingEntryDate);if(!e)return;
   const newDate=document.getElementById('edit-entry-date-input').value;
-  // 날짜 변경 시 중복 체크
-  if(newDate&&newDate!==editingEntryDate){
-    const conflict=c.entries.find(en=>en.date===newDate);
-    if(conflict){
-      showConfirm('날짜 중복',`${fmtDate(newDate)}에 이미 기록이 있어요. 다른 날짜를 선택해주세요.`,()=>{},'확인','var(--amber)');
-      return;
-    }
-    e.date=newDate;
-    editingEntryDate=newDate;
-  }
+  if(newDate&&newDate!==editingEntryDate){const conflict=c.entries.find(en=>en.date===newDate);if(conflict){showConfirm('날짜 중복',`${fmtDate(newDate)}에 이미 기록이 있어요.`,()=>{},'확인','var(--amber)');return;}e.date=newDate;editingEntryDate=newDate;}
   e.memo=document.getElementById('edit-modal-memo').value.trim();
   save();closeModal('edit-entry-modal');renderEntries(c);
 }
 
-/* ── 최근기록 ── */
 function renderTimeline(){
   const all=[];
   crops.forEach(c=>{
-    (c.entries||[]).forEach(e=>{
-      if((e.photos&&e.photos.length)||e.memo)
-        all.push({date:e.date,type:'entry',cropName:c.name,cropEmoji:c.emoji,photos:e.photos||[],memo:e.memo,cropId:c.id});
-    });
+    (c.entries||[]).forEach(e=>{if((e.photos&&e.photos.length)||e.memo)all.push({date:e.date,type:'entry',cropName:c.name,cropEmoji:c.emoji,photos:e.photos||[],memo:e.memo,cropId:c.id});});
     if(c.harvested&&c.harvestDate)all.push({date:c.harvestDate,type:'harvest',cropName:c.name,cropEmoji:c.emoji,yieldNote:c.yieldNote});
   });
-  trees.forEach(t=>{
-    (t.entries||[]).forEach(e=>{
-      if((e.photos&&e.photos.length)||e.memo)
-        all.push({date:e.date,type:'tree-entry',cropName:t.name,cropEmoji:t.emoji,photos:e.photos||[],memo:e.memo,cropId:t.id});
-    });
-  });
+  trees.forEach(t=>{(t.entries||[]).forEach(e=>{if((e.photos&&e.photos.length)||e.memo)all.push({date:e.date,type:'tree-entry',cropName:t.name,cropEmoji:t.emoji,photos:e.photos||[],memo:e.memo,cropId:t.id});});});
   all.sort((a,b)=>b.date.localeCompare(a.date));
   const cont=document.getElementById('timeline-list');
   if(!all.length){cont.innerHTML='<div style="text-align:center;padding:3rem;color:var(--tx3)">아직 기록이 없어요.</div>';return;}
   cont.innerHTML=all.slice(0,60).map(item=>{
     if(item.type==='entry'||item.type==='tree-entry'){
       const photoStrip=item.photos.map((ph,pi)=>`<img src="${ph}" style="width:80px;height:64px;object-fit:cover;border-radius:6px;cursor:pointer;flex-shrink:0" onclick="openLightbox(${item.type==='tree-entry'?'null':item.cropId},'${item.date}',${pi},${item.type==='tree-entry'})" alt="">`).join('');
-      return`<div class="tl-item"><div class="tl-top"><span class="tl-who">${item.cropEmoji} ${item.cropName}</span><span class="tl-date">${fmtDate(item.date)}</span></div>
-        ${photoStrip?`<div class="tl-photos">${photoStrip}</div>`:''}
-        ${item.memo?`<div style="font-size:14px;color:var(--tx);line-height:1.6;margin-top:4px">${item.memo.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>`:''}
-      </div>`;
+      return`<div class="tl-item"><div class="tl-top"><span class="tl-who">${item.cropEmoji} ${item.cropName}</span><span class="tl-date">${fmtDate(item.date)}</span></div>${photoStrip?`<div class="tl-photos">${photoStrip}</div>`:''}${item.memo?`<div style="font-size:14px;color:var(--tx);line-height:1.6;margin-top:4px">${item.memo.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>`:''}</div>`;
     }
     return`<div class="tl-item"><div class="tl-top"><span class="tl-who">${item.cropEmoji} ${item.cropName} — 수확 완료</span><span class="tl-date">${fmtDate(item.date)}</span></div><div style="margin-top:6px"><span class="yield-tag">${item.yieldNote||'수확 완료'}</span></div></div>`;
   }).join('');
 }
-
 function openLightbox(cropId,date,photoIdx,isTree=false){
   let entry;
-  if(isTree){
-    const t=trees.find(t=>t.entries&&t.entries.some(e=>e.date===date));
-    entry=t?(t.entries||[]).find(e=>e.date===date):null;
-  } else {
-    const crop=crops.find(c=>c.id===cropId)||{entries:[]};
-    entry=(crop.entries||[]).find(e=>e.date===date);
-  }
+  if(isTree){const t=trees.find(t=>t.entries&&t.entries.some(e=>e.date===date));entry=t?(t.entries||[]).find(e=>e.date===date):null;}
+  else{const crop=crops.find(c=>c.id===cropId)||{entries:[]};entry=(crop.entries||[]).find(e=>e.date===date);}
   if(!entry||(entry.photos||[]).length===0)return;
   openLightboxDirect(entry.photos[photoIdx||0],date,entry.memo,photoIdx||0,entry.photos.length);
 }
 
-/* ── 연도별 ── */
 function renderYearly(){
   const cont=document.getElementById('yearly-content');
   const years=[...new Set(crops.map(c=>c.harvested&&c.harvestDate?getYear(c.harvestDate):getYear(c.planted)))].filter(Boolean).sort((a,b)=>b-a);
@@ -1122,27 +773,13 @@ function renderYearly(){
   cont.innerHTML=years.map(year=>{
     const yc=crops.filter(c=>c.harvested&&c.harvestDate?getYear(c.harvestDate)===year:getYear(c.planted)===year);const hc=yc.filter(c=>c.harvested);
     const rows=yc.map(c=>`<div class="ycrow"><span class="ycem">${c.emoji}</span><div class="ycinfo"><div class="ycname">${c.name}</div><div class="ycdates">심은 날: ${fmtDate(c.planted)}${c.harvested&&c.harvestDate?' · 수확: '+fmtDate(c.harvestDate):''}</div></div><div class="ycright">${c.harvested?`<span class="yield-tag">${c.yieldNote||'수확 완료'}</span>`:'<span class="growing-tag">재배중</span>'}</div></div>`).join('');
-    return`<div class="year-block"><div class="year-header" onclick="this.nextElementSibling.classList.toggle('hidden')"><span class="year-title">${year}년</span><span class="year-sum">작물 ${yc.length}종 · 수확 ${hc.length}종</span></div>
-      <div class="year-body"><div class="year-stats">
-        <div class="ystat"><div class="ystat-num">${yc.length}</div><div class="ystat-lbl">심은 작물</div></div>
-        <div class="ystat"><div class="ystat-num" style="color:var(--green)">${hc.length}</div><div class="ystat-lbl">수확 완료</div></div>
-        <div class="ystat"><div class="ystat-num" style="color:var(--amber)">${yc.length-hc.length}</div><div class="ystat-lbl">재배중</div></div>
-      </div>${rows}</div></div>`;
+    return`<div class="year-block"><div class="year-header" onclick="this.nextElementSibling.classList.toggle('hidden')"><span class="year-title">${year}년</span><span class="year-sum">작물 ${yc.length}종 · 수확 ${hc.length}종</span></div><div class="year-body"><div class="year-stats"><div class="ystat"><div class="ystat-num">${yc.length}</div><div class="ystat-lbl">심은 작물</div></div><div class="ystat"><div class="ystat-num" style="color:var(--green)">${hc.length}</div><div class="ystat-lbl">수확 완료</div></div><div class="ystat"><div class="ystat-num" style="color:var(--amber)">${yc.length-hc.length}</div><div class="ystat-lbl">재배중</div></div></div>${rows}</div></div>`;
   }).join('');
 }
 
-/* ── 농장 기록 게시판 (#5) ── */
-function boardPreviewPhotos(e){
-  const files=Array.from(e.target.files);if(!files.length)return;
-  let n=0;
-  files.forEach(f=>{const r=new FileReader();r.onload=ev=>{boardPendingPhotos.push(ev.target.result);n++;if(n===files.length)renderBoardPreview();};r.readAsDataURL(f);});
-  e.target.value='';
-}
-function renderBoardPreview(){
-  const a=document.getElementById('board-preview-strip');
-  if(!boardPendingPhotos.length){a.innerHTML='<div class="no-preview-placeholder">📷</div>';return;}
-  a.innerHTML=boardPendingPhotos.map((ph,i)=>`<div class="preview-wrap"><img src="${ph}" alt=""><button class="preview-del" onclick="removeBoardPhoto(${i})">✕</button></div>`).join('');
-}
+/* ── 농장 기록 게시판 ── */
+function boardPreviewPhotos(e){const files=Array.from(e.target.files);if(!files.length)return;let n=0;files.forEach(f=>{const r=new FileReader();r.onload=ev=>{boardPendingPhotos.push(ev.target.result);n++;if(n===files.length)renderBoardPreview();};r.readAsDataURL(f);});e.target.value='';}
+function renderBoardPreview(){const a=document.getElementById('board-preview-strip');if(!boardPendingPhotos.length){a.innerHTML='<div class="no-preview-placeholder">📷</div>';return;}a.innerHTML=boardPendingPhotos.map((ph,i)=>`<div class="preview-wrap"><img src="${ph}" alt=""><button class="preview-del" onclick="removeBoardPhoto(${i})">✕</button></div>`).join('');}
 function removeBoardPhoto(i){boardPendingPhotos.splice(i,1);renderBoardPreview()}
 function saveBoardPost(){
   const title=document.getElementById('board-title-input').value.trim();
@@ -1150,26 +787,38 @@ function saveBoardPost(){
   const date=document.getElementById('board-date-sel').value||globalDate;
   if(!title&&!body){showConfirm('입력 필요','제목이나 내용을 입력해주세요.',()=>{},'확인','var(--green)');return;}
   const id=boardPosts.length>0?Math.max(...boardPosts.map(p=>p.id))+1:1;
-  boardPosts.unshift({id,title:title||'(제목 없음)',body,date,photos:[...boardPendingPhotos]});
+  boardPosts.push({id,title:title||'(제목 없음)',body,date,photos:[...boardPendingPhotos]});
   saveBoard();
-  document.getElementById('board-title-input').value='';
-  document.getElementById('board-body-input').value='';
-  boardPendingPhotos=[];renderBoardPreview();
-  renderBoard();
+  document.getElementById('board-title-input').value='';document.getElementById('board-body-input').value='';
+  boardPendingPhotos=[];renderBoardPreview();renderBoard();
 }
-function deleteBoardPost(id){
-  showConfirm('글 삭제','이 게시글을 삭제할까요?',()=>{
-    boardPosts=boardPosts.filter(p=>p.id!==id);saveBoard();renderBoard();
-  });
+function deleteBoardPost(id){showConfirm('글 삭제','이 게시글을 삭제할까요?',()=>{boardPosts=boardPosts.filter(p=>p.id!==id);saveBoard();renderBoard();});}
+function togglePostBody(id){const el=document.getElementById('post-body-'+id);if(el)el.classList.toggle('open');}
+
+/* 게시글 수정 (#2) */
+function openEditPost(id){
+  const p=boardPosts.find(p=>p.id===id);if(!p)return;
+  editingPostId=id;
+  document.getElementById('edit-post-date').value=p.date||globalDate;
+  document.getElementById('edit-post-title').value=p.title||'';
+  document.getElementById('edit-post-body').value=p.body||'';
+  document.getElementById('edit-post-modal').classList.remove('hidden');
 }
-function togglePostBody(id){
-  const el=document.getElementById('post-body-'+id);
-  if(el)el.classList.toggle('open');
+function saveEditPost(){
+  const p=boardPosts.find(p=>p.id===editingPostId);if(!p)return;
+  p.date=document.getElementById('edit-post-date').value||p.date;
+  p.title=document.getElementById('edit-post-title').value.trim()||'(제목 없음)';
+  p.body=document.getElementById('edit-post-body').value.trim();
+  saveBoard();closeModal('edit-post-modal');renderBoard();
 }
+
+/* 게시판 렌더 - 작성날짜 최신순 (#3) */
 function renderBoard(){
   const cont=document.getElementById('board-list');
   if(!boardPosts.length){cont.innerHTML='<div class="no-post">아직 작성된 글이 없어요.<br>농장 일지를 기록해보세요! 🌱</div>';return;}
-  cont.innerHTML=boardPosts.map(p=>{
+  // 날짜 기준 내림차순 정렬 (#3)
+  const sorted=[...boardPosts].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+  cont.innerHTML=sorted.map(p=>{
     const photos=p.photos&&p.photos.length?`<div class="post-photos">${p.photos.map((ph,pi)=>`<img src="${ph}" alt="" onclick="openLightboxDirect('${ph}','${p.date}','',${pi},${p.photos.length})">`).join('')}</div>`:'';
     return`<div class="post-item">
       <div class="post-header">
@@ -1179,6 +828,7 @@ function renderBoard(){
       </div>
       ${photos}
       <div class="post-body" id="post-body-${p.id}">${p.body?p.body.replace(/</g,'&lt;').replace(/\n/g,'<br>'):''}</div>
+      <button class="post-edit-btn" onclick="openEditPost(${p.id})">✎ 수정</button>
     </div>`;
   }).join('');
 }
@@ -1188,10 +838,7 @@ function switchTab(tab){
   if(tab!=='settings')prevTab=tab;
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
-  ['timeline','list','tree','yearly','board'].forEach(t=>{
-    const b=document.getElementById('nav-'+t);
-    if(b)b.classList.toggle('active',t===tab);
-  });
+  ['timeline','list','tree','yearly','board'].forEach(t=>{const b=document.getElementById('nav-'+t);if(b)b.classList.toggle('active',t===tab);});
   document.getElementById('topbar-title').textContent='🌙 달빛 농장';
   const ts=document.getElementById('todo-section');
   ts.classList.toggle('hidden',tab==='settings'||tab==='yearly'||tab==='list'||tab==='tree'||tab==='board');
@@ -1200,123 +847,56 @@ function switchTab(tab){
   if(tab==='list')renderList();
   if(tab==='tree')renderTreeList();
   if(tab==='yearly')renderYearly();
-  if(tab==='board'){
-    document.getElementById('board-date-sel').value=globalDate;
-    renderBoard();
-  }
+  if(tab==='board'){document.getElementById('board-date-sel').value=globalDate;renderBoard();}
   if(tab==='settings')renderSwatches();
 }
 
 /* ── 작물 정보 수정 ── */
 let editCropId=null;
-function openEditCrop(e,id){
-  e.stopPropagation();
-  const c=crops.find(c=>c.id===id);if(!c)return;
-  editCropId=id;
-  document.getElementById('edit-crop-emoji').value=c.emoji;
-  document.getElementById('edit-crop-name').value=c.name;
-  document.getElementById('edit-crop-date').value=c.planted;
-  document.getElementById('edit-crop-modal').classList.remove('hidden');
-}
+function openEditCrop(e,id){e.stopPropagation();const c=crops.find(c=>c.id===id);if(!c)return;editCropId=id;document.getElementById('edit-crop-emoji').value=c.emoji;document.getElementById('edit-crop-name').value=c.name;document.getElementById('edit-crop-date').value=c.planted;document.getElementById('edit-crop-modal').classList.remove('hidden');}
 function saveEditCrop(){
-  const c=crops.find(c=>c.id===editCropId);if(!c)return;
-  const name=document.getElementById('edit-crop-name').value.trim();
+  const c=crops.find(c=>c.id===editCropId);if(!c)return;const name=document.getElementById('edit-crop-name').value.trim();
   if(!name){showConfirm('입력 필요','작물 이름을 입력해주세요.',()=>{},'확인','var(--green)');return;}
-  c.emoji=document.getElementById('edit-crop-emoji').value;
-  c.name=name;
-  c.planted=document.getElementById('edit-crop-date').value||c.planted;
+  c.emoji=document.getElementById('edit-crop-emoji').value;c.name=name;c.planted=document.getElementById('edit-crop-date').value||c.planted;
   save();closeModal('edit-crop-modal');
-  if(currentCropId===editCropId){
-    document.getElementById('d-emoji').textContent=c.emoji;
-    document.getElementById('d-name').textContent=c.name;
-    document.getElementById('d-planted').textContent=`심은 날: ${fmtDate(c.planted)} · ${daysSince(c.planted)}`;
-  }
+  if(currentCropId===editCropId){document.getElementById('d-emoji').textContent=c.emoji;document.getElementById('d-name').textContent=c.name;document.getElementById('d-planted').textContent=`심은 날: ${fmtDate(c.planted)} · ${daysSince(c.planted)}`;}
   editCropId=null;renderList();
 }
-function openEditCropFromDetail(){
-  const c=crops.find(c=>c.id===currentCropId);if(!c)return;
-  editCropId=currentCropId;
-  document.getElementById('edit-crop-emoji').value=c.emoji;
-  document.getElementById('edit-crop-name').value=c.name;
-  document.getElementById('edit-crop-date').value=c.planted;
-  document.getElementById('edit-crop-modal').classList.remove('hidden');
-}
-function deleteCrop(){
-  const c=crops.find(c=>c.id===currentCropId);if(!c)return;
-  showConfirm('작물 삭제',`"${c.emoji} ${c.name}" 작물을 삭제할까요?\n기록된 사진과 메모도 모두 삭제됩니다.`,
-    ()=>{crops=crops.filter(c=>c.id!==currentCropId);save();showPrev();}
-  );
-}
+function openEditCropFromDetail(){const c=crops.find(c=>c.id===currentCropId);if(!c)return;editCropId=currentCropId;document.getElementById('edit-crop-emoji').value=c.emoji;document.getElementById('edit-crop-name').value=c.name;document.getElementById('edit-crop-date').value=c.planted;document.getElementById('edit-crop-modal').classList.remove('hidden');}
+function deleteCrop(){const c=crops.find(c=>c.id===currentCropId);if(!c)return;showConfirm('작물 삭제',`"${c.emoji} ${c.name}" 작물을 삭제할까요?`,()=>{crops=crops.filter(c=>c.id!==currentCropId);save();showPrev();});}
 function addCrop(){
-  const name=document.getElementById('modal-name').value.trim();
-  const emoji=document.getElementById('modal-emoji').value;
-  const planted=document.getElementById('modal-date').value||globalDate;
+  const name=document.getElementById('modal-name').value.trim();const emoji=document.getElementById('modal-emoji').value;const planted=document.getElementById('modal-date').value||globalDate;
   if(!name){showConfirm('입력 필요','작물 이름을 입력해주세요.',()=>{},'확인','var(--green)');return;}
   const id=crops.length>0?Math.max(...crops.map(c=>c.id))+1:1;
   crops.push({id,name,emoji,planted,harvested:false,harvestDate:'',yieldNote:'',entries:[]});
   save();document.getElementById('modal-name').value='';closeModal('add-modal');renderList();
 }
 
-/* ── 내보내기 (사진 포함 #8) ── */
 function exportData(){
-  // 사진을 포함한 전체 데이터 저장
-  const data={
-    version:'8.0',
-    exportDate:globalDate,
-    crops:crops,  // 사진(base64) 포함
-    trees:trees,  // 사진(base64) 포함
-    todos,
-    settings,
-    boardPosts    // 게시판 포함
-  };
-  const json=JSON.stringify(data,null,2);
-  const blob=new Blob([json],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download=`달빛농장_${globalDate}.json`;a.click();URL.revokeObjectURL(url);
+  const data={version:'8.1',exportDate:globalDate,crops,trees,todos,settings,boardPosts};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`달빛농장_${globalDate}.json`;a.click();URL.revokeObjectURL(url);
 }
 function importData(e){
-  const file=e.target.files[0];if(!file)return;
-  const reader=new FileReader();
+  const file=e.target.files[0];if(!file)return;const reader=new FileReader();
   reader.onload=ev=>{
-    try{
-      const data=JSON.parse(ev.target.result);
-      if(data.crops){crops=data.crops;save();}
-      if(data.trees){trees=data.trees;saveTrees();}
-      if(data.todos){todos=data.todos;saveTodos();}
-      if(data.settings){settings=data.settings;saveSettings();if(settings.bgColor)document.body.style.background=settings.bgColor;}
+    try{const data=JSON.parse(ev.target.result);
+      if(data.crops){crops=data.crops;save();}if(data.trees){trees=data.trees;saveTrees();}
+      if(data.todos){todos=data.todos;saveTodos();}if(data.settings){settings=data.settings;saveSettings();if(settings.bgColor)document.body.style.background=settings.bgColor;}
       if(data.boardPosts){boardPosts=data.boardPosts;saveBoard();}
       renderTodos();renderSwatches();switchTab('timeline');
     }catch(err){showConfirm('오류','파일을 읽는 중 오류가 발생했습니다.',()=>{},'확인','var(--amber)');}
   };
   reader.readAsText(file);e.target.value='';
 }
-function resetAll(){
-  showConfirm('데이터 초기화','모든 작물, 나무, 메모, 할 일이 삭제됩니다.\n정말 초기화할까요?',()=>{
-    crops=[];todos=[];trees=[];boardPosts=[];
-    save();saveTodos();saveTrees();saveBoard();
-    renderTodos();switchTab('timeline');
-  },'초기화','var(--red)');
-}
+function resetAll(){showConfirm('데이터 초기화','모든 데이터가 삭제됩니다. 정말 초기화할까요?',()=>{crops=[];todos=[];trees=[];boardPosts=[];save();saveTodos();saveTrees();saveBoard();renderTodos();switchTab('timeline');},'초기화','var(--red)');}
 
-/* ── 커스텀 확인 모달 ── */
 let _confirmCallback=null;
-function showConfirm(title,msg,callback,btnLabel='삭제',btnColor='var(--red)'){
-  _confirmCallback=callback;
-  document.getElementById('confirm-title').textContent=title;
-  document.getElementById('confirm-msg').textContent=msg;
-  const btn=document.getElementById('confirm-ok-btn');
-  btn.textContent=btnLabel;
-  btn.style.background=btnColor;
-  document.getElementById('confirm-modal').classList.remove('hidden');
-}
-function confirmAction(){
-  closeModal('confirm-modal');
-  if(_confirmCallback){_confirmCallback();_confirmCallback=null;}
-}
+function showConfirm(title,msg,callback,btnLabel='삭제',btnColor='var(--red)'){_confirmCallback=callback;document.getElementById('confirm-title').textContent=title;document.getElementById('confirm-msg').textContent=msg;const btn=document.getElementById('confirm-ok-btn');btn.textContent=btnLabel;btn.style.background=btnColor;document.getElementById('confirm-modal').classList.remove('hidden');}
+function confirmAction(){closeModal('confirm-modal');if(_confirmCallback){_confirmCallback();_confirmCallback=null;}}
 function closeModal(id){document.getElementById(id).classList.add('hidden')}
 
 document.querySelectorAll('.modal-bg').forEach(bg=>bg.addEventListener('click',e=>{if(e.target===bg)bg.classList.add('hidden')}));
-
 window.addEventListener('popstate',()=>{
   if(document.getElementById('detail-view').classList.contains('active')){showPrev();history.pushState(null,'',location.href);}
   else if(document.getElementById('tab-tree-detail').classList.contains('active')){showTreePrev();history.pushState(null,'',location.href);}
@@ -1327,40 +907,37 @@ history.pushState(null,'',location.href);
 /* ════════════════════════════════════
    나무 키우기
 ════════════════════════════════════ */
-
-/* ── 나무 목록 렌더 (심은 날 최신순 #7) ── */
-const TREE_EMOJI_NAME={
-  '🍑':'감나무','🌼':'개나리','🌸':'감태나무','🍊':'귤나무',
-  '🌳':'느티나무','🍁':'단풍나무','🎋':'대나무','🟤':'대추나무','🌱':'라일락',
-  '🌺':'매화나무','🪷':'목련','🍈':'무화과나무','🌰':'밤나무',
-  '🍐':'배나무','🌿':'배롱나무','🍒':'보리수나무','🫐':'블루베리나무',
-  '🌾':'뽕나무','🍎':'사과나무','🌄':'산수유나무','🌲':'소나무',
-  '💐':'수국','🫒':'올리브나무','🍂':'은행나무','🍇':'자두나무',
-  '🍀':'주목','🪵':'편백나무','🥝':'포도나무','🌻':'해바라기',
-  '🌵':'향나무','🥜':'호두나무','🌙':'회화나무','🪴':'기타'
-};
+const TREE_EMOJI_NAME={'🟠':'감나무','🌸':'감태나무/매화나무/벚나무','🌼':'개나리/라일락/산수유나무/치자나무','🍊':'귤나무','🌳':'느티나무','🍁':'단풍나무','🎋':'대나무','🟤':'대추나무','🪷':'목련','🍈':'무화과나무','🌰':'밤나무','🍐':'배나무','🌺':'배롱나무/앵두나무/철쭉','🍒':'보리수나무','🍑':'복숭아나무/살구나무','🫐':'블루베리나무/자두나무','🌾':'뽕나무','🍎':'사과나무','🔴':'석류나무/홍가시나무','🌲':'소나무/향나무','💐':'수국','🫒':'올리브나무','🍂':'은행나무','🍇':'포도나무','🍀':'주목','🪵':'편백나무','🌻':'해바라기나무','🥜':'호두나무','🌙':'회화나무','🪴':'기타'};
 function treeEmojiLabel(emoji){return TREE_EMOJI_NAME[emoji]||''}
+
+/* ── 나무 정렬 (#1) ── */
+function setTreeSort(mode){
+  treeSortMode=mode;
+  document.getElementById('sort-date-btn').classList.toggle('active',mode==='date');
+  document.getElementById('sort-name-btn').classList.toggle('active',mode==='name');
+  renderTreeList();
+}
 
 function renderTreeList(){
   const grid=document.getElementById('tree-grid');grid.innerHTML='';
-  // 심은 날 기준 최신순 정렬 (#7)
-  const sorted=[...trees].sort((a,b)=>b.planted.localeCompare(a.planted));
+  let sorted=[...trees];
+  if(treeSortMode==='date'){
+    sorted.sort((a,b)=>b.planted.localeCompare(a.planted)); // 최신 심은 날 순
+  } else {
+    sorted.sort((a,b)=>{
+      const ka=a.kind||treeEmojiLabel(a.emoji)||a.name;
+      const kb=b.kind||treeEmojiLabel(b.emoji)||b.name;
+      return ka.localeCompare(kb,'ko');
+    });
+  }
   sorted.forEach(t=>{
     const kindName=t.kind||treeEmojiLabel(t.emoji)||t.name;
     const allPhotos=(t.entries||[]).flatMap(e=>e.photos||[]);
     const imgH=allPhotos.length>0
       ?`<div style="position:relative;width:100%;height:100%"><img src="${allPhotos[allPhotos.length-1]}" alt="" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.65));padding:5px 6px 7px;text-align:center"><div style="font-size:12px;font-weight:700;color:#fff">${t.emoji} ${kindName}</div><div style="font-size:10px;color:rgba(255,255,255,.8);margin-top:1px">${t.name}</div></div></div>`
       :`<div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 4px"><span style="font-size:36px">${t.emoji}</span><span style="font-size:12px;font-weight:700;color:var(--tx);text-align:center">${kindName}</span><span style="font-size:10px;color:var(--tx3);text-align:center">${t.name}</span></div>`;
-    const card=document.createElement('div');
-    card.className='crop-card';
-    card.innerHTML=`
-      <div class="crop-img" onclick="showTreeDetail(${t.id})">${imgH}</div>
-      <div class="crop-info">
-        <div class="crop-row"><span class="cname" onclick="showTreeDetail(${t.id})">${t.emoji} ${kindName}</span></div>
-        <div style="font-size:11px;color:var(--tx3);margin-top:1px;font-style:italic">${t.name}</div>
-        <div class="csub" style="margin-top:3px">${daysSinceTree(t.planted)}</div>
-        <button onclick="openEditTree(event,${t.id})" style="background:none;border:none;font-size:11px;color:var(--tx3);cursor:pointer;padding:4px 0 0 0;display:block;font-family:inherit">✎ 정보 수정</button>
-      </div>`;
+    const card=document.createElement('div');card.className='crop-card';
+    card.innerHTML=`<div class="crop-img" onclick="showTreeDetail(${t.id})">${imgH}</div><div class="crop-info"><div class="crop-row"><span class="cname" onclick="showTreeDetail(${t.id})">${t.emoji} ${kindName}</span></div><div style="font-size:11px;color:var(--tx3);margin-top:1px;font-style:italic">${t.name}</div><div class="csub" style="margin-top:3px">${daysSinceTree(t.planted)}</div><button onclick="openEditTree(event,${t.id})" style="background:none;border:none;font-size:11px;color:var(--tx3);cursor:pointer;padding:4px 0 0 0;display:block;font-family:inherit">✎ 정보 수정</button></div>`;
     grid.appendChild(card);
   });
   const ab=document.createElement('div');ab.className='add-crop-btn';
@@ -1371,8 +948,7 @@ function renderTreeList(){
 
 function addTree(){
   const name=document.getElementById('tree-modal-name').value.trim();
-  const sel=document.getElementById('tree-modal-emoji');
-  const emoji=sel.value;
+  const sel=document.getElementById('tree-modal-emoji');const emoji=sel.value;
   const kind=sel.options[sel.selectedIndex].text.replace(/^\S+\s*/,'').trim();
   const planted=document.getElementById('tree-modal-date').value||globalDate;
   if(!name){showConfirm('입력 필요','나무 이름을 입력해주세요.',()=>{},'확인','var(--green)');return;}
@@ -1382,10 +958,8 @@ function addTree(){
 }
 
 function showTreeDetail(id){
-  currentTreeId=id;
-  const t=trees.find(t=>t.id===id);
-  document.getElementById('td-emoji').textContent=t.emoji;
-  document.getElementById('td-name').textContent=t.name;
+  currentTreeId=id;const t=trees.find(t=>t.id===id);
+  document.getElementById('td-emoji').textContent=t.emoji;document.getElementById('td-name').textContent=t.name;
   document.getElementById('td-planted').textContent=`심은 날: ${fmtDate(t.planted)} · ${daysSinceTree(t.planted)}`;
   document.getElementById('tree-entry-date-sel').value=globalDate;
   treeResetNewEntryForm();renderTreeEntries(t);
@@ -1395,167 +969,67 @@ function showTreeDetail(id){
   document.getElementById('scroll-area').scrollTop=0;
   document.getElementById('topbar-title').innerHTML=`<button onclick="showTreePrev()" style="background:none;border:none;font-size:15px;color:var(--green);font-family:inherit;font-weight:600;padding:0;cursor:pointer">← 뒤로</button>`;
 }
-function showTreePrev(){
-  document.getElementById('tab-tree-detail').classList.remove('active');
-  document.getElementById('topbar-title').textContent='🌙 달빛 농장';
-  switchTab('tree');
-}
+function showTreePrev(){document.getElementById('tab-tree-detail').classList.remove('active');document.getElementById('topbar-title').textContent='🌙 달빛 농장';switchTab('tree');}
 
 function renderTreeEntries(t){
   const list=document.getElementById('tree-entry-list');
   const sorted=[...(t.entries||[])].sort((a,b)=>b.date.localeCompare(a.date));
-  if(!sorted.length){list.innerHTML='<div style="font-size:13px;color:var(--tx3);padding:4px 0 10px">아직 기록이 없어요. 아래에서 첫 기록을 추가해보세요.</div>';return;}
+  if(!sorted.length){list.innerHTML='<div style="font-size:13px;color:var(--tx3);padding:4px 0 10px">아직 기록이 없어요.</div>';return;}
   list.innerHTML=sorted.map(entry=>{
-    const oi=t.entries.findIndex(e=>e.date===entry.date);
-    const photos=entry.photos||[];
-    const strip=photos.length
-      ?'<div class="entry-photos-col">'+photos.map((ph,pi)=>`<div class="ephoto-wrap"><img src="${ph}" alt="" onclick="openTreeLightbox(${oi},${pi})"><button class="ephoto-del" onclick="deleteTreeEntryPhoto(${oi},${pi})">✕</button></div>`).join('')+'</div>'
-      :'<div class="no-photo-strip">사진 없음</div>';
+    const oi=t.entries.findIndex(e=>e.date===entry.date);const photos=entry.photos||[];
+    const strip=photos.length?'<div class="entry-photos-col">'+photos.map((ph,pi)=>`<div class="ephoto-wrap"><img src="${ph}" alt="" onclick="openTreeLightbox(${oi},${pi})"><button class="ephoto-del" onclick="deleteTreeEntryPhoto(${oi},${pi})">✕</button></div>`).join('')+'</div>':'<div class="no-photo-strip">사진 없음</div>';
     const memoH=entry.memo?entry.memo.replace(/</g,'&lt;').replace(/\n/g,'<br>'):'';
-    return`<div class="entry-slot">
-      <div class="entry-slot-header">
-        <span class="edate">${fmtDate(entry.date)}<span class="ecount">사진 ${photos.length}장</span></span>
-        <button class="edelete-all" onclick="deleteTreeEntry(${oi})">삭제</button>
-      </div>
-      ${strip}
-      <div class="entry-memo-col">
-        ${memoH?`<div class="ememo-text">${memoH}</div>`:'<div class="ememo-empty">메모 없음</div>'}
-        <button class="entry-edit-btn" onclick="openEditTreeEntry(${oi})">✎ 날짜·사진·메모 수정</button>
-      </div>
-    </div>`;
+    return`<div class="entry-slot"><div class="entry-slot-header"><span class="edate">${fmtDate(entry.date)}<span class="ecount">사진 ${photos.length}장</span></span><button class="edelete-all" onclick="deleteTreeEntry(${oi})">삭제</button></div>${strip}<div class="entry-memo-col">${memoH?`<div class="ememo-text">${memoH}</div>`:'<div class="ememo-empty">메모 없음</div>'}<button class="entry-edit-btn" onclick="openEditTreeEntry(${oi})">✎ 날짜·사진·메모 수정</button></div></div>`;
   }).join('');
 }
+function deleteTreeEntryPhoto(oi,pi){showConfirm('사진 삭제','이 사진을 삭제할까요?',()=>{const t=trees.find(t=>t.id===currentTreeId);t.entries[oi].photos.splice(pi,1);saveTrees();renderTreeEntries(t);});}
+function deleteTreeEntry(idx){showConfirm('기록 삭제','이 날의 사진과 메모를 모두 삭제할까요?',()=>{const t=trees.find(t=>t.id===currentTreeId);t.entries.splice(idx,1);saveTrees();renderTreeEntries(t);});}
+function openTreeLightbox(oi,pi){const t=trees.find(t=>t.id===currentTreeId);const e=t.entries[oi];openLightboxDirect(e.photos[pi],e.date,e.memo,pi,e.photos.length);}
 
-function deleteTreeEntryPhoto(oi,pi){
-  showConfirm('사진 삭제','이 사진을 삭제할까요?',()=>{
-    const t=trees.find(t=>t.id===currentTreeId);t.entries[oi].photos.splice(pi,1);saveTrees();renderTreeEntries(t);
-  });
-}
-function deleteTreeEntry(idx){
-  showConfirm('기록 삭제','이 날의 사진과 메모를 모두 삭제할까요?',()=>{
-    const t=trees.find(t=>t.id===currentTreeId);t.entries.splice(idx,1);saveTrees();renderTreeEntries(t);
-  });
-}
-function openTreeLightbox(oi,pi){
-  const t=trees.find(t=>t.id===currentTreeId);const e=t.entries[oi];
-  openLightboxDirect(e.photos[pi],e.date,e.memo,pi,e.photos.length);
-}
-
-/* 나무 새 기록 */
-function treePreviewPhotos(e){
-  const files=Array.from(e.target.files);if(!files.length)return;
-  let n=0;
-  files.forEach(f=>{const r=new FileReader();r.onload=ev=>{treePendingPhotos.push(ev.target.result);n++;if(n===files.length)treeRenderPreviewArea();};r.readAsDataURL(f);});
-  e.target.value='';
-}
-function treeRenderPreviewArea(){
-  const a=document.getElementById('tree-add-photos-col');
-  if(!treePendingPhotos.length){a.innerHTML='<div class="no-preview-placeholder">📷</div>';return;}
-  a.innerHTML=treePendingPhotos.map((ph,i)=>`<div class="preview-wrap"><img src="${ph}" alt=""><button class="preview-del" onclick="removeTreePendingPhoto(${i})">✕</button></div>`).join('');
-}
+function treePreviewPhotos(e){const files=Array.from(e.target.files);if(!files.length)return;let n=0;files.forEach(f=>{const r=new FileReader();r.onload=ev=>{treePendingPhotos.push(ev.target.result);n++;if(n===files.length)treeRenderPreviewArea();};r.readAsDataURL(f);});e.target.value='';}
+function treeRenderPreviewArea(){const a=document.getElementById('tree-add-photos-col');if(!treePendingPhotos.length){a.innerHTML='<div class="no-preview-placeholder">📷</div>';return;}a.innerHTML=treePendingPhotos.map((ph,i)=>`<div class="preview-wrap"><img src="${ph}" alt=""><button class="preview-del" onclick="removeTreePendingPhoto(${i})">✕</button></div>`).join('');}
 function removeTreePendingPhoto(i){treePendingPhotos.splice(i,1);treeRenderPreviewArea()}
 function treeResetNewEntryForm(){treePendingPhotos=[];treeRenderPreviewArea();document.getElementById('tree-new-entry-memo').value=''}
 function saveTreeEntry(){
-  const date=document.getElementById('tree-entry-date-sel').value||globalDate;
-  const memo=document.getElementById('tree-new-entry-memo').value.trim();
+  const date=document.getElementById('tree-entry-date-sel').value||globalDate;const memo=document.getElementById('tree-new-entry-memo').value.trim();
   if(!treePendingPhotos.length&&!memo){showConfirm('입력 필요','사진이나 메모 중 하나 이상 입력해주세요.',()=>{},'확인','var(--green)');return;}
-  const t=trees.find(t=>t.id===currentTreeId);
-  const ei=t.entries.findIndex(e=>e.date===date);
-  if(ei>=0){
-    showConfirm('기록 추가',`${fmtDate(date)}에 이미 기록이 있습니다. 사진·메모를 추가할까요?`,()=>{
-      t.entries[ei].photos.push(...treePendingPhotos);if(memo)t.entries[ei].memo=memo;
-      saveTrees();treeResetNewEntryForm();renderTreeEntries(t);document.getElementById('scroll-area').scrollTop=0;
-    },'추가','var(--green)');
-  } else {
-    t.entries.push({date,photos:[...treePendingPhotos],memo});
-    saveTrees();treeResetNewEntryForm();renderTreeEntries(t);document.getElementById('scroll-area').scrollTop=0;
-  }
+  const t=trees.find(t=>t.id===currentTreeId);const ei=t.entries.findIndex(e=>e.date===date);
+  if(ei>=0){showConfirm('기록 추가',`${fmtDate(date)}에 이미 기록이 있습니다. 추가할까요?`,()=>{t.entries[ei].photos.push(...treePendingPhotos);if(memo)t.entries[ei].memo=memo;saveTrees();treeResetNewEntryForm();renderTreeEntries(t);document.getElementById('scroll-area').scrollTop=0;},'추가','var(--green)');}
+  else{t.entries.push({date,photos:[...treePendingPhotos],memo});saveTrees();treeResetNewEntryForm();renderTreeEntries(t);document.getElementById('scroll-area').scrollTop=0;}
 }
 
-/* 나무 기록 수정 - 날짜 포함 (#3) */
-let editingTreeEntryIdx=null;
 function openEditTreeEntry(idx){
   const t=trees.find(t=>t.id===currentTreeId);const e=t.entries[idx];
-  editingTreeEntryDate=e.date;
-  editingTreeEntryIdx=idx;
+  editingTreeEntryDate=e.date;editingTreeEntryIdx=idx;
   document.getElementById('edit-tree-entry-title').textContent='기록 수정';
   document.getElementById('edit-tree-entry-date-input').value=e.date;
-  renderEditTreePhotosGrid(e.photos||[]);
-  document.getElementById('edit-tree-entry-memo').value=e.memo||'';
+  renderEditTreePhotosGrid(e.photos||[]);document.getElementById('edit-tree-entry-memo').value=e.memo||'';
   document.getElementById('edit-tree-entry-modal').classList.remove('hidden');
 }
-function renderEditTreePhotosGrid(photos){
-  document.getElementById('edit-tree-photos-grid').innerHTML=photos.map((ph,i)=>`<div class="edit-photo-thumb"><img src="${ph}" alt=""><button class="edit-photo-del" onclick="editTreeDeletePhoto(${i})">✕</button></div>`).join('');
-}
-function editTreeDeletePhoto(pi){
-  const t=trees.find(t=>t.id===currentTreeId);const e=t.entries.find(e=>e.date===editingTreeEntryDate);
-  if(!e)return;e.photos.splice(pi,1);saveTrees();renderEditTreePhotosGrid(e.photos);
-}
-function editTreeAddPhotos(ev){
-  const files=Array.from(ev.target.files);if(!files.length)return;let n=0;
-  const t=trees.find(t=>t.id===currentTreeId);const e=t.entries.find(e=>e.date===editingTreeEntryDate);
-  files.forEach(f=>{const r=new FileReader();r.onload=x=>{if(e)e.photos.push(x.target.result);n++;if(n===files.length){saveTrees();renderEditTreePhotosGrid(e?e.photos:[]);}};r.readAsDataURL(f);});
-  ev.target.value='';
-}
+function renderEditTreePhotosGrid(photos){document.getElementById('edit-tree-photos-grid').innerHTML=photos.map((ph,i)=>`<div class="edit-photo-thumb"><img src="${ph}" alt=""><button class="edit-photo-del" onclick="editTreeDeletePhoto(${i})">✕</button></div>`).join('');}
+function editTreeDeletePhoto(pi){const t=trees.find(t=>t.id===currentTreeId);const e=t.entries.find(e=>e.date===editingTreeEntryDate);if(!e)return;e.photos.splice(pi,1);saveTrees();renderEditTreePhotosGrid(e.photos);}
+function editTreeAddPhotos(ev){const files=Array.from(ev.target.files);if(!files.length)return;let n=0;const t=trees.find(t=>t.id===currentTreeId);const e=t.entries.find(e=>e.date===editingTreeEntryDate);files.forEach(f=>{const r=new FileReader();r.onload=x=>{if(e)e.photos.push(x.target.result);n++;if(n===files.length){saveTrees();renderEditTreePhotosGrid(e?e.photos:[]);}};r.readAsDataURL(f);});ev.target.value='';}
 function saveEditTreeEntry(){
-  const t=trees.find(t=>t.id===currentTreeId);
-  const e=t.entries.find(e=>e.date===editingTreeEntryDate);
-  if(!e)return;
+  const t=trees.find(t=>t.id===currentTreeId);const e=t.entries.find(e=>e.date===editingTreeEntryDate);if(!e)return;
   const newDate=document.getElementById('edit-tree-entry-date-input').value;
-  if(newDate&&newDate!==editingTreeEntryDate){
-    const conflict=t.entries.find(en=>en.date===newDate);
-    if(conflict){
-      showConfirm('날짜 중복',`${fmtDate(newDate)}에 이미 기록이 있어요. 다른 날짜를 선택해주세요.`,()=>{},'확인','var(--amber)');
-      return;
-    }
-    e.date=newDate;
-    editingTreeEntryDate=newDate;
-  }
+  if(newDate&&newDate!==editingTreeEntryDate){const conflict=t.entries.find(en=>en.date===newDate);if(conflict){showConfirm('날짜 중복',`${fmtDate(newDate)}에 이미 기록이 있어요.`,()=>{},'확인','var(--amber)');return;}e.date=newDate;editingTreeEntryDate=newDate;}
   e.memo=document.getElementById('edit-tree-entry-memo').value.trim();
   saveTrees();closeModal('edit-tree-entry-modal');renderTreeEntries(t);
 }
 
-/* 나무 수정/삭제 */
-function openEditTree(e,id){
-  e.stopPropagation();
-  const t=trees.find(t=>t.id===id);if(!t)return;
-  editTreeId=id;
-  document.getElementById('edit-tree-emoji').value=t.emoji;
-  document.getElementById('edit-tree-name').value=t.name;
-  document.getElementById('edit-tree-date').value=t.planted;
-  document.getElementById('edit-tree-modal').classList.remove('hidden');
-}
-function openEditTreeFromDetail(){
-  const t=trees.find(t=>t.id===currentTreeId);if(!t)return;
-  editTreeId=currentTreeId;
-  document.getElementById('edit-tree-emoji').value=t.emoji;
-  document.getElementById('edit-tree-name').value=t.name;
-  document.getElementById('edit-tree-date').value=t.planted;
-  document.getElementById('edit-tree-modal').classList.remove('hidden');
-}
+function openEditTree(e,id){e.stopPropagation();const t=trees.find(t=>t.id===id);if(!t)return;editTreeId=id;document.getElementById('edit-tree-emoji').value=t.emoji;document.getElementById('edit-tree-name').value=t.name;document.getElementById('edit-tree-date').value=t.planted;document.getElementById('edit-tree-modal').classList.remove('hidden');}
+function openEditTreeFromDetail(){const t=trees.find(t=>t.id===currentTreeId);if(!t)return;editTreeId=currentTreeId;document.getElementById('edit-tree-emoji').value=t.emoji;document.getElementById('edit-tree-name').value=t.name;document.getElementById('edit-tree-date').value=t.planted;document.getElementById('edit-tree-modal').classList.remove('hidden');}
 function saveEditTree(){
-  const t=trees.find(t=>t.id===editTreeId);if(!t)return;
-  const name=document.getElementById('edit-tree-name').value.trim();
+  const t=trees.find(t=>t.id===editTreeId);if(!t)return;const name=document.getElementById('edit-tree-name').value.trim();
   if(!name){showConfirm('입력 필요','나무 이름을 입력해주세요.',()=>{},'확인','var(--green)');return;}
   const sel=document.getElementById('edit-tree-emoji');
-  t.emoji=sel.value;
-  t.kind=sel.options[sel.selectedIndex].text.replace(/^\S+\s*/,'').trim();
-  t.name=name;
+  t.emoji=sel.value;t.kind=sel.options[sel.selectedIndex].text.replace(/^\S+\s*/,'').trim();t.name=name;
   t.planted=document.getElementById('edit-tree-date').value||t.planted;
   saveTrees();closeModal('edit-tree-modal');
-  if(currentTreeId===editTreeId){
-    document.getElementById('td-emoji').textContent=t.emoji;
-    document.getElementById('td-name').textContent=t.name;
-    document.getElementById('td-planted').textContent=`심은 날: ${fmtDate(t.planted)} · ${daysSinceTree(t.planted)}`;
-  }
+  if(currentTreeId===editTreeId){document.getElementById('td-emoji').textContent=t.emoji;document.getElementById('td-name').textContent=t.name;document.getElementById('td-planted').textContent=`심은 날: ${fmtDate(t.planted)} · ${daysSinceTree(t.planted)}`;}
   editTreeId=null;renderTreeList();
 }
-function deleteTree(){
-  const t=trees.find(t=>t.id===currentTreeId);if(!t)return;
-  showConfirm('나무 삭제',`"${t.emoji} ${t.name}" 나무를 삭제할까요?\n기록된 사진과 메모도 모두 삭제됩니다.`,
-    ()=>{trees=trees.filter(t=>t.id!==currentTreeId);saveTrees();showTreePrev();}
-  );
-}
+function deleteTree(){const t=trees.find(t=>t.id===currentTreeId);if(!t)return;showConfirm('나무 삭제',`"${t.emoji} ${t.name}" 나무를 삭제할까요?`,()=>{trees=trees.filter(t=>t.id!==currentTreeId);saveTrees();showTreePrev();});}
 
 /* ── 시작 ── */
 updateDateDisplay();
