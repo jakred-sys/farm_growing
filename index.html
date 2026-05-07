@@ -273,12 +273,14 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
           <div class="det-title"><h2 id="td-name"></h2><p id="td-planted"></p></div>
           <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
             <button class="back-btn" onclick="showTreePrev()">← 뒤로</button>
-            <div style="display:flex;gap:6px">
+            <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
               <button onclick="openEditTreeFromDetail()" style="background:var(--gl);color:var(--green);border:none;border-radius:var(--rs);padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">✎ 수정</button>
+              <button onclick="openTipModalForTree(currentTreeId)" style="background:var(--gl);color:var(--green);border:none;border-radius:var(--rs);padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🌱 팁</button>
               <button onclick="deleteTree()" style="background:var(--rl);color:var(--red);border:none;border-radius:var(--rs);padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🗑 삭제</button>
             </div>
           </div>
         </div>
+        <div id="tree-tip-preview-area"></div>
         <div class="slabel">날짜별 사진 &amp; 메모</div>
         <div class="entry-list" id="tree-entry-list"></div>
         <div class="add-entry-area">
@@ -607,7 +609,7 @@ const BG_PRESETS=[
   {label:'라벤더',color:'#f0eeff'},{label:'연분홍',color:'#fdf0f5'},
   {label:'연회색',color:'#f5f5f3'},{label:'다크',color:'#1a1f1a'}
 ];
-const MAX=8;
+const MAX=10;
 
 let crops=[],todos=[],settings={bgColor:''},boardPosts=[];
 let currentCropId=null,prevTab='timeline',harvestPendingId=null;
@@ -634,6 +636,8 @@ try{settings=JSON.parse(localStorage.getItem('gv7_settings')||'{}')}catch(e){set
 try{trees=JSON.parse(localStorage.getItem('gv7_trees')||'[]')}catch(e){trees=[]}
 try{boardPosts=JSON.parse(localStorage.getItem('gv8_board')||'[]')}catch(e){boardPosts=[]}
 try{cropTips=JSON.parse(localStorage.getItem('gv_crop_tips')||'{}')}catch(e){cropTips={}}
+let treeTips={};
+try{treeTips=JSON.parse(localStorage.getItem('gv_tree_tips')||'{}')}catch(e){treeTips={}}
 
 settings.bgColor=settings.bgColor||'';
 if(settings.bgColor)document.body.style.background=settings.bgColor;
@@ -660,6 +664,7 @@ function saveTodos(){try{localStorage.setItem('gv7_todos',JSON.stringify(todos))
 function saveSettings(){try{localStorage.setItem('gv7_settings',JSON.stringify(settings))}catch(e){}}
 function saveTrees(){try{localStorage.setItem('gv7_trees',JSON.stringify(trees))}catch(e){}}
 function saveBoard(){try{localStorage.setItem('gv8_board',JSON.stringify(boardPosts))}catch(e){}}
+function saveTreeTips(){try{localStorage.setItem('gv_tree_tips',JSON.stringify(treeTips))}catch(e){}}
 function saveCropTips(){try{localStorage.setItem('gv_crop_tips',JSON.stringify(cropTips))}catch(e){}}
 
 function fmtDate(d){if(!d)return'';const[y,m,day]=d.split('-');return`${y}.${m}.${day}`}
@@ -746,17 +751,40 @@ function openTipModalForCrop(cropId){
   document.getElementById('tip-modal-textarea').value=cropTips[kindName]||'';
   document.getElementById('tip-modal').classList.remove('hidden');
 }
+function openTipModalForTree(treeId){
+  const t=trees.find(t=>t.id===treeId);if(!t)return;
+  const kindName=t.kind||treeEmojiLabel(t.emoji)||t.name;
+  currentTipKey='tree:'+kindName;
+  document.getElementById('tip-modal-emoji').textContent=t.emoji;
+  document.getElementById('tip-modal-kind').textContent=kindName+' 키우기 팁';
+  document.getElementById('tip-modal-textarea').value=treeTips[kindName]||'';
+  document.getElementById('tip-modal').classList.remove('hidden');
+}
+function renderTreeTipPreview(t){
+  const area=document.getElementById('tree-tip-preview-area');if(!area)return;
+  const kindName=t.kind||treeEmojiLabel(t.emoji)||t.name;
+  const tip=treeTips[kindName];
+  if(!tip){area.innerHTML='';return;}
+  area.innerHTML=`<div class="tip-preview-box"><div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">🌱 ${kindName} 키우기 팁</div><div style="font-size:13px;color:var(--tx2);white-space:pre-wrap">${tip.replace(/</g,'&lt;')}</div><button onclick="openTipModalForTree(${t.id})" style="background:none;border:none;font-size:12px;color:var(--green);cursor:pointer;font-family:inherit;margin-top:8px;font-weight:600;padding:0">✎ 팁 수정하기</button></div>`;
+}
 function closeTipModal(){document.getElementById('tip-modal').classList.add('hidden');currentTipKey=null;}
 function saveTip(){
   if(!currentTipKey)return;
   const val=document.getElementById('tip-modal-textarea').value.trim();
-  if(val)cropTips[currentTipKey]=val;
-  else delete cropTips[currentTipKey];
-  saveCropTips();
-  closeTipModal();
-  // 상세화면 열려있으면 팁 미리보기 갱신
-  if(currentCropId){const c=crops.find(c=>c.id===currentCropId);if(c)renderCropTipPreview(c);}
-  renderList();
+  if(currentTipKey.startsWith('tree:')){
+    const kindName=currentTipKey.slice(5);
+    if(val)treeTips[kindName]=val; else delete treeTips[kindName];
+    saveTreeTips();
+    closeTipModal();
+    if(currentTreeId){const t=trees.find(t=>t.id===currentTreeId);if(t)renderTreeTipPreview(t);}
+    renderTreeList();
+  } else {
+    if(val)cropTips[currentTipKey]=val; else delete cropTips[currentTipKey];
+    saveCropTips();
+    closeTipModal();
+    if(currentCropId){const c=crops.find(c=>c.id===currentCropId);if(c)renderCropTipPreview(c);}
+    renderList();
+  }
 }
 function renderCropTipPreview(c){
   const area=document.getElementById('crop-tip-preview-area');if(!area)return;
@@ -1032,6 +1060,7 @@ function importData(e){
       if(data.todos){todos=data.todos;saveTodos();}if(data.settings){settings=data.settings;saveSettings();if(settings.bgColor)document.body.style.background=settings.bgColor;}
       if(data.boardPosts){boardPosts=data.boardPosts;saveBoard();}
       if(data.cropTips){cropTips=data.cropTips;saveCropTips();}
+      if(data.treeTips){treeTips=data.treeTips;saveTreeTips();}
       renderTodos();renderSwatches();switchTab('timeline');
     }catch(err){showConfirm('오류','파일을 읽는 중 오류가 발생했습니다.',()=>{},'확인','var(--amber)');}
   };
@@ -1087,7 +1116,8 @@ function renderTreeList(){
       ?`<div style="position:relative;width:100%;height:100%"><img src="${allPhotos[allPhotos.length-1]}" alt="" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.65));padding:5px 6px 7px;text-align:center"><div style="font-size:12px;font-weight:700;color:#fff">${t.emoji} ${kindName}</div><div style="font-size:10px;color:rgba(255,255,255,.8);margin-top:1px">${t.name}</div></div></div>`
       :`<div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 4px"><span style="font-size:36px">${t.emoji}</span><span style="font-size:12px;font-weight:700;color:var(--tx);text-align:center">${kindName}</span><span style="font-size:10px;color:var(--tx3);text-align:center">${t.name}</span></div>`;
     const card=document.createElement('div');card.className='crop-card';
-    card.innerHTML=`<div class="crop-img" onclick="showTreeDetail(${t.id})">${imgH}</div><div class="crop-info"><div class="crop-row"><span class="cname" onclick="showTreeDetail(${t.id})">${t.emoji} ${kindName}</span></div><div style="font-size:11px;color:var(--tx3);margin-top:1px;font-style:italic">${t.name}</div><div class="csub" style="margin-top:3px">${daysSinceTree(t.planted)}</div><button onclick="openEditTree(event,${t.id})" style="background:none;border:none;font-size:11px;color:var(--tx3);cursor:pointer;padding:4px 0 0 0;display:block;font-family:inherit">✎ 정보 수정</button></div>`;
+    const tKindName=t.kind||treeEmojiLabel(t.emoji)||t.name;const tHasTip=!!(treeTips&&treeTips[tKindName]);
+    card.innerHTML=`<div class="crop-img" onclick="showTreeDetail(${t.id})">${imgH}</div><div class="crop-info"><div class="crop-row"><span class="cname" onclick="showTreeDetail(${t.id})">${t.emoji} ${kindName}</span></div><div style="font-size:11px;color:var(--tx3);margin-top:1px;font-style:italic">${t.name}</div><div class="csub" style="margin-top:3px">${daysSinceTree(t.planted)}</div><div style="padding-top:5px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button onclick="openEditTree(event,${t.id})" style="background:none;border:none;font-size:11px;color:var(--tx3);cursor:pointer;font-family:inherit;padding:0">✎ 정보 수정</button><button onclick="event.stopPropagation();openTipModalForTree(${t.id})" class="tip-btn${tHasTip?' has-tip':''}">🌱 팁${tHasTip?' ✓':''}</button></div></div>`;
     grid.appendChild(card);
   });
   const ab=document.createElement('div');ab.className='add-crop-btn';
@@ -1111,7 +1141,7 @@ function showTreeDetail(id){
   document.getElementById('td-emoji').textContent=t.emoji;document.getElementById('td-name').textContent=t.name;
   document.getElementById('td-planted').textContent=`심은 날: ${fmtDate(t.planted)} · ${daysSinceTree(t.planted)}`;
   document.getElementById('tree-entry-date-sel').value=globalDate;
-  treeResetNewEntryForm();renderTreeEntries(t);
+  treeResetNewEntryForm();renderTreeTipPreview(t);renderTreeEntries(t);
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-tree-detail').classList.add('active');
   document.getElementById('todo-section').classList.add('hidden');
@@ -1184,7 +1214,7 @@ const AUTO_SAVE_KEY = 'gv_last_auto_save';
 
 function autoSaveNow(){
   try{
-    const data={version:'8.2',exportDate:getTodayKST(),crops,trees,todos,settings,boardPosts,cropTips};
+    const data={version:'8.2',exportDate:getTodayKST(),crops,trees,todos,settings,boardPosts,cropTips,treeTips};
     const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a');
