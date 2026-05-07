@@ -253,6 +253,11 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 
     <div class="pg" id="tab-list" style="padding:0 14px 14px">
       <div class="pg-title">작물 키우기</div>
+      <div class="sort-bar">
+        <span>정렬:</span>
+        <button class="sort-btn active" id="crop-sort-date-btn" onclick="setCropSort('date')">심은 날짜순</button>
+        <button class="sort-btn" id="crop-sort-name-btn" onclick="setCropSort('name')">명칭순</button>
+      </div>
       <div class="crop-grid" id="crop-grid"></div>
     </div>
 
@@ -619,6 +624,7 @@ let showAllPending=false,showAllDone=false;
 function getTodayKST(){const now=new Date();const kst=new Date(now.getTime()+9*60*60*1000);return kst.toISOString().slice(0,10);}
 let globalDate=getTodayKST();
 let treeSortMode='date';
+let cropSortMode='date';
 let trees=[];
 let currentTreeId=null;
 let treePendingPhotos=[];
@@ -685,8 +691,8 @@ function updateDateDisplay(){document.getElementById('date-chip').textContent=fm
 function openDatePicker(){document.getElementById('global-date-input').value=globalDate;document.getElementById('date-pick-modal').classList.remove('hidden')}
 function applyGlobalDate(){const v=document.getElementById('global-date-input').value;if(v)globalDate=v;updateDateDisplay();closeModal('date-pick-modal')}
 
-function getVersion(){const now=new Date();const kst=new Date(now.getTime()+9*60*60*1000);return`ver${kst.getUTCFullYear()}${String(kst.getUTCMonth()+1).padStart(2,'0')}${String(kst.getUTCDate()).padStart(2,'0')}${String(kst.getUTCHours()).padStart(2,'0')}${String(kst.getUTCMinutes()).padStart(2,'0')}`;}
-function renderVersion(){const el=document.getElementById('version-badge');if(el)el.textContent=getVersion();}
+const APP_VERSION='ver202605070904';
+function renderVersion(){const el=document.getElementById('version-badge');if(el)el.textContent=APP_VERSION;}
 
 function applyBg(color,source){
   if(source==='reset')color='';settings.bgColor=color;saveSettings();document.body.style.background=color||'';
@@ -806,7 +812,16 @@ function emojiLabel(val){if(EMOJI_NAME[val])return EMOJI_NAME[val];const k=Objec
 // ════ 작물 목록 ════
 function renderList(){
   const grid=document.getElementById('crop-grid');grid.innerHTML='';
-  const sorted=[...crops].sort((a,b)=>b.planted.localeCompare(a.planted));
+  let sorted=[...crops];
+  if(cropSortMode==='date'){
+    sorted.sort((a,b)=>b.planted.localeCompare(a.planted));
+  } else {
+    sorted.sort((a,b)=>{
+      const ka=a.kind||emojiLabel(a.emoji)||a.name;
+      const kb=b.kind||emojiLabel(b.emoji)||b.name;
+      return ka.localeCompare(kb,'ko');
+    });
+  }
   sorted.forEach(c=>{
     const kindName=c.kind||emojiLabel(c.emoji)||c.name;
     const tipKey=kindName;
@@ -1097,6 +1112,12 @@ const TREE_EMOJI_NAME={};
 ].forEach(([e,n])=>TREE_EMOJI_NAME[e+'|'+n]=n);
 function treeEmojiLabel(val){if(TREE_EMOJI_NAME[val])return TREE_EMOJI_NAME[val];const k=Object.keys(TREE_EMOJI_NAME).find(k=>k.startsWith(val+'|'));return k?TREE_EMOJI_NAME[k]:val;}
 
+function setCropSort(mode){
+  cropSortMode=mode;
+  document.getElementById('crop-sort-date-btn').classList.toggle('active',mode==='date');
+  document.getElementById('crop-sort-name-btn').classList.toggle('active',mode==='name');
+  renderList();
+}
 function setTreeSort(mode){
   treeSortMode=mode;
   document.getElementById('sort-date-btn').classList.toggle('active',mode==='date');
