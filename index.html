@@ -477,8 +477,8 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
       <option value="🧅|양파">🧅 양파</option>
       <option value="🥒|오이">🥒 오이</option>
       <option value="🌽|옥수수">🌽 옥수수</option>
-      <option value="🍈|참외">🍈 참외</option>
       <option value="🪴|쪽파">🪴 쪽파</option>
+      <option value="🍈|참외">🍈 참외</option>
       <option value="🍅|토마토">🍅 토마토</option>
       <option value="🎃|호박">🎃 호박</option>
       <option value="🌾|기타">🌾 기타</option>
@@ -509,8 +509,8 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
       <option value="🧅|양파">🧅 양파</option>
       <option value="🥒|오이">🥒 오이</option>
       <option value="🌽|옥수수">🌽 옥수수</option>
-      <option value="🍈|참외">🍈 참외</option>
       <option value="🪴|쪽파">🪴 쪽파</option>
+      <option value="🍈|참외">🍈 참외</option>
       <option value="🍅|토마토">🍅 토마토</option>
       <option value="🎃|호박">🎃 호박</option>
       <option value="🌾|기타">🌾 기타</option>
@@ -824,7 +824,18 @@ function saveFlowerTips(){try{localStorage.setItem('gv_flower_tips',JSON.stringi
 
 function fmtDate(d){if(!d)return'';const[y,m,day]=d.split('-');return`${y}.${m}.${day}`}
 function fmtShort(d){if(!d)return'';const[y,m,day]=d.split('-');return`${String(y).slice(2)}.${m}.${day}`}
-function daysSince(d){if(!d)return'';const diff=Math.floor((new Date()-new Date(d))/86400000);return`심은 지 ${diff}일`}
+function daysSince(d){
+  if(!d)return'';
+  const start=new Date(d);const now=new Date();
+  let years=now.getFullYear()-start.getFullYear();
+  let months=now.getMonth()-start.getMonth();
+  if(months<0){years--;months+=12;}
+  const totalDays=Math.floor((now-start)/86400000);
+  if(totalDays<365){return`심은 지 ${totalDays}일`;}
+  if(years>0&&months>0)return`심은 지 ${years}년 ${months}개월`;
+  if(years>0)return`심은 지 ${years}년`;
+  return`심은 지 ${months}개월`;
+}
 function daysSinceTree(d){
   if(!d)return'';const start=new Date(d);const now=new Date();
   let years=now.getFullYear()-start.getFullYear();let months=now.getMonth()-start.getMonth();
@@ -978,8 +989,8 @@ function renderFlowerTipPreview(f){
 const EMOJI_NAME={};
 [['🍆','가지'],['🥔','감자'],['🍠','고구마'],['🌶️','고추'],['🌿','당귀'],['🥕','당근'],
  ['🌿','대파'],['🧄','마늘'],['🍃','머위'],['🌱','부추'],['🥬','상추'],['🍉','수박'],
- ['🌱','아스파라거스'],['🧅','양파'],['🥒','오이'],['🌽','옥수수'],['🍈','참외'],
- ['🪴','쪽파'],['🍅','토마토'],['🎃','호박'],['🌾','기타']
+ ['🌱','아스파라거스'],['🧅','양파'],['🥒','오이'],['🌽','옥수수'],['🪴','쪽파'],
+ ['🍈','참외'],['🍅','토마토'],['🎃','호박'],['🌾','기타']
 ].forEach(([e,n])=>EMOJI_NAME[e+'|'+n]=n);
 function emojiLabel(val){if(EMOJI_NAME[val])return EMOJI_NAME[val];const k=Object.keys(EMOJI_NAME).find(k=>k.startsWith(val+'|'));return k?EMOJI_NAME[k]:val;}
 
