@@ -14,6 +14,7 @@
   --bd:rgba(0,0,0,.09);--bdm:rgba(0,0,0,.16);--bds:rgba(0,0,0,.26);
   --tx:#1a1a18;--tx2:#5a5a54;--tx3:#8a8a82;
   --green:#3B6D11;--gl:#EAF3DE;--amber:#BA7517;--red:#A32D2D;--rl:#FCEBEB;
+  --flower:#8B3A8B;--fl:#F5E8F5;
   --r:12px;--rs:8px;--sh:0 1px 4px rgba(0,0,0,.08);
   --tbh:62px;--tph:52px;
 }
@@ -32,6 +33,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 #tabbar{height:calc(var(--tbh) + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px);flex-shrink:0;background:var(--sur);border-top:.5px solid var(--bd);display:flex;z-index:20}
 .tb-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;font-family:inherit;color:var(--tx3);cursor:pointer;padding:8px 0 4px}
 .tb-btn.active{color:var(--green)}
+.tb-btn.active.flower-tab{color:var(--flower)}
 .tb-icon{font-size:22px;line-height:1}
 .tb-label{font-size:10px;font-weight:500;letter-spacing:-.2px}
 .pg{display:none;padding:14px}
@@ -56,7 +58,6 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .tdel{background:none;border:none;color:var(--tx3);font-size:18px;cursor:pointer;padding:2px 6px;min-width:32px}
 .no-todo{font-size:13px;color:var(--tx3);padding:4px 0}
 .more-btn{display:block;width:100%;border:none;background:none;font-size:13px;color:var(--green);cursor:pointer;padding:9px 0 3px;font-family:inherit;text-align:left}
-/* 할일 인라인 수정 */
 .tedit-input{flex:1;border:.5px solid var(--green);border-radius:var(--rs);padding:6px 10px;font-size:14px;color:var(--tx);background:var(--sur2);font-family:inherit;outline:none;}
 .tedit-save{background:var(--green);border:none;border-radius:var(--rs);padding:6px 12px;font-size:13px;color:#fff;cursor:pointer;font-weight:600;font-family:inherit;white-space:nowrap;}
 .tedit-cancel{background:none;border:.5px solid var(--bdm);border-radius:var(--rs);padding:6px 10px;font-size:13px;color:var(--tx2);cursor:pointer;font-family:inherit;}
@@ -76,16 +77,16 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .cyield{font-size:11px;color:var(--green);padding-left:25px;margin-top:1px}
 .add-crop-btn{background:var(--sur);border:1.5px dashed var(--bdm);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;height:155px;cursor:pointer;color:var(--tx3);font-size:13px;font-family:inherit;box-shadow:var(--sh)}
 .add-icon{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--bdm);display:flex;align-items:center;justify-content:center;font-size:17px}
-/* 키우기 팁 버튼 */
 .tip-btn{background:none;border:.5px solid var(--bdm);border-radius:12px;padding:3px 9px;font-size:11px;color:var(--tx3);cursor:pointer;font-family:inherit;white-space:nowrap;}
 .tip-btn.has-tip{background:var(--gl);color:var(--green);border-color:var(--green);}
-/* 팁 미리보기 박스 */
+.tip-btn.has-tip.flower{background:var(--fl);color:var(--flower);border-color:var(--flower);}
 .tip-preview-box{background:var(--gl);border-radius:var(--rs);padding:11px 13px;font-size:13px;color:var(--tx2);line-height:1.65;margin-bottom:12px;white-space:pre-wrap;border:.5px solid rgba(59,109,17,.15)}
-/* 정렬 토글 */
+.tip-preview-box.flower{background:var(--fl);border-color:rgba(139,58,139,.15)}
 .sort-bar{display:flex;gap:6px;margin-bottom:12px;align-items:center}
 .sort-bar span{font-size:12px;color:var(--tx3)}
 .sort-btn{font-size:12px;padding:5px 12px;border-radius:14px;border:.5px solid var(--bdm);background:var(--sur);color:var(--tx2);cursor:pointer;font-family:inherit;font-weight:500}
 .sort-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
+.sort-btn.active.flower{background:var(--flower);border-color:var(--flower)}
 .detail-panel{background:var(--sur);border-radius:var(--r);box-shadow:var(--sh);padding:16px}
 .det-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .det-emoji{font-size:34px}
@@ -109,11 +110,13 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .ememo-text{font-size:14px;color:var(--tx);line-height:1.6;white-space:pre-wrap}
 .ememo-empty{font-size:13px;color:var(--tx3);font-style:italic}
 .entry-edit-btn{width:100%;background:var(--gl);color:var(--green);border:none;border-radius:var(--rs);padding:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px}
+.entry-edit-btn.flower{background:var(--fl);color:var(--flower)}
 .add-entry-area{background:var(--sur);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:20px;overflow:hidden}
 .add-entry-toolbar{display:flex;align-items:center;gap:8px;padding:11px 13px;background:var(--sur2);flex-wrap:wrap}
 .add-entry-toolbar span{font-size:13px;color:var(--tx2);font-weight:500}
 .add-entry-date{border:.5px solid var(--bdm);border-radius:var(--rs);padding:7px 10px;font-size:13px;color:var(--tx);background:var(--sur);font-family:inherit;outline:none;-webkit-appearance:none}
 .photo-upload-label{background:var(--green);color:#fff;border-radius:var(--rs);padding:7px 13px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px}
+.photo-upload-label.flower{background:var(--flower)}
 .preview-photos-strip{display:flex;gap:8px;overflow-x:auto;padding:10px 13px;-webkit-overflow-scrolling:touch;scrollbar-width:none;min-height:58px;align-items:center}
 .preview-photos-strip::-webkit-scrollbar{display:none}
 .preview-wrap{position:relative;flex-shrink:0}
@@ -122,6 +125,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .no-preview-placeholder{width:52px;height:52px;border-radius:8px;background:var(--sur2);display:flex;align-items:center;justify-content:center;font-size:22px;opacity:.3}
 .add-entry-memo{width:100%;border:none;background:none;padding:12px 13px;font-size:14px;color:var(--tx);font-family:inherit;resize:none;outline:none;min-height:80px;max-height:none;line-height:1.6;border-top:.5px solid var(--bd);overflow-y:auto}
 .add-entry-save{width:100%;border:none;border-top:.5px solid var(--bd);background:none;padding:13px;font-size:14px;color:var(--green);cursor:pointer;font-weight:700;font-family:inherit}
+.add-entry-save.flower{color:var(--flower)}
 .tl-item{background:var(--sur);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;box-shadow:var(--sh)}
 .tl-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .tl-who{font-size:14px;font-weight:600}
@@ -209,7 +213,6 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .lb-no-memo{font-size:13px;color:rgba(255,255,255,.35)}
 .hidden{display:none!important}
 #todo-section.hidden{display:none}
-/* 팁 모달 */
 .tip-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150;display:flex;align-items:flex-end;justify-content:center}
 .tip-modal-bg.hidden{display:none}
 .tip-modal{background:var(--sur);border-radius:20px 20px 0 0;padding:16px 20px calc(24px + env(safe-area-inset-bottom,0px));width:100%;max-height:88vh;overflow-y:auto;}
@@ -220,6 +223,11 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 .tip-modal-sub{font-size:12px;color:var(--tx3);margin-top:2px}
 .tip-textarea{width:100%;border:.5px solid var(--bdm);border-radius:var(--rs);padding:12px;font-size:14px;color:var(--tx);background:var(--sur2);font-family:inherit;outline:none;resize:none;min-height:200px;line-height:1.7;margin-bottom:10px}
 .tip-save-btn{width:100%;background:var(--green);color:#fff;border:none;border-radius:var(--rs);padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+.tip-save-btn.flower{background:var(--flower)}
+/* 꽃밭 전용 컬러 */
+.flower-accent{color:var(--flower)!important}
+.flower-bg{background:var(--fl)!important}
+.flower-border{border-color:var(--flower)!important}
 </style>
 </head>
 <body>
@@ -271,6 +279,17 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
       <div class="crop-grid" id="tree-grid"></div>
     </div>
 
+    <!-- 꽃밭 탭 -->
+    <div class="pg" id="tab-flower" style="padding:0 14px 14px">
+      <div class="pg-title" style="color:var(--flower)">🌸 꽃밭</div>
+      <div class="sort-bar">
+        <span>정렬:</span>
+        <button class="sort-btn active" id="flower-sort-date-btn" onclick="setFlowerSort('date')">심은 날짜순</button>
+        <button class="sort-btn" id="flower-sort-name-btn" onclick="setFlowerSort('name')">명칭순</button>
+      </div>
+      <div class="crop-grid" id="flower-grid"></div>
+    </div>
+
     <div class="pg" id="tab-tree-detail" style="padding:14px">
       <div class="detail-panel">
         <div class="det-header">
@@ -298,6 +317,38 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
           <div id="tree-add-photos-col" class="preview-photos-strip"><div class="no-preview-placeholder">📷</div></div>
           <textarea class="add-entry-memo" id="tree-new-entry-memo" placeholder="이 날의 생육 상태를 메모하세요..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
           <button class="add-entry-save" onclick="saveTreeEntry()">기록 저장</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 꽃밭 상세 뷰 -->
+    <div class="pg" id="tab-flower-detail" style="padding:14px">
+      <div class="detail-panel">
+        <div class="det-header">
+          <span class="det-emoji" id="fd-emoji"></span>
+          <div class="det-title"><h2 id="fd-name"></h2><p id="fd-planted"></p></div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <button class="back-btn" onclick="showFlowerPrev()">← 뒤로</button>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">
+              <button onclick="openEditFlowerFromDetail()" style="background:var(--fl);color:var(--flower);border:none;border-radius:var(--rs);padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">✎ 수정</button>
+              <button onclick="openTipModalForFlower(currentFlowerId)" style="background:var(--fl);color:var(--flower);border:none;border-radius:var(--rs);padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🌸 팁</button>
+              <button onclick="deleteFlower()" style="background:var(--rl);color:var(--red);border:none;border-radius:var(--rs);padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🗑 삭제</button>
+            </div>
+          </div>
+        </div>
+        <div id="flower-tip-preview-area"></div>
+        <div class="slabel">날짜별 사진 &amp; 메모</div>
+        <div class="entry-list" id="flower-entry-list"></div>
+        <div class="add-entry-area">
+          <div class="add-entry-toolbar">
+            <span>새 기록 추가</span>
+            <input type="date" id="flower-entry-date-sel" class="add-entry-date">
+            <label class="photo-upload-label flower" for="flower-photo-input">📷 사진</label>
+            <input type="file" id="flower-photo-input" accept="image/*" multiple class="hidden" onchange="flowerPreviewPhotos(event)">
+          </div>
+          <div id="flower-add-photos-col" class="preview-photos-strip"><div class="no-preview-placeholder">🌸</div></div>
+          <textarea class="add-entry-memo" id="flower-new-entry-memo" placeholder="이 날의 개화 상태를 메모하세요..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+          <button class="add-entry-save flower" onclick="saveFlowerEntry()">기록 저장</button>
         </div>
       </div>
     </div>
@@ -347,11 +398,11 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
         <div class="ss-sec">
           <div class="ss-title">데이터 관리</div>
           <button class="ss-btn danger" onclick="resetAll()">⚠ 모든 데이터 초기화</button>
-          <div class="info-row">초기화 시 작물, 나무, 메모, 할 일이 모두 삭제됩니다.</div>
+          <div class="info-row">초기화 시 작물, 나무, 꽃밭, 메모, 할 일이 모두 삭제됩니다.</div>
         </div>
         <div class="ss-sec">
           <div class="ss-title">앱 정보</div>
-          <div class="info-row">달빛 농장 v8.2 — 작물·나무 기록, 사진·메모 연동, 할 일 관리, 연도별 수확 통계, 농장 기록 게시판, 작물별 키우기 팁</div>
+          <div class="info-row">달빛 농장 v8.3 — 작물·나무·꽃밭 기록, 사진·메모 연동, 할 일 관리, 연도별 수확 통계, 농장 기록 게시판, 작물별 키우기 팁</div>
         </div>
       </div>
     </div>
@@ -392,6 +443,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
     <button class="tb-btn active" id="nav-timeline" onclick="switchTab('timeline')"><span class="tb-icon">📋</span><span class="tb-label">최근기록</span></button>
     <button class="tb-btn" id="nav-list" onclick="switchTab('list')"><span class="tb-icon">🌿</span><span class="tb-label">작물키우기</span></button>
     <button class="tb-btn" id="nav-tree" onclick="switchTab('tree')"><span class="tb-icon">🌳</span><span class="tb-label">나무키우기</span></button>
+    <button class="tb-btn" id="nav-flower" onclick="switchTab('flower')"><span class="tb-icon">🌸</span><span class="tb-label">꽃밭</span></button>
     <button class="tb-btn" id="nav-yearly" onclick="switchTab('yearly')"><span class="tb-icon">📅</span><span class="tb-label">연도별</span></button>
     <button class="tb-btn" id="nav-board" onclick="switchTab('board')"><span class="tb-icon">📝</span><span class="tb-label">농장기록</span></button>
   </div>
@@ -409,17 +461,26 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 <div class="modal-bg hidden" id="add-modal">
   <div class="modal"><div class="modal-handle"></div><h3>새 작물 추가</h3>
     <select id="modal-emoji">
-      <option value="🍆|가지">🍆 가지</option><option value="🥔|감자">🥔 감자</option>
-      <option value="🌶️|고추">🌶️ 고추</option><option value="🍠|고구마">🍠 고구마</option>
-      <option value="🥕|당근">🥕 당근</option><option value="🌿|대파">🌿 대파</option>
-      <option value="🌿|당귀">🌿 당귀</option><option value="🍃|머위">🍃 머위</option>
-      <option value="🧄|마늘">🧄 마늘</option><option value="🟢|매실">🟢 매실</option>
-      <option value="🍑|복숭아">🍑 복숭아</option><option value="🥬|상추">🥬 상추</option>
-      <option value="🍉|수박">🍉 수박</option><option value="🌱|아스파라거스">🌱 아스파라거스</option>
-      <option value="🧅|양파">🧅 양파</option><option value="🥒|오이">🥒 오이</option>
-      <option value="🌽|옥수수">🌽 옥수수</option><option value="🫐|자두">🫐 자두</option>
-      <option value="🍈|참외">🍈 참외</option><option value="🪴|쪽파">🪴 쪽파</option>
-      <option value="🍅|토마토">🍅 토마토</option><option value="🎃|호박">🎃 호박</option>
+      <option value="🍆|가지">🍆 가지</option>
+      <option value="🥔|감자">🥔 감자</option>
+      <option value="🍠|고구마">🍠 고구마</option>
+      <option value="🌶️|고추">🌶️ 고추</option>
+      <option value="🌿|당귀">🌿 당귀</option>
+      <option value="🥕|당근">🥕 당근</option>
+      <option value="🌿|대파">🌿 대파</option>
+      <option value="🧄|마늘">🧄 마늘</option>
+      <option value="🍃|머위">🍃 머위</option>
+      <option value="🌱|부추">🌱 부추</option>
+      <option value="🥬|상추">🥬 상추</option>
+      <option value="🍉|수박">🍉 수박</option>
+      <option value="🌱|아스파라거스">🌱 아스파라거스</option>
+      <option value="🧅|양파">🧅 양파</option>
+      <option value="🥒|오이">🥒 오이</option>
+      <option value="🌽|옥수수">🌽 옥수수</option>
+      <option value="🍈|참외">🍈 참외</option>
+      <option value="🪴|쪽파">🪴 쪽파</option>
+      <option value="🍅|토마토">🍅 토마토</option>
+      <option value="🎃|호박">🎃 호박</option>
       <option value="🌾|기타">🌾 기타</option>
     </select>
     <input type="text" id="modal-name" placeholder="작물 이름 (예: 방울토마토)" maxlength="15">
@@ -432,17 +493,26 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
 <div class="modal-bg hidden" id="edit-crop-modal">
   <div class="modal"><div class="modal-handle"></div><h3>작물 정보 수정</h3>
     <select id="edit-crop-emoji">
-      <option value="🍆|가지">🍆 가지</option><option value="🥔|감자">🥔 감자</option>
-      <option value="🌶️|고추">🌶️ 고추</option><option value="🍠|고구마">🍠 고구마</option>
-      <option value="🥕|당근">🥕 당근</option><option value="🌿|대파">🌿 대파</option>
-      <option value="🌿|당귀">🌿 당귀</option><option value="🍃|머위">🍃 머위</option>
-      <option value="🧄|마늘">🧄 마늘</option><option value="🟢|매실">🟢 매실</option>
-      <option value="🍑|복숭아">🍑 복숭아</option><option value="🥬|상추">🥬 상추</option>
-      <option value="🍉|수박">🍉 수박</option><option value="🌱|아스파라거스">🌱 아스파라거스</option>
-      <option value="🧅|양파">🧅 양파</option><option value="🥒|오이">🥒 오이</option>
-      <option value="🌽|옥수수">🌽 옥수수</option><option value="🫐|자두">🫐 자두</option>
-      <option value="🍈|참외">🍈 참외</option><option value="🪴|쪽파">🪴 쪽파</option>
-      <option value="🍅|토마토">🍅 토마토</option><option value="🎃|호박">🎃 호박</option>
+      <option value="🍆|가지">🍆 가지</option>
+      <option value="🥔|감자">🥔 감자</option>
+      <option value="🍠|고구마">🍠 고구마</option>
+      <option value="🌶️|고추">🌶️ 고추</option>
+      <option value="🌿|당귀">🌿 당귀</option>
+      <option value="🥕|당근">🥕 당근</option>
+      <option value="🌿|대파">🌿 대파</option>
+      <option value="🧄|마늘">🧄 마늘</option>
+      <option value="🍃|머위">🍃 머위</option>
+      <option value="🌱|부추">🌱 부추</option>
+      <option value="🥬|상추">🥬 상추</option>
+      <option value="🍉|수박">🍉 수박</option>
+      <option value="🌱|아스파라거스">🌱 아스파라거스</option>
+      <option value="🧅|양파">🧅 양파</option>
+      <option value="🥒|오이">🥒 오이</option>
+      <option value="🌽|옥수수">🌽 옥수수</option>
+      <option value="🍈|참외">🍈 참외</option>
+      <option value="🪴|쪽파">🪴 쪽파</option>
+      <option value="🍅|토마토">🍅 토마토</option>
+      <option value="🎃|호박">🎃 호박</option>
       <option value="🌾|기타">🌾 기타</option>
     </select>
     <input type="text" id="edit-crop-name" placeholder="작물 이름" maxlength="15">
@@ -489,6 +559,21 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
     <div class="mlabel">메모</div>
     <textarea id="edit-tree-entry-memo" placeholder="메모를 입력하세요..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
     <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('edit-tree-entry-modal')">취소</button><button class="btn-ok" onclick="saveEditTreeEntry()">저장</button></div>
+  </div>
+</div>
+
+<!-- 꽃밭 기록 수정 모달 -->
+<div class="modal-bg hidden" id="edit-flower-entry-modal">
+  <div class="modal"><div class="modal-handle"></div><h3 id="edit-flower-entry-title">기록 수정</h3>
+    <div class="mlabel">날짜 수정</div>
+    <input type="date" id="edit-flower-entry-date-input" style="width:100%;border:.5px solid var(--bdm);border-radius:var(--rs);padding:12px;font-size:15px;color:var(--tx);background:var(--sur2);margin-bottom:10px;font-family:inherit;outline:none;-webkit-appearance:none;appearance:none">
+    <div class="mlabel">사진 관리</div>
+    <div class="edit-photos-grid" id="edit-flower-photos-grid"></div>
+    <label class="add-more-photo-label" for="edit-flower-add-photo-input" style="margin-bottom:14px"><span class="add-more-photo-icon">+📷</span><span style="font-size:11px">사진 추가</span></label>
+    <input type="file" id="edit-flower-add-photo-input" accept="image/*" multiple class="hidden" onchange="editFlowerAddPhotos(event)">
+    <div class="mlabel">메모</div>
+    <textarea id="edit-flower-entry-memo" placeholder="메모를 입력하세요..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+    <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('edit-flower-entry-modal')">취소</button><button class="btn-ok" style="background:var(--flower)" onclick="saveEditFlowerEntry()">저장</button></div>
   </div>
 </div>
 
@@ -567,6 +652,56 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
   </div>
 </div>
 
+<!-- 꽃 추가 모달 -->
+<div class="modal-bg hidden" id="add-flower-modal">
+  <div class="modal"><div class="modal-handle"></div><h3 style="color:var(--flower)">🌸 새 꽃 추가</h3>
+    <select id="flower-modal-emoji">
+      <option value="🌼|개나리">🌼 개나리</option>
+      <option value="🌸|국화">🌸 국화</option>
+      <option value="🌻|금계국">🌻 금계국</option>
+      <option value="🌸|만리향">🌸 만리향</option>
+      <option value="🌾|백일홍">🌾 백일홍</option>
+      <option value="🪷|백합">🪷 백합</option>
+      <option value="🌸|원추리꽃">🌸 원추리꽃</option>
+      <option value="🌸|천리향">🌸 천리향</option>
+      <option value="🌺|코스모스">🌺 코스모스</option>
+      <option value="🌷|튤립">🌷 튤립</option>
+      <option value="🌻|해바라기">🌻 해바라기</option>
+      <option value="💜|히아신스">💜 히아신스</option>
+      <option value="🪷|작약">🪷 작약</option>
+      <option value="🌸|기타">🌸 기타</option>
+    </select>
+    <input type="text" id="flower-modal-name" placeholder="꽃 이름 (예: 노란 튤립)" maxlength="15">
+    <div class="mlabel">심은 날짜</div><input type="date" id="flower-modal-date">
+    <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('add-flower-modal')">취소</button><button class="btn-ok" style="background:var(--flower)" onclick="addFlower()">추가</button></div>
+  </div>
+</div>
+
+<!-- 꽃 수정 모달 -->
+<div class="modal-bg hidden" id="edit-flower-modal">
+  <div class="modal"><div class="modal-handle"></div><h3 style="color:var(--flower)">꽃 정보 수정</h3>
+    <select id="edit-flower-emoji">
+      <option value="🌼|개나리">🌼 개나리</option>
+      <option value="🌸|국화">🌸 국화</option>
+      <option value="🌻|금계국">🌻 금계국</option>
+      <option value="🌸|만리향">🌸 만리향</option>
+      <option value="🌾|백일홍">🌾 백일홍</option>
+      <option value="🪷|백합">🪷 백합</option>
+      <option value="🌸|원추리꽃">🌸 원추리꽃</option>
+      <option value="🌸|천리향">🌸 천리향</option>
+      <option value="🌺|코스모스">🌺 코스모스</option>
+      <option value="🌷|튤립">🌷 튤립</option>
+      <option value="🌻|해바라기">🌻 해바라기</option>
+      <option value="💜|히아신스">💜 히아신스</option>
+      <option value="🪷|작약">🪷 작약</option>
+      <option value="🌸|기타">🌸 기타</option>
+    </select>
+    <input type="text" id="edit-flower-name" placeholder="꽃 이름" maxlength="15">
+    <div class="mlabel">심은 날짜</div><input type="date" id="edit-flower-date">
+    <div class="modal-btns"><button class="btn-cancel" onclick="closeModal('edit-flower-modal')">취소</button><button class="btn-ok" style="background:var(--flower)" onclick="saveEditFlower()">저장</button></div>
+  </div>
+</div>
+
 <!-- 게시글 수정 모달 -->
 <div class="modal-bg hidden" id="edit-post-modal">
   <div class="modal"><div class="modal-handle"></div><h3>게시글 수정</h3>
@@ -591,7 +726,7 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
   </div>
 </div>
 
-<!-- 🌱 키우기 팁 모달 -->
+<!-- 키우기 팁 모달 -->
 <div class="tip-modal-bg hidden" id="tip-modal" onclick="if(event.target===this)closeTipModal()">
   <div class="tip-modal">
     <div class="modal-handle"></div>
@@ -599,11 +734,11 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;b
       <span class="tip-crop-emoji-big" id="tip-modal-emoji"></span>
       <div>
         <div class="tip-modal-name" id="tip-modal-kind"></div>
-        <div class="tip-modal-sub">이 종류 작물 공통 키우기 팁 (같은 종류면 공유됩니다)</div>
+        <div class="tip-modal-sub" id="tip-modal-sub">이 종류 작물 공통 키우기 팁 (같은 종류면 공유됩니다)</div>
       </div>
     </div>
     <textarea class="tip-textarea" id="tip-modal-textarea" placeholder="여기에 키우기 팁, 주의사항, 재배 노하우 등을 자유롭게 적어두세요.&#10;&#10;예)&#10;• 아주심기: 5월 중순 이후 (서리 지난 뒤)&#10;• 거름: 2주 간격 웃거름&#10;• 물주기: 건조하지 않게 꾸준히&#10;• 병충해: 응애, 진딧물 주의&#10;• 수확: 꼭지 부분 색 변하면 수확"></textarea>
-    <button class="tip-save-btn" onclick="saveTip()">💾 팁 저장</button>
+    <button class="tip-save-btn" id="tip-save-btn" onclick="saveTip()">💾 팁 저장</button>
   </div>
 </div>
 
@@ -625,37 +760,45 @@ function getTodayKST(){const now=new Date();const kst=new Date(now.getTime()+9*6
 let globalDate=getTodayKST();
 let treeSortMode='date';
 let cropSortMode='date';
+let flowerSortMode='date';
 let trees=[];
+let flowers=[];
 let currentTreeId=null;
+let currentFlowerId=null;
 let treePendingPhotos=[];
+let flowerPendingPhotos=[];
 let editingTreeEntryDate=null,editingTreeEntryIdx=null;
+let editingFlowerEntryDate=null,editingFlowerEntryIdx=null;
 let editTreeId=null;
+let editFlowerId=null;
 let boardPendingPhotos=[];
 let editingPostId=null;
 
-// 작물 키우기 팁 (종류명 기준으로 저장)
 let cropTips={};
+let treeTips={};
+let flowerTips={};
 
 try{crops=JSON.parse(localStorage.getItem('gv7_crops')||'[]')}catch(e){crops=[]}
 try{todos=JSON.parse(localStorage.getItem('gv7_todos')||'[]')}catch(e){todos=[]}
 try{settings=JSON.parse(localStorage.getItem('gv7_settings')||'{}')}catch(e){settings={}}
 try{trees=JSON.parse(localStorage.getItem('gv7_trees')||'[]')}catch(e){trees=[]}
+try{flowers=JSON.parse(localStorage.getItem('gv8_flowers')||'[]')}catch(e){flowers=[]}
 try{boardPosts=JSON.parse(localStorage.getItem('gv8_board')||'[]')}catch(e){boardPosts=[]}
 try{cropTips=JSON.parse(localStorage.getItem('gv_crop_tips')||'{}')}catch(e){cropTips={}}
-let treeTips={};
 try{treeTips=JSON.parse(localStorage.getItem('gv_tree_tips')||'{}')}catch(e){treeTips={}}
+try{flowerTips=JSON.parse(localStorage.getItem('gv_flower_tips')||'{}')}catch(e){flowerTips={}}
 
 settings.bgColor=settings.bgColor||'';
 if(settings.bgColor)document.body.style.background=settings.bgColor;
 
 if(crops.length===0){
   crops=[
-    {id:1,name:'방울토마토',emoji:'🍅',planted:'2025-04-01',harvested:false,harvestDate:'',yieldNote:'',
+    {id:1,name:'방울토마토',emoji:'🍅',kind:'토마토',planted:'2025-04-01',harvested:false,harvestDate:'',yieldNote:'',
      entries:[{date:'2025-04-10',photos:[],memo:'첫 새싹이 올라오기 시작!'},{date:'2025-05-01',photos:[],memo:'줄기가 30cm 이상 자람.'}]},
-    {id:2,name:'상추',emoji:'🥬',planted:'2025-04-10',harvested:true,harvestDate:'2025-07-15',yieldNote:'약 500g',
+    {id:2,name:'상추',emoji:'🥬',kind:'상추',planted:'2025-04-10',harvested:true,harvestDate:'2025-07-15',yieldNote:'약 500g',
      entries:[{date:'2025-04-20',photos:[],memo:'잎이 잘 자라고 있음.'},{date:'2025-05-10',photos:[],memo:'수확 시작.'}]},
-    {id:3,name:'마늘',emoji:'🧄',planted:'2024-10-05',harvested:true,harvestDate:'2025-06-10',yieldNote:'한 망 (약 2kg)',entries:[]},
-    {id:4,name:'고추',emoji:'🌶️',planted:'2026-04-15',harvested:false,harvestDate:'',yieldNote:'',entries:[]},
+    {id:3,name:'마늘',emoji:'🧄',kind:'마늘',planted:'2024-10-05',harvested:true,harvestDate:'2025-06-10',yieldNote:'한 망 (약 2kg)',entries:[]},
+    {id:4,name:'고추',emoji:'🌶️',kind:'고추',planted:'2026-04-15',harvested:false,harvestDate:'',yieldNote:'',entries:[]},
   ];save();
 }
 crops.forEach(c=>{
@@ -663,15 +806,21 @@ crops.forEach(c=>{
   c.entries.forEach(e=>{if(e.photo!==undefined){e.photos=e.photo?[e.photo]:[];delete e.photo;}if(!e.photos)e.photos=[];});
   save();
 });
+flowers.forEach(f=>{
+  if(!f.entries)f.entries=[];
+  f.entries.forEach(e=>{if(!e.photos)e.photos=[];});
+});
 if(todos.length===0){todos=[{id:1,text:'고추 지지대 설치',done:false,addedDate:'2026-04-30'},{id:2,text:'퇴비 추가',done:true,addedDate:'2026-04-15'}];saveTodos();}
 
 function save(){try{localStorage.setItem('gv7_crops',JSON.stringify(crops))}catch(e){}}
 function saveTodos(){try{localStorage.setItem('gv7_todos',JSON.stringify(todos))}catch(e){}}
 function saveSettings(){try{localStorage.setItem('gv7_settings',JSON.stringify(settings))}catch(e){}}
 function saveTrees(){try{localStorage.setItem('gv7_trees',JSON.stringify(trees))}catch(e){}}
+function saveFlowers(){try{localStorage.setItem('gv8_flowers',JSON.stringify(flowers))}catch(e){}}
 function saveBoard(){try{localStorage.setItem('gv8_board',JSON.stringify(boardPosts))}catch(e){}}
 function saveTreeTips(){try{localStorage.setItem('gv_tree_tips',JSON.stringify(treeTips))}catch(e){}}
 function saveCropTips(){try{localStorage.setItem('gv_crop_tips',JSON.stringify(cropTips))}catch(e){}}
+function saveFlowerTips(){try{localStorage.setItem('gv_flower_tips',JSON.stringify(flowerTips))}catch(e){}}
 
 function fmtDate(d){if(!d)return'';const[y,m,day]=d.split('-');return`${y}.${m}.${day}`}
 function fmtShort(d){if(!d)return'';const[y,m,day]=d.split('-');return`${String(y).slice(2)}.${m}.${day}`}
@@ -691,7 +840,7 @@ function updateDateDisplay(){document.getElementById('date-chip').textContent=fm
 function openDatePicker(){document.getElementById('global-date-input').value=globalDate;document.getElementById('date-pick-modal').classList.remove('hidden')}
 function applyGlobalDate(){const v=document.getElementById('global-date-input').value;if(v)globalDate=v;updateDateDisplay();closeModal('date-pick-modal')}
 
-const APP_VERSION='ver202605070904';
+const APP_VERSION='ver202605110001';
 function renderVersion(){const el=document.getElementById('version-badge');if(el)el.textContent=APP_VERSION;}
 
 function applyBg(color,source){
@@ -748,46 +897,57 @@ function deleteTodo(id){todos=todos.filter(t=>t.id!==id);saveTodos();renderTodos
 
 // ════ 키우기 팁 ════
 let currentTipKey=null;
+let currentTipType=null; // 'crop','tree','flower'
 function openTipModalForCrop(cropId){
   const c=crops.find(c=>c.id===cropId);if(!c)return;
   const kindName=c.kind||emojiLabel(c.emoji)||c.name;
-  currentTipKey=kindName;
+  currentTipKey=kindName;currentTipType='crop';
   document.getElementById('tip-modal-emoji').textContent=c.emoji;
   document.getElementById('tip-modal-kind').textContent=kindName+' 키우기 팁';
+  document.getElementById('tip-modal-sub').textContent='이 종류 작물 공통 키우기 팁 (같은 종류면 공유됩니다)';
   document.getElementById('tip-modal-textarea').value=cropTips[kindName]||'';
+  document.getElementById('tip-save-btn').className='tip-save-btn';
   document.getElementById('tip-modal').classList.remove('hidden');
 }
 function openTipModalForTree(treeId){
   const t=trees.find(t=>t.id===treeId);if(!t)return;
   const kindName=t.kind||treeEmojiLabel(t.emoji)||t.name;
-  currentTipKey='tree:'+kindName;
+  currentTipKey=kindName;currentTipType='tree';
   document.getElementById('tip-modal-emoji').textContent=t.emoji;
   document.getElementById('tip-modal-kind').textContent=kindName+' 키우기 팁';
+  document.getElementById('tip-modal-sub').textContent='이 종류 나무 공통 키우기 팁 (같은 종류면 공유됩니다)';
   document.getElementById('tip-modal-textarea').value=treeTips[kindName]||'';
+  document.getElementById('tip-save-btn').className='tip-save-btn';
   document.getElementById('tip-modal').classList.remove('hidden');
 }
-function renderTreeTipPreview(t){
-  const area=document.getElementById('tree-tip-preview-area');if(!area)return;
-  const kindName=t.kind||treeEmojiLabel(t.emoji)||t.name;
-  const tip=treeTips[kindName];
-  if(!tip){area.innerHTML='';return;}
-  area.innerHTML=`<div class="tip-preview-box"><div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">🌱 ${kindName} 키우기 팁</div><div style="font-size:13px;color:var(--tx2);white-space:pre-wrap">${tip.replace(/</g,'&lt;')}</div><button onclick="openTipModalForTree(${t.id})" style="background:none;border:none;font-size:12px;color:var(--green);cursor:pointer;font-family:inherit;margin-top:8px;font-weight:600;padding:0">✎ 팁 수정하기</button></div>`;
+function openTipModalForFlower(flowerId){
+  const f=flowers.find(f=>f.id===flowerId);if(!f)return;
+  const kindName=f.kind||flowerEmojiLabel(f.emoji)||f.name;
+  currentTipKey=kindName;currentTipType='flower';
+  document.getElementById('tip-modal-emoji').textContent=f.emoji;
+  document.getElementById('tip-modal-kind').textContent=kindName+' 키우기 팁';
+  document.getElementById('tip-modal-sub').textContent='이 종류 꽃 공통 키우기 팁 (같은 종류면 공유됩니다)';
+  document.getElementById('tip-modal-textarea').value=flowerTips[kindName]||'';
+  document.getElementById('tip-save-btn').className='tip-save-btn flower';
+  document.getElementById('tip-modal').classList.remove('hidden');
 }
-function closeTipModal(){document.getElementById('tip-modal').classList.add('hidden');currentTipKey=null;}
+function closeTipModal(){document.getElementById('tip-modal').classList.add('hidden');currentTipKey=null;currentTipType=null;}
 function saveTip(){
   if(!currentTipKey)return;
   const val=document.getElementById('tip-modal-textarea').value.trim();
-  if(currentTipKey.startsWith('tree:')){
-    const kindName=currentTipKey.slice(5);
-    if(val)treeTips[kindName]=val; else delete treeTips[kindName];
-    saveTreeTips();
-    closeTipModal();
+  if(currentTipType==='tree'){
+    if(val)treeTips[currentTipKey]=val; else delete treeTips[currentTipKey];
+    saveTreeTips();closeTipModal();
     if(currentTreeId){const t=trees.find(t=>t.id===currentTreeId);if(t)renderTreeTipPreview(t);}
     renderTreeList();
+  } else if(currentTipType==='flower'){
+    if(val)flowerTips[currentTipKey]=val; else delete flowerTips[currentTipKey];
+    saveFlowerTips();closeTipModal();
+    if(currentFlowerId){const f=flowers.find(f=>f.id===currentFlowerId);if(f)renderFlowerTipPreview(f);}
+    renderFlowerList();
   } else {
     if(val)cropTips[currentTipKey]=val; else delete cropTips[currentTipKey];
-    saveCropTips();
-    closeTipModal();
+    saveCropTips();closeTipModal();
     if(currentCropId){const c=crops.find(c=>c.id===currentCropId);if(c)renderCropTipPreview(c);}
     renderList();
   }
@@ -799,15 +959,36 @@ function renderCropTipPreview(c){
   if(!tip){area.innerHTML='';return;}
   area.innerHTML=`<div class="tip-preview-box"><div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">🌱 ${kindName} 키우기 팁</div><div style="font-size:13px;color:var(--tx2);white-space:pre-wrap">${tip.replace(/</g,'&lt;')}</div><button onclick="openTipModalForCrop(${c.id})" style="background:none;border:none;font-size:12px;color:var(--green);cursor:pointer;font-family:inherit;margin-top:8px;font-weight:600;padding:0">✎ 팁 수정하기</button></div>`;
 }
+function renderTreeTipPreview(t){
+  const area=document.getElementById('tree-tip-preview-area');if(!area)return;
+  const kindName=t.kind||treeEmojiLabel(t.emoji)||t.name;
+  const tip=treeTips[kindName];
+  if(!tip){area.innerHTML='';return;}
+  area.innerHTML=`<div class="tip-preview-box"><div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">🌱 ${kindName} 키우기 팁</div><div style="font-size:13px;color:var(--tx2);white-space:pre-wrap">${tip.replace(/</g,'&lt;')}</div><button onclick="openTipModalForTree(${t.id})" style="background:none;border:none;font-size:12px;color:var(--green);cursor:pointer;font-family:inherit;margin-top:8px;font-weight:600;padding:0">✎ 팁 수정하기</button></div>`;
+}
+function renderFlowerTipPreview(f){
+  const area=document.getElementById('flower-tip-preview-area');if(!area)return;
+  const kindName=f.kind||flowerEmojiLabel(f.emoji)||f.name;
+  const tip=flowerTips[kindName];
+  if(!tip){area.innerHTML='';return;}
+  area.innerHTML=`<div class="tip-preview-box flower"><div style="font-size:11px;font-weight:700;color:var(--flower);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">🌸 ${kindName} 키우기 팁</div><div style="font-size:13px;color:var(--tx2);white-space:pre-wrap">${tip.replace(/</g,'&lt;')}</div><button onclick="openTipModalForFlower(${f.id})" style="background:none;border:none;font-size:12px;color:var(--flower);cursor:pointer;font-family:inherit;margin-top:8px;font-weight:600;padding:0">✎ 팁 수정하기</button></div>`;
+}
 
+// 이모지 → 이름 매핑
 const EMOJI_NAME={};
-[['🍆','가지'],['🥔','감자'],['🌶️','고추'],['🍠','고구마'],['🥕','당근'],
- ['🌿','대파'],['🌿','당귀'],['🍃','머위'],['🧄','마늘'],['🟢','매실'],
- ['🍑','복숭아'],['🥬','상추'],['🍉','수박'],['🌱','아스파라거스'],
- ['🧅','양파'],['🥒','오이'],['🌽','옥수수'],['🫐','자두'],
- ['🍈','참외'],['🪴','쪽파'],['🍅','토마토'],['🎃','호박'],['🌾','기타']
+[['🍆','가지'],['🥔','감자'],['🍠','고구마'],['🌶️','고추'],['🌿','당귀'],['🥕','당근'],
+ ['🌿','대파'],['🧄','마늘'],['🍃','머위'],['🌱','부추'],['🥬','상추'],['🍉','수박'],
+ ['🌱','아스파라거스'],['🧅','양파'],['🥒','오이'],['🌽','옥수수'],['🍈','참외'],
+ ['🪴','쪽파'],['🍅','토마토'],['🎃','호박'],['🌾','기타']
 ].forEach(([e,n])=>EMOJI_NAME[e+'|'+n]=n);
 function emojiLabel(val){if(EMOJI_NAME[val])return EMOJI_NAME[val];const k=Object.keys(EMOJI_NAME).find(k=>k.startsWith(val+'|'));return k?EMOJI_NAME[k]:val;}
+
+const FLOWER_EMOJI_NAME={};
+[['🌼','개나리'],['🌸','국화'],['🌻','금계국'],['🌸','만리향'],['🌾','백일홍'],
+ ['🪷','백합'],['🌸','원추리꽃'],['🌸','천리향'],['🌺','코스모스'],['🌷','튤립'],
+ ['🌻','해바라기'],['💜','히아신스'],['🪷','작약'],['🌸','기타']
+].forEach(([e,n])=>FLOWER_EMOJI_NAME[e+'|'+n]=n);
+function flowerEmojiLabel(val){if(FLOWER_EMOJI_NAME[val])return FLOWER_EMOJI_NAME[val];const k=Object.keys(FLOWER_EMOJI_NAME).find(k=>k.startsWith(val+'|'));return k?FLOWER_EMOJI_NAME[k]:val;}
 
 // ════ 작물 목록 ════
 function renderList(){
@@ -824,8 +1005,7 @@ function renderList(){
   }
   sorted.forEach(c=>{
     const kindName=c.kind||emojiLabel(c.emoji)||c.name;
-    const tipKey=kindName;
-    const hasTip=!!cropTips[tipKey];
+    const hasTip=!!cropTips[kindName];
     const allPhotos=(c.entries||[]).flatMap(e=>e.photos||[]);
     const imgH=allPhotos.length>0
       ?`<div style="position:relative;width:100%;height:100%"><img src="${allPhotos[allPhotos.length-1]}" alt="" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.65));padding:5px 6px 7px;text-align:center"><div style="font-size:12px;font-weight:700;color:#fff">${c.emoji} ${kindName}</div><div style="font-size:10px;color:rgba(255,255,255,.8);margin-top:1px">${c.name}</div></div></div>`
@@ -873,9 +1053,7 @@ function showDetail(id){
   document.getElementById('d-emoji').textContent=c.emoji;document.getElementById('d-name').textContent=c.name;
   document.getElementById('d-planted').textContent=`심은 날: ${fmtDate(c.planted)} · ${daysSince(c.planted)}`;
   document.getElementById('entry-date-sel').value=globalDate;
-  resetNewEntryForm();
-  renderCropTipPreview(c);
-  renderEntries(c);
+  resetNewEntryForm();renderCropTipPreview(c);renderEntries(c);
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   document.getElementById('detail-view').classList.add('active');
   document.getElementById('todo-section').classList.add('hidden');
@@ -937,6 +1115,7 @@ function saveEditEntry(){
   save();closeModal('edit-entry-modal');renderEntries(c);
 }
 
+// ════ 타임라인 ════
 function renderTimeline(){
   const all=[];
   crops.forEach(c=>{
@@ -944,25 +1123,28 @@ function renderTimeline(){
     if(c.harvested&&c.harvestDate)all.push({date:c.harvestDate,type:'harvest',cropName:c.name,cropEmoji:c.emoji,yieldNote:c.yieldNote});
   });
   trees.forEach(t=>{(t.entries||[]).forEach(e=>{if((e.photos&&e.photos.length)||e.memo)all.push({date:e.date,type:'tree-entry',cropName:t.name,cropEmoji:t.emoji,photos:e.photos||[],memo:e.memo,cropId:t.id});});});
+  flowers.forEach(f=>{(f.entries||[]).forEach(e=>{if((e.photos&&e.photos.length)||e.memo)all.push({date:e.date,type:'flower-entry',cropName:f.name,cropEmoji:f.emoji,photos:e.photos||[],memo:e.memo,cropId:f.id});});});
   all.sort((a,b)=>b.date.localeCompare(a.date));
   const cont=document.getElementById('timeline-list');
   if(!all.length){cont.innerHTML='<div style="text-align:center;padding:3rem;color:var(--tx3)">아직 기록이 없어요.</div>';return;}
   cont.innerHTML=all.slice(0,60).map(item=>{
-    if(item.type==='entry'||item.type==='tree-entry'){
-      const photoStrip=item.photos.map((ph,pi)=>`<img src="${ph}" style="width:80px;height:64px;object-fit:cover;border-radius:6px;cursor:pointer;flex-shrink:0" onclick="openLightbox(${item.type==='tree-entry'?'null':item.cropId},'${item.date}',${pi},${item.type==='tree-entry'})" alt="">`).join('');
+    if(item.type==='entry'||item.type==='tree-entry'||item.type==='flower-entry'){
+      const photoStrip=item.photos.map((ph,pi)=>`<img src="${ph}" style="width:80px;height:64px;object-fit:cover;border-radius:6px;cursor:pointer;flex-shrink:0" onclick="openLightbox(${item.cropId},'${item.date}',${pi},'${item.type}')" alt="">`).join('');
       return`<div class="tl-item"><div class="tl-top"><span class="tl-who">${item.cropEmoji} ${item.cropName}</span><span class="tl-date">${fmtDate(item.date)}</span></div>${photoStrip?`<div class="tl-photos">${photoStrip}</div>`:''}${item.memo?`<div style="font-size:14px;color:var(--tx);line-height:1.6;margin-top:4px">${item.memo.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>`:''}</div>`;
     }
     return`<div class="tl-item"><div class="tl-top"><span class="tl-who">${item.cropEmoji} ${item.cropName} — 수확 완료</span><span class="tl-date">${fmtDate(item.date)}</span></div><div style="margin-top:6px"><span class="yield-tag">${item.yieldNote||'수확 완료'}</span></div></div>`;
   }).join('');
 }
-function openLightbox(cropId,date,photoIdx,isTree=false){
+function openLightbox(cropId,date,photoIdx,type='entry'){
   let entry;
-  if(isTree){const t=trees.find(t=>t.entries&&t.entries.some(e=>e.date===date));entry=t?(t.entries||[]).find(e=>e.date===date):null;}
+  if(type==='tree-entry'){const t=trees.find(t=>t.entries&&t.entries.some(e=>e.date===date));entry=t?(t.entries||[]).find(e=>e.date===date):null;}
+  else if(type==='flower-entry'){const f=flowers.find(f=>f.entries&&f.entries.some(e=>e.date===date));entry=f?(f.entries||[]).find(e=>e.date===date):null;}
   else{const crop=crops.find(c=>c.id===cropId)||{entries:[]};entry=(crop.entries||[]).find(e=>e.date===date);}
   if(!entry||(entry.photos||[]).length===0)return;
   openLightboxDirect(entry.photos[photoIdx||0],date,entry.memo,photoIdx||0,entry.photos.length);
 }
 
+// ════ 연도별 ════
 function renderYearly(){
   const cont=document.getElementById('yearly-content');
   const years=[...new Set(crops.map(c=>c.harvested&&c.harvestDate?getYear(c.harvestDate):getYear(c.planted)))].filter(Boolean).sort((a,b)=>b-a);
@@ -985,8 +1167,7 @@ function saveBoardPost(){
   if(!title&&!body){showConfirm('입력 필요','제목이나 내용을 입력해주세요.',()=>{},'확인','var(--green)');return;}
   const id=boardPosts.length>0?Math.max(...boardPosts.map(p=>p.id))+1:1;
   boardPosts.push({id,title:title||'(제목 없음)',body,date,photos:[...boardPendingPhotos]});
-  saveBoard();
-  document.getElementById('board-title-input').value='';document.getElementById('board-body-input').value='';
+  saveBoard();document.getElementById('board-title-input').value='';document.getElementById('board-body-input').value='';
   boardPendingPhotos=[];renderBoardPreview();renderBoard();
 }
 function deleteBoardPost(id){showConfirm('글 삭제','이 게시글을 삭제할까요?',()=>{boardPosts=boardPosts.filter(p=>p.id!==id);saveBoard();renderBoard();});}
@@ -1025,14 +1206,16 @@ function switchTab(tab){
   if(tab!=='settings')prevTab=tab;
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
-  ['timeline','list','tree','yearly','board'].forEach(t=>{const b=document.getElementById('nav-'+t);if(b)b.classList.toggle('active',t===tab);});
+  ['timeline','list','tree','flower','yearly','board'].forEach(t=>{const b=document.getElementById('nav-'+t);if(b){b.classList.toggle('active',t===tab);if(t==='flower')b.classList.toggle('flower-tab',t===tab);}});
   document.getElementById('topbar-title').textContent='🌙 달빛 농장';
+  const hideTodo=['settings','yearly','list','tree','flower','board'];
   const ts=document.getElementById('todo-section');
-  ts.classList.toggle('hidden',tab==='settings'||tab==='yearly'||tab==='list'||tab==='tree'||tab==='board');
+  ts.classList.toggle('hidden',hideTodo.includes(tab));
   document.getElementById('scroll-area').scrollTop=0;
   if(tab==='timeline')renderTimeline();
   if(tab==='list')renderList();
   if(tab==='tree')renderTreeList();
+  if(tab==='flower')renderFlowerList();
   if(tab==='yearly')renderYearly();
   if(tab==='board'){document.getElementById('board-date-sel').value=globalDate;renderBoard();}
   if(tab==='settings')renderSwatches();
@@ -1062,8 +1245,9 @@ function addCrop(){
   save();document.getElementById('modal-name').value='';closeModal('add-modal');renderList();
 }
 
+// ════ 내보내기/가져오기 ════
 function exportData(){
-  const data={version:'8.2',exportDate:globalDate,crops,trees,todos,settings,boardPosts,cropTips};
+  const data={version:'8.3',exportDate:globalDate,crops,trees,flowers,todos,settings,boardPosts,cropTips,treeTips,flowerTips};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`달빛농장_${globalDate}.json`;a.click();URL.revokeObjectURL(url);
 }
@@ -1072,16 +1256,18 @@ function importData(e){
   reader.onload=ev=>{
     try{const data=JSON.parse(ev.target.result);
       if(data.crops){crops=data.crops;save();}if(data.trees){trees=data.trees;saveTrees();}
+      if(data.flowers){flowers=data.flowers;saveFlowers();}
       if(data.todos){todos=data.todos;saveTodos();}if(data.settings){settings=data.settings;saveSettings();if(settings.bgColor)document.body.style.background=settings.bgColor;}
       if(data.boardPosts){boardPosts=data.boardPosts;saveBoard();}
       if(data.cropTips){cropTips=data.cropTips;saveCropTips();}
       if(data.treeTips){treeTips=data.treeTips;saveTreeTips();}
+      if(data.flowerTips){flowerTips=data.flowerTips;saveFlowerTips();}
       renderTodos();renderSwatches();switchTab('timeline');
     }catch(err){showConfirm('오류','파일을 읽는 중 오류가 발생했습니다.',()=>{},'확인','var(--amber)');}
   };
   reader.readAsText(file);e.target.value='';
 }
-function resetAll(){showConfirm('데이터 초기화','모든 데이터가 삭제됩니다. 정말 초기화할까요?',()=>{crops=[];todos=[];trees=[];boardPosts=[];save();saveTodos();saveTrees();saveBoard();renderTodos();switchTab('timeline');},'초기화','var(--red)');}
+function resetAll(){showConfirm('데이터 초기화','모든 데이터가 삭제됩니다. 정말 초기화할까요?',()=>{crops=[];todos=[];trees=[];flowers=[];boardPosts=[];save();saveTodos();saveTrees();saveFlowers();saveBoard();renderTodos();switchTab('timeline');},'초기화','var(--red)');}
 
 let _confirmCallback=null;
 function showConfirm(title,msg,callback,btnLabel='삭제',btnColor='var(--red)'){_confirmCallback=callback;document.getElementById('confirm-title').textContent=title;document.getElementById('confirm-msg').textContent=msg;const btn=document.getElementById('confirm-ok-btn');btn.textContent=btnLabel;btn.style.background=btnColor;document.getElementById('confirm-modal').classList.remove('hidden');}
@@ -1092,6 +1278,7 @@ document.querySelectorAll('.modal-bg').forEach(bg=>bg.addEventListener('click',e
 window.addEventListener('popstate',()=>{
   if(document.getElementById('detail-view').classList.contains('active')){showPrev();history.pushState(null,'',location.href);}
   else if(document.getElementById('tab-tree-detail').classList.contains('active')){showTreePrev();history.pushState(null,'',location.href);}
+  else if(document.getElementById('tab-flower-detail').classList.contains('active')){showFlowerPrev();history.pushState(null,'',location.href);}
   else if(prevTab!=='timeline'){switchTab('timeline');history.pushState(null,'',location.href);}
 });
 history.pushState(null,'',location.href);
@@ -1124,6 +1311,12 @@ function setTreeSort(mode){
   document.getElementById('sort-name-btn').classList.toggle('active',mode==='name');
   renderTreeList();
 }
+function setFlowerSort(mode){
+  flowerSortMode=mode;
+  document.getElementById('flower-sort-date-btn').classList.toggle('active',mode==='date');
+  document.getElementById('flower-sort-name-btn').classList.toggle('active',mode==='name');
+  renderFlowerList();
+}
 
 function renderTreeList(){
   const grid=document.getElementById('tree-grid');grid.innerHTML='';
@@ -1137,7 +1330,7 @@ function renderTreeList(){
       ?`<div style="position:relative;width:100%;height:100%"><img src="${allPhotos[allPhotos.length-1]}" alt="" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.65));padding:5px 6px 7px;text-align:center"><div style="font-size:12px;font-weight:700;color:#fff">${t.emoji} ${kindName}</div><div style="font-size:10px;color:rgba(255,255,255,.8);margin-top:1px">${t.name}</div></div></div>`
       :`<div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 4px"><span style="font-size:36px">${t.emoji}</span><span style="font-size:12px;font-weight:700;color:var(--tx);text-align:center">${kindName}</span><span style="font-size:10px;color:var(--tx3);text-align:center">${t.name}</span></div>`;
     const card=document.createElement('div');card.className='crop-card';
-    const tKindName=t.kind||treeEmojiLabel(t.emoji)||t.name;const tHasTip=!!(treeTips&&treeTips[tKindName]);
+    const tHasTip=!!(treeTips&&treeTips[kindName]);
     card.innerHTML=`<div class="crop-img" onclick="showTreeDetail(${t.id})">${imgH}</div><div class="crop-info"><div class="crop-row"><span class="cname" onclick="showTreeDetail(${t.id})">${t.emoji} ${kindName}</span></div><div style="font-size:11px;color:var(--tx3);margin-top:1px;font-style:italic">${t.name}</div><div class="csub" style="margin-top:3px">${daysSinceTree(t.planted)}</div><div style="padding-top:5px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button onclick="openEditTree(event,${t.id})" style="background:none;border:none;font-size:11px;color:var(--tx3);cursor:pointer;font-family:inherit;padding:0">✎ 정보 수정</button><button onclick="event.stopPropagation();openTipModalForTree(${t.id})" class="tip-btn${tHasTip?' has-tip':''}">🌱 팁${tHasTip?' ✓':''}</button></div></div>`;
     grid.appendChild(card);
   });
@@ -1197,7 +1390,6 @@ function saveTreeEntry(){
   if(ei>=0){showConfirm('기록 추가',`${fmtDate(date)}에 이미 기록이 있습니다. 추가할까요?`,()=>{t.entries[ei].photos.push(...treePendingPhotos);if(memo)t.entries[ei].memo=memo;saveTrees();treeResetNewEntryForm();renderTreeEntries(t);document.getElementById('scroll-area').scrollTop=0;},'추가','var(--green)');}
   else{t.entries.push({date,photos:[...treePendingPhotos],memo});saveTrees();treeResetNewEntryForm();renderTreeEntries(t);document.getElementById('scroll-area').scrollTop=0;}
 }
-
 function openEditTreeEntry(idx){
   const t=trees.find(t=>t.id===currentTreeId);const e=t.entries[idx];
   editingTreeEntryDate=e.date;editingTreeEntryIdx=idx;
@@ -1216,7 +1408,6 @@ function saveEditTreeEntry(){
   e.memo=document.getElementById('edit-tree-entry-memo').value.trim();
   saveTrees();closeModal('edit-tree-entry-modal');renderTreeEntries(t);
 }
-
 function openEditTree(e,id){e.stopPropagation();const t=trees.find(t=>t.id===id);if(!t)return;editTreeId=id;document.getElementById('edit-tree-emoji').value=t.emoji;document.getElementById('edit-tree-name').value=t.name;document.getElementById('edit-tree-date').value=t.planted;document.getElementById('edit-tree-modal').classList.remove('hidden');}
 function openEditTreeFromDetail(){const t=trees.find(t=>t.id===currentTreeId);if(!t)return;editTreeId=currentTreeId;const treeKey=t.kind?t.emoji+'|'+t.kind:t.emoji;document.getElementById('edit-tree-emoji').value=treeKey;document.getElementById('edit-tree-name').value=t.name;document.getElementById('edit-tree-date').value=t.planted;document.getElementById('edit-tree-modal').classList.remove('hidden');}
 function saveEditTree(){
@@ -1230,55 +1421,133 @@ function saveEditTree(){
 }
 function deleteTree(){const t=trees.find(t=>t.id===currentTreeId);if(!t)return;showConfirm('나무 삭제',`"${t.emoji} ${t.name}" 나무를 삭제할까요?`,()=>{trees=trees.filter(t=>t.id!==currentTreeId);saveTrees();showTreePrev();});}
 
+// ════ 꽃밭 기능 ════
+function renderFlowerList(){
+  const grid=document.getElementById('flower-grid');grid.innerHTML='';
+  let sorted=[...flowers];
+  if(flowerSortMode==='date'){sorted.sort((a,b)=>b.planted.localeCompare(a.planted));}
+  else{sorted.sort((a,b)=>{const ka=a.kind||flowerEmojiLabel(a.emoji)||a.name;const kb=b.kind||flowerEmojiLabel(b.emoji)||b.name;return ka.localeCompare(kb,'ko');});}
+  sorted.forEach(f=>{
+    const kindName=f.kind||flowerEmojiLabel(f.emoji)||f.name;
+    const allPhotos=(f.entries||[]).flatMap(e=>e.photos||[]);
+    const imgH=allPhotos.length>0
+      ?`<div style="position:relative;width:100%;height:100%"><img src="${allPhotos[allPhotos.length-1]}" alt="" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(139,58,139,.75));padding:5px 6px 7px;text-align:center"><div style="font-size:12px;font-weight:700;color:#fff">${f.emoji} ${kindName}</div><div style="font-size:10px;color:rgba(255,255,255,.8);margin-top:1px">${f.name}</div></div></div>`
+      :`<div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 4px"><span style="font-size:36px">${f.emoji}</span><span style="font-size:12px;font-weight:700;color:var(--tx);text-align:center">${kindName}</span><span style="font-size:10px;color:var(--tx3);text-align:center">${f.name}</span></div>`;
+    const card=document.createElement('div');card.className='crop-card';
+    const fHasTip=!!(flowerTips&&flowerTips[kindName]);
+    card.innerHTML=`<div class="crop-img" onclick="showFlowerDetail(${f.id})">${imgH}</div><div class="crop-info"><div class="crop-row"><span class="cname" onclick="showFlowerDetail(${f.id})">${f.emoji} ${kindName}</span></div><div style="font-size:11px;color:var(--tx3);margin-top:1px;font-style:italic">${f.name}</div><div class="csub" style="margin-top:3px;color:var(--flower)">${daysSince(f.planted)}</div><div style="padding-top:5px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button onclick="openEditFlower(event,${f.id})" style="background:none;border:none;font-size:11px;color:var(--tx3);cursor:pointer;font-family:inherit;padding:0">✎ 정보 수정</button><button onclick="event.stopPropagation();openTipModalForFlower(${f.id})" class="tip-btn${fHasTip?' has-tip flower':''}">🌸 팁${fHasTip?' ✓':''}</button></div></div>`;
+    grid.appendChild(card);
+  });
+  const ab=document.createElement('div');ab.className='add-crop-btn';
+  ab.style.cssText='border-color:var(--flower);color:var(--flower)';
+  ab.onclick=()=>{document.getElementById('flower-modal-date').value=globalDate;document.getElementById('add-flower-modal').classList.remove('hidden')};
+  ab.innerHTML='<div class="add-icon" style="border-color:var(--flower);color:var(--flower)">+</div><span>꽃 추가</span>';
+  grid.appendChild(ab);
+}
+
+function addFlower(){
+  const name=document.getElementById('flower-modal-name').value.trim();
+  const val=document.getElementById('flower-modal-emoji').value;
+  const [emoji,kind]=val.includes('|')?val.split('|'):[val,val];
+  const planted=document.getElementById('flower-modal-date').value||globalDate;
+  if(!name){showConfirm('입력 필요','꽃 이름을 입력해주세요.',()=>{},'확인','var(--flower)');return;}
+  const id=flowers.length>0?Math.max(...flowers.map(f=>f.id))+1:1;
+  flowers.push({id,name,emoji,kind,planted,entries:[]});
+  saveFlowers();document.getElementById('flower-modal-name').value='';closeModal('add-flower-modal');renderFlowerList();
+}
+
+function showFlowerDetail(id){
+  currentFlowerId=id;const f=flowers.find(f=>f.id===id);
+  document.getElementById('fd-emoji').textContent=f.emoji;document.getElementById('fd-name').textContent=f.name;
+  document.getElementById('fd-planted').textContent=`심은 날: ${fmtDate(f.planted)} · ${daysSince(f.planted)}`;
+  document.getElementById('flower-entry-date-sel').value=globalDate;
+  flowerResetNewEntryForm();renderFlowerTipPreview(f);renderFlowerEntries(f);
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-flower-detail').classList.add('active');
+  document.getElementById('todo-section').classList.add('hidden');
+  document.getElementById('scroll-area').scrollTop=0;
+  document.getElementById('topbar-title').innerHTML=`<button onclick="showFlowerPrev()" style="background:none;border:none;font-size:15px;color:var(--flower);font-family:inherit;font-weight:600;padding:0;cursor:pointer">← 뒤로</button>`;
+}
+function showFlowerPrev(){document.getElementById('tab-flower-detail').classList.remove('active');document.getElementById('topbar-title').textContent='🌙 달빛 농장';switchTab('flower');}
+
+function renderFlowerEntries(f){
+  const list=document.getElementById('flower-entry-list');
+  const sorted=[...(f.entries||[])].sort((a,b)=>b.date.localeCompare(a.date));
+  if(!sorted.length){list.innerHTML='<div style="font-size:13px;color:var(--tx3);padding:4px 0 10px">아직 기록이 없어요.</div>';return;}
+  list.innerHTML=sorted.map(entry=>{
+    const oi=f.entries.findIndex(e=>e.date===entry.date);const photos=entry.photos||[];
+    const strip=photos.length?'<div class="entry-photos-col">'+photos.map((ph,pi)=>`<div class="ephoto-wrap"><img src="${ph}" alt="" onclick="openFlowerLightbox(${oi},${pi})"><button class="ephoto-del" onclick="deleteFlowerEntryPhoto(${oi},${pi})">✕</button></div>`).join('')+'</div>':'<div class="no-photo-strip">사진 없음</div>';
+    const memoH=entry.memo?entry.memo.replace(/</g,'&lt;').replace(/\n/g,'<br>'):'';
+    return`<div class="entry-slot"><div class="entry-slot-header"><span class="edate">${fmtDate(entry.date)}<span class="ecount">사진 ${photos.length}장</span></span><button class="edelete-all" onclick="deleteFlowerEntry(${oi})">삭제</button></div>${strip}<div class="entry-memo-col">${memoH?`<div class="ememo-text">${memoH}</div>`:'<div class="ememo-empty">메모 없음</div>'}<button class="entry-edit-btn flower" onclick="openEditFlowerEntry(${oi})">✎ 날짜·사진·메모 수정</button></div></div>`;
+  }).join('');
+}
+function deleteFlowerEntryPhoto(oi,pi){showConfirm('사진 삭제','이 사진을 삭제할까요?',()=>{const f=flowers.find(f=>f.id===currentFlowerId);f.entries[oi].photos.splice(pi,1);saveFlowers();renderFlowerEntries(f);});}
+function deleteFlowerEntry(idx){showConfirm('기록 삭제','이 날의 사진과 메모를 모두 삭제할까요?',()=>{const f=flowers.find(f=>f.id===currentFlowerId);f.entries.splice(idx,1);saveFlowers();renderFlowerEntries(f);});}
+function openFlowerLightbox(oi,pi){const f=flowers.find(f=>f.id===currentFlowerId);const e=f.entries[oi];openLightboxDirect(e.photos[pi],e.date,e.memo,pi,e.photos.length);}
+
+function flowerPreviewPhotos(e){const files=Array.from(e.target.files);if(!files.length)return;let n=0;files.forEach(f=>{const r=new FileReader();r.onload=ev=>{flowerPendingPhotos.push(ev.target.result);n++;if(n===files.length)flowerRenderPreviewArea();};r.readAsDataURL(f);});e.target.value='';}
+function flowerRenderPreviewArea(){const a=document.getElementById('flower-add-photos-col');if(!flowerPendingPhotos.length){a.innerHTML='<div class="no-preview-placeholder">🌸</div>';return;}a.innerHTML=flowerPendingPhotos.map((ph,i)=>`<div class="preview-wrap"><img src="${ph}" alt=""><button class="preview-del" onclick="removeFlowerPendingPhoto(${i})">✕</button></div>`).join('');}
+function removeFlowerPendingPhoto(i){flowerPendingPhotos.splice(i,1);flowerRenderPreviewArea()}
+function flowerResetNewEntryForm(){flowerPendingPhotos=[];flowerRenderPreviewArea();document.getElementById('flower-new-entry-memo').value=''}
+function saveFlowerEntry(){
+  const date=document.getElementById('flower-entry-date-sel').value||globalDate;const memo=document.getElementById('flower-new-entry-memo').value.trim();
+  if(!flowerPendingPhotos.length&&!memo){showConfirm('입력 필요','사진이나 메모 중 하나 이상 입력해주세요.',()=>{},'확인','var(--flower)');return;}
+  const f=flowers.find(f=>f.id===currentFlowerId);const ei=f.entries.findIndex(e=>e.date===date);
+  if(ei>=0){showConfirm('기록 추가',`${fmtDate(date)}에 이미 기록이 있습니다. 추가할까요?`,()=>{f.entries[ei].photos.push(...flowerPendingPhotos);if(memo)f.entries[ei].memo=memo;saveFlowers();flowerResetNewEntryForm();renderFlowerEntries(f);document.getElementById('scroll-area').scrollTop=0;},'추가','var(--flower)');}
+  else{f.entries.push({date,photos:[...flowerPendingPhotos],memo});saveFlowers();flowerResetNewEntryForm();renderFlowerEntries(f);document.getElementById('scroll-area').scrollTop=0;}
+}
+function openEditFlowerEntry(idx){
+  const f=flowers.find(f=>f.id===currentFlowerId);const e=f.entries[idx];
+  editingFlowerEntryDate=e.date;editingFlowerEntryIdx=idx;
+  document.getElementById('edit-flower-entry-title').textContent='기록 수정';
+  document.getElementById('edit-flower-entry-date-input').value=e.date;
+  renderEditFlowerPhotosGrid(e.photos||[]);document.getElementById('edit-flower-entry-memo').value=e.memo||'';
+  document.getElementById('edit-flower-entry-modal').classList.remove('hidden');
+}
+function renderEditFlowerPhotosGrid(photos){document.getElementById('edit-flower-photos-grid').innerHTML=photos.map((ph,i)=>`<div class="edit-photo-thumb"><img src="${ph}" alt=""><button class="edit-photo-del" onclick="editFlowerDeletePhoto(${i})">✕</button></div>`).join('');}
+function editFlowerDeletePhoto(pi){const f=flowers.find(f=>f.id===currentFlowerId);const e=f.entries.find(e=>e.date===editingFlowerEntryDate);if(!e)return;e.photos.splice(pi,1);saveFlowers();renderEditFlowerPhotosGrid(e.photos);}
+function editFlowerAddPhotos(ev){const files=Array.from(ev.target.files);if(!files.length)return;let n=0;const f=flowers.find(f=>f.id===currentFlowerId);const e=f.entries.find(e=>e.date===editingFlowerEntryDate);files.forEach(fi=>{const r=new FileReader();r.onload=x=>{if(e)e.photos.push(x.target.result);n++;if(n===files.length){saveFlowers();renderEditFlowerPhotosGrid(e?e.photos:[]);}};r.readAsDataURL(fi);});ev.target.value='';}
+function saveEditFlowerEntry(){
+  const f=flowers.find(f=>f.id===currentFlowerId);const e=f.entries.find(e=>e.date===editingFlowerEntryDate);if(!e)return;
+  const newDate=document.getElementById('edit-flower-entry-date-input').value;
+  if(newDate&&newDate!==editingFlowerEntryDate){const conflict=f.entries.find(en=>en.date===newDate);if(conflict){showConfirm('날짜 중복',`${fmtDate(newDate)}에 이미 기록이 있어요.`,()=>{},'확인','var(--amber)');return;}e.date=newDate;editingFlowerEntryDate=newDate;}
+  e.memo=document.getElementById('edit-flower-entry-memo').value.trim();
+  saveFlowers();closeModal('edit-flower-entry-modal');renderFlowerEntries(f);
+}
+function openEditFlower(e,id){e.stopPropagation();const f=flowers.find(f=>f.id===id);if(!f)return;editFlowerId=id;const flowerKey=f.kind?f.emoji+'|'+f.kind:f.emoji;document.getElementById('edit-flower-emoji').value=flowerKey;document.getElementById('edit-flower-name').value=f.name;document.getElementById('edit-flower-date').value=f.planted;document.getElementById('edit-flower-modal').classList.remove('hidden');}
+function openEditFlowerFromDetail(){const f=flowers.find(f=>f.id===currentFlowerId);if(!f)return;editFlowerId=currentFlowerId;const flowerKey=f.kind?f.emoji+'|'+f.kind:f.emoji;document.getElementById('edit-flower-emoji').value=flowerKey;document.getElementById('edit-flower-name').value=f.name;document.getElementById('edit-flower-date').value=f.planted;document.getElementById('edit-flower-modal').classList.remove('hidden');}
+function saveEditFlower(){
+  const f=flowers.find(f=>f.id===editFlowerId);if(!f)return;const name=document.getElementById('edit-flower-name').value.trim();
+  if(!name){showConfirm('입력 필요','꽃 이름을 입력해주세요.',()=>{},'확인','var(--flower)');return;}
+  const fsel=document.getElementById('edit-flower-emoji');const fv=fsel.value;const[fe,fk]=fv.includes('|')?fv.split('|'):[fv,fv];f.emoji=fe;f.kind=fk;f.name=name;
+  f.planted=document.getElementById('edit-flower-date').value||f.planted;
+  saveFlowers();closeModal('edit-flower-modal');
+  if(currentFlowerId===editFlowerId){document.getElementById('fd-emoji').textContent=f.emoji;document.getElementById('fd-name').textContent=f.name;document.getElementById('fd-planted').textContent=`심은 날: ${fmtDate(f.planted)} · ${daysSince(f.planted)}`;}
+  editFlowerId=null;renderFlowerList();
+}
+function deleteFlower(){const f=flowers.find(f=>f.id===currentFlowerId);if(!f)return;showConfirm('꽃 삭제',`"${f.emoji} ${f.name}" 꽃을 삭제할까요?`,()=>{flowers=flowers.filter(f=>f.id!==currentFlowerId);saveFlowers();showFlowerPrev();});}
+
 // ════ 자동저장 ════
 const AUTO_SAVE_KEY = 'gv_last_auto_save';
-
 function autoSaveNow(){
   try{
-    const data={version:'8.2',exportDate:getTodayKST(),crops,trees,todos,settings,boardPosts,cropTips,treeTips};
+    const data={version:'8.3',exportDate:getTodayKST(),crops,trees,flowers,todos,settings,boardPosts,cropTips,treeTips,flowerTips};
     const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
     const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=url;
-    a.download=`달빛농장_자동저장_${getTodayKST()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    const a=document.createElement('a');a.href=url;a.download=`달빛농장_자동저장_${getTodayKST()}.json`;a.click();URL.revokeObjectURL(url);
     localStorage.setItem(AUTO_SAVE_KEY, getTodayKST());
-    console.log('[달빛농장] 자동저장 완료:', getTodayKST());
   }catch(e){console.warn('[달빛농장] 자동저장 실패:', e);}
 }
-
 function checkAutoSaveOnOpen(){
-  // 앱 열 때: 어제 저장 안 됐으면 즉시 자동저장
-  const lastSave = localStorage.getItem(AUTO_SAVE_KEY) || '';
-  const today = getTodayKST();
-  const now = new Date();
-  const kst = new Date(now.getTime() + 9*60*60*1000);
-  const yesterdayKST = new Date(kst.getTime() - 86400000).toISOString().slice(0,10);
-  if(lastSave !== today && lastSave !== yesterdayKST && lastSave !== '') {
-    // 마지막 저장이 오래됐으면 바로 저장
-    setTimeout(()=>autoSaveNow(), 3000);
-  }
+  const lastSave=localStorage.getItem(AUTO_SAVE_KEY)||'';
+  const today=getTodayKST();
+  const now=new Date();const kst=new Date(now.getTime()+9*60*60*1000);
+  const yesterdayKST=new Date(kst.getTime()-86400000).toISOString().slice(0,10);
+  if(lastSave!==today&&lastSave!==yesterdayKST&&lastSave!==''){setTimeout(()=>autoSaveNow(),3000);}
 }
-
 function scheduleAutoSave(){
-  // 매일 밤 12시(KST) 정각에 자동저장
-  function msUntilMidnightKST(){
-    const now = new Date();
-    const kst = new Date(now.getTime() + 9*60*60*1000);
-    const midnight = new Date(kst);
-    midnight.setUTCHours(15, 0, 0, 0); // KST 자정 = UTC 15:00
-    if(midnight <= kst) midnight.setUTCDate(midnight.getUTCDate() + 1);
-    return midnight - now;
-  }
-  function tick(){
-    const ms = msUntilMidnightKST();
-    setTimeout(()=>{
-      autoSaveNow();
-      // 저장 후 다음 날 자정 예약
-      setTimeout(tick, 1000);
-    }, ms);
-  }
+  function msUntilMidnightKST(){const now=new Date();const kst=new Date(now.getTime()+9*60*60*1000);const midnight=new Date(kst);midnight.setUTCHours(15,0,0,0);if(midnight<=kst)midnight.setUTCDate(midnight.getUTCDate()+1);return midnight-now;}
+  function tick(){const ms=msUntilMidnightKST();setTimeout(()=>{autoSaveNow();setTimeout(tick,1000);},ms);}
   tick();
 }
 
